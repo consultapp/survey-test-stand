@@ -1,5 +1,7 @@
 import Box from "@mui/material/Box";
 import { useQuestion } from "@/context/SurveyContext/hooks";
+import { VariantsType } from "@/fixtures/variantsType";
+import SliderQuestion from "../QuestionTypes/SliderQuestion";
 
 type Props = { id: string };
 
@@ -8,18 +10,27 @@ export default function SurveyQuestion({ id }: Props) {
 
   if (!question) return;
 
-  const { name } = question;
+  const { name, type } = question;
+
+  let component;
+  switch (type) {
+    case VariantsType.slider:
+      component = <SliderQuestion id={id} />;
+      break;
+  }
 
   return (
     <Box
       component="section"
       sx={{
-        p: 2,
+        py: 2,
+        px: 6,
         border: "1px solid black",
         borderRadius: "1rem",
       }}
     >
       <h3>{name}</h3>
+      {component}
     </Box>
   );
 }
