@@ -3,19 +3,10 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 
-declare global {
-  interface Window {
-    CONTEXT_DATA_CLASSNAME: string;
-  }
-}
-
-const CONTEXT_DATA_CLASSNAME = window.CONTEXT_DATA_CLASSNAME;
-
-console.log("CONTEXT_DATA_CLASSNAME", CONTEXT_DATA_CLASSNAME);
+const getNode = () =>
+  [...document.querySelectorAll(`.surveyQuizRoot`)].pop() || null;
 
 function initElmaReact() {
-  const getNode = () =>
-    [...document.querySelectorAll(`.surveyQuizRoot`)].pop() || null;
   let cnt = 0;
   function tryInit() {
     const node = getNode();
@@ -35,11 +26,4 @@ function initElmaReact() {
   tryInit();
 }
 
-// if (import.meta.env.VITE_NODE_ENV === "vccode") {
-//   createRoot(document.getElementById("surveyQuizRoot")!).render(
-//     <StrictMode>
-//       <App />
-//     </StrictMode>
-//   );
-// } else
 initElmaReact();
