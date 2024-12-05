@@ -8,7 +8,7 @@ export function reducer(
 
   switch (type) {
     case "setSliderValue": {
-      state[id]?.variants[0]?.value = Number(payload.value ?? 0);
+      // state[id]?.variants[0]?.value = Number(payload.value ?? 0);
 
       return [...state];
     }
