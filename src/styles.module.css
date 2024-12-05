@@ -1,0 +1,12 @@
+.counter {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-size: 1.5rem;
+  margin: 10px;
+  justify-content: center;
+}
+.counter label {
+  width: 50px;
+  text-align: center;
+}
