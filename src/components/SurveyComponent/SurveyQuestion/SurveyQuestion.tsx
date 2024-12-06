@@ -5,6 +5,7 @@ import { SliderQuestion } from '../QuestionTypes/SliderQuestion'
 import { NumberQuestion } from '../QuestionTypes/NumberQuestion'
 import { CheckboxQuestion } from '../QuestionTypes/CheckboxQuestion'
 import { RadioQuestion } from '../QuestionTypes/RadioQuestion'
+import { TextQuestion } from '../QuestionTypes/TextQuestion'
 
 type Props = { id: string }
 
@@ -13,6 +14,7 @@ const QuestionTypes: Record<string, typeof SliderQuestion> = {
   [VariantsType.number]: NumberQuestion,
   [VariantsType.checkbox]: CheckboxQuestion,
   [VariantsType.radio]: RadioQuestion,
+  [VariantsType.text]: TextQuestion,
 }
 
 export const SurveyQuestion = ({ id }: Props) => {

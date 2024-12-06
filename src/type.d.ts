@@ -13,8 +13,8 @@ interface IQuestion {
     | ISliderVariant[]
     | INumberVariant[]
     | ICheckVariant[]
-    | IRadioVariant
-    | ITextVariant
+    | IRadioVariant[]
+    | ITextVariant[]
   checksum?: number // если вопрос типа 'number' и нужно выполнить валидацию, что сумма чисел равна определенному значению
 }
 
@@ -41,6 +41,5 @@ interface IRadioVariant {
   value?: boolean
 }
 interface ITextVariant {
-  label: string
-  text?: boolean
+  text: string
 }

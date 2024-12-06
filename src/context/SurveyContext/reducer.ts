@@ -49,6 +49,13 @@ export function reducer(
       return [...state]
     }
 
+    case `set${VariantsType.text}Value`: {
+      const vars = state[position]?.variants as ITextVariant[]
+      vars[0].text = payload.value
+
+      return [...state]
+    }
+
     default:
       console.error('Неопределенное событие')
   }

@@ -160,4 +160,17 @@ export const mockData: IQuestions = [
       },
     ],
   },
+  {
+    id: '245',
+    block: 'block_1',
+    type: 'text',
+    name: 'Напишите ответ',
+    helper_text: 'Сколько весит альбатрос?',
+    variants: [
+      {
+        label: 'Вариант 11',
+        value: false,
+      },
+    ],
+  },
 ]

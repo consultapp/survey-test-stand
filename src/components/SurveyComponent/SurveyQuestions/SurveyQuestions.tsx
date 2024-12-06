@@ -4,21 +4,19 @@ import { Box } from '@mui/material'
 
 export const SurveyQuestions = () => {
   const ctx = useSurveyContext()
-
-  if (!ctx) return <div>Ошибка загрузки данных.</div>
-
+  console.log('ctx', ctx)
   return (
     <Box
       sx={{
         display: 'grid',
         gap: '1rem',
-
+        border: '2px dotted black',
+        borderRadius: '1rem',
         p: 2,
       }}
     >
-      {ctx.map(({ id }) => (
-        <SurveyQuestion id={id} key={id} />
-      ))}
+      {!ctx && <div>Ошибка загрузки данных.</div>}
+      {ctx && ctx.map(({ id }) => <SurveyQuestion id={id} key={id} />)}
     </Box>
   )
 }
