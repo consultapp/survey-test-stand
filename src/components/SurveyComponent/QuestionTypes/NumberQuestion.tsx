@@ -36,12 +36,6 @@ const NumberQuestion = ({ id }: Props) => {
 
   return (
     <Box sx={{ display: 'grid', gap: '2rem' }}>
-      <Box sx={{ textAlign: 'center' }}>
-        Сумма должна равняться {currentSum}
-        {diff > 0 && `, не хавтает: ${diff}`}
-        {diff < 0 && `, лишнее ${diff}`}
-      </Box>
-
       {variants.map(({ label, value }, dataset) => (
         <Box
           sx={{
@@ -76,6 +70,13 @@ const NumberQuestion = ({ id }: Props) => {
           />
         </Box>
       ))}
+      {diff !== 0 && (
+        <Box sx={{ textAlign: 'center', color: 'red' }}>
+          Сумма должна равняться {currentSum}
+          {diff > 0 && `, не хавтает: ${diff}`}
+          {diff < 0 && `, лишнее ${diff}`}
+        </Box>
+      )}
     </Box>
   )
 }
