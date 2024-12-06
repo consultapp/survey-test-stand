@@ -1,35 +1,35 @@
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
-import { useQuestion } from "@/context/SurveyContext/hooks";
-import { useSurveyContextDispatch } from "@/context/SurveyContext";
+import Box from '@mui/material/Box'
+import Slider from '@mui/material/Slider'
+import { useQuestion } from '@/context/SurveyContext/hooks'
+import { useSurveyContextDispatch } from '@/context/SurveyContext'
 
 function valuetext(value: number) {
-  return `${value}`;
+  return `${value}`
 }
 
-type Props = { id: string };
+type Props = { id: string }
 
-export default function SliderQuestion({ id }: Props) {
-  const question = useQuestion(id);
-  const dispatch = useSurveyContextDispatch();
+export const SliderQuestion = ({ id }: Props) => {
+  const question = useQuestion(id)
+  const dispatch = useSurveyContextDispatch()
 
   const handleChange = (_: Event, newValue: number | number[]) => {
-    console.log("newValue", newValue);
+    console.log('newValue', newValue)
     dispatch({
-      type: "setSliderValue",
+      type: 'setSliderValue',
       payload: { id, value: newValue },
-    });
-  };
+    })
+  }
 
-  if (!question) return;
+  if (!question) return
 
-  const variants = (question.variants as ISliderVariant[])[0];
+  const variants = (question.variants as ISliderVariant[])[0]
 
   return (
     <Box sx={{ width: 300 }}>
       <Slider
         sx={{
-          color: "black",
+          color: 'black',
         }}
         defaultValue={variants.value}
         getAriaValueText={valuetext}
@@ -41,5 +41,5 @@ export default function SliderQuestion({ id }: Props) {
         onChange={handleChange}
       />
     </Box>
-  );
+  )
 }

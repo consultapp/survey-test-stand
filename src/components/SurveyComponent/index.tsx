@@ -1,7 +1,7 @@
-import SurveyProvider from "@/context/SurveyContext/SurveyContext";
-import SurveyQuestions from "./SurveyQuestions/SurveyQuestions";
+import { SurveyProvider } from '@/context/SurveyContext/SurveyContext'
+import { SurveyQuestions } from './SurveyQuestions/SurveyQuestions'
 
-export default function SurveyContainer() {
+export const SurveyContainer = () => {
   return (
     <SurveyProvider>
       <div>
@@ -9,5 +9,5 @@ export default function SurveyContainer() {
         <SurveyQuestions />
       </div>
     </SurveyProvider>
-  );
+  )
 }

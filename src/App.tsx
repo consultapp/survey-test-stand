@@ -1,7 +1,7 @@
-import SurveyContainer from "./components/SurveyComponent";
+import { SurveyContainer } from './components/SurveyComponent'
 
 function App() {
-  return <SurveyContainer />;
+  return <SurveyContainer />
 }
 
-export default App;
+export default App

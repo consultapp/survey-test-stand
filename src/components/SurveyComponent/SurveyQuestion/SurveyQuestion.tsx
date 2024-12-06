@@ -1,22 +1,22 @@
-import Box from "@mui/material/Box";
-import { useQuestion } from "@/context/SurveyContext/hooks";
-import { VariantsType } from "@/fixtures/variantsType";
-import SliderQuestion from "../QuestionTypes/SliderQuestion";
+import Box from '@mui/material/Box'
+import { useQuestion } from '@/context/SurveyContext/hooks'
+import { VariantsType } from '@/fixtures/variantsType'
+import { SliderQuestion } from '../QuestionTypes/SliderQuestion'
 
-type Props = { id: string };
+type Props = { id: string }
 
-export default function SurveyQuestion({ id }: Props) {
-  const question = useQuestion(id);
+export const SurveyQuestion = ({ id }: Props) => {
+  const question = useQuestion(id)
 
-  if (!question) return;
+  if (!question) return
 
-  const { name, type } = question;
+  const { name, type } = question
 
-  let component;
+  let component
   switch (type) {
     case VariantsType.slider:
-      component = <SliderQuestion id={id} />;
-      break;
+      component = <SliderQuestion id={id} />
+      break
   }
 
   return (
@@ -25,12 +25,12 @@ export default function SurveyQuestion({ id }: Props) {
       sx={{
         py: 2,
         px: 6,
-        border: "1px solid black",
-        borderRadius: "1rem",
+        border: '1px solid black',
+        borderRadius: '1rem',
       }}
     >
       <h3>{name}</h3>
       {component}
     </Box>
-  );
+  )
 }
