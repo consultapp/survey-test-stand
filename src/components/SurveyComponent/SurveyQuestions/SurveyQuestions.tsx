@@ -2,10 +2,11 @@ import { useSurveyContext } from '@/context/SurveyContext'
 import { SurveyQuestion } from '../SurveyQuestion/SurveyQuestion'
 import { Box } from '@mui/material'
 import { SaveSurveyButton } from '../SaveSurveyButton/SaveSurveyButton'
+import { log } from '@/utils'
 
 export const SurveyQuestions = () => {
   const ctx = useSurveyContext()
-  console.log('ctx', ctx)
+  log('ctx', ctx)
   return (
     <Box
       sx={{

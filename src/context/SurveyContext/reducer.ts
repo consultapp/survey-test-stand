@@ -10,7 +10,6 @@ export function reducer(
   { type, payload }: { type: string; payload?: any }
 ) {
   const position = getPositionById(payload?.id || 0, state)
-  console.log('payload:', payload, position)
 
   if (position < 0) console.error('Не найден id вопроса, ошибка сохранения.')
 
