@@ -1,6 +1,7 @@
 import { useSurveyContext } from '@/context/SurveyContext'
 import { SurveyQuestion } from '../SurveyQuestion/SurveyQuestion'
 import { Box } from '@mui/material'
+import { SaveSurveyButton } from '../SaveSurveyButton/SaveSurveyButton'
 
 export const SurveyQuestions = () => {
   const ctx = useSurveyContext()
@@ -17,6 +18,9 @@ export const SurveyQuestions = () => {
     >
       {!ctx && <div>Ошибка загрузки данных.</div>}
       {ctx && ctx.map(({ id }) => <SurveyQuestion id={id} key={id} />)}
+      <Box sx={{ marginTop: '3rem' }}>
+        <SaveSurveyButton />
+      </Box>
     </Box>
   )
 }
