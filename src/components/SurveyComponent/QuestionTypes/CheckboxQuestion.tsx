@@ -31,7 +31,14 @@ const CheckboxQuestion = ({ id }: Props) => {
   const variants = question.variants as ICheckVariant[]
 
   return (
-    <FormGroup sx={{ display: 'grid', gap: '1rem', color: COLOR_PRIMARY }}>
+    <FormGroup
+      sx={{
+        display: 'grid',
+        gap: '1rem',
+        color: COLOR_PRIMARY,
+        fontSize: '1.7rem',
+      }}
+    >
       {variants.map(({ label, value }, i) => (
         <FormControlLabel
           checked={!!value}

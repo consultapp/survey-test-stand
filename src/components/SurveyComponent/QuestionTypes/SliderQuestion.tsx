@@ -41,6 +41,7 @@ export const SliderQuestion = ({ id }: Props) => {
       <Slider
         sx={{
           color: 'black',
+          fontSize: '1.7rem',
         }}
         value={variant.value}
         step={variant.step}

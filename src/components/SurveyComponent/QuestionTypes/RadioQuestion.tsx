@@ -29,7 +29,12 @@ const RadioQuestion = ({ id }: Props) => {
   const checked = variants.find((item) => item.value === true)?.label ?? ''
   return (
     <RadioGroup
-      sx={{ display: 'grid', gap: '1rem', color: COLOR_PRIMARY }}
+      sx={{
+        display: 'grid',
+        gap: '1rem',
+        color: COLOR_PRIMARY,
+        fontSize: '1.7rem',
+      }}
       value={checked}
     >
       {variants.map(({ label }) => (

@@ -35,7 +35,7 @@ const NumberQuestion = ({ id }: Props) => {
   const diff = checksum - currentSum
 
   return (
-    <Box sx={{ display: 'grid', gap: '2rem' }}>
+    <Box sx={{ display: 'grid', gap: '2rem', fontSize: '1.7rem' }}>
       {variants.map(({ label, value }, dataset) => (
         <Box
           sx={{
@@ -44,7 +44,7 @@ const NumberQuestion = ({ id }: Props) => {
             justifyContent: 'center',
             alignItems: 'center',
             gap: '2rem',
-            fontSize: '1.2rem',
+            fontSize: '1.7rem',
           }}
           key={label}
         >

@@ -32,6 +32,7 @@ const TextQuestion = ({ id }: Props) => {
 
   return (
     <TextField
+      sx={{ fontSize: '1.7rem' }}
       label="Напишите ответ"
       multiline
       maxRows={10}
