@@ -37,6 +37,18 @@ export function reducer(
       return [...state]
     }
 
+    case `set${VariantsType.checkbox}Value`: {
+      const vars = state[position]?.variants as ICheckVariant[]
+      const currentIndex = payload.index ?? 0
+      if (vars[currentIndex]) {
+        vars[currentIndex].value = Boolean(payload.value ?? false)
+      }
+      state[position].variants = vars
+      console.log('state', state)
+
+      return [...state]
+    }
+
     default:
       break
   }

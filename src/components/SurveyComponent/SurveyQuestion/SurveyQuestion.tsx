@@ -3,12 +3,14 @@ import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
 import { SliderQuestion } from '../QuestionTypes/SliderQuestion'
 import { NumberQuestion } from '../QuestionTypes/NumberQuestion'
+import { CheckboxQuestion } from '../QuestionTypes/CheckboxQuestion'
 
 type Props = { id: string }
 
 const QuestionTypes: Record<string, typeof SliderQuestion> = {
   [VariantsType.slider]: SliderQuestion,
   [VariantsType.number]: NumberQuestion,
+  [VariantsType.checkbox]: CheckboxQuestion,
 }
 
 export const SurveyQuestion = ({ id }: Props) => {
