@@ -12,11 +12,14 @@ const NumberQuestion = ({ id }: Props) => {
   const dispatch = useSurveyContextDispatch()
 
   const handleChange = useCallback(
-    ({ target }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      console.log('target', target)
+    ({ target }: ChangeEvent<HTMLInputElement>) => {
       dispatch({
         type: `set${VariantsType.number}Value`,
-        payload: { id, value: target.value, index: target.dataset['index'] },
+        payload: {
+          id,
+          value: target.value,
+          index: target.attributes.getNamedItem('dataset')?.value,
+        },
       })
     },
     [dispatch, id]
@@ -39,7 +42,7 @@ const NumberQuestion = ({ id }: Props) => {
         {diff < 0 && `, лишнее ${diff}`}
       </Box>
 
-      {variants.map(({ label, value }, i) => (
+      {variants.map(({ label, value }, dataset) => (
         <Box
           sx={{
             display: 'grid',
@@ -54,7 +57,6 @@ const NumberQuestion = ({ id }: Props) => {
           <div>{label}</div>
           <TextField
             type="number"
-            dataset-index={i}
             value={value}
             onChange={handleChange}
             sx={{
@@ -67,6 +69,7 @@ const NumberQuestion = ({ id }: Props) => {
               input: {
                 inputProps: {
                   style: { textAlign: 'center', fontSize: '1.2rem' },
+                  dataset,
                 },
               },
             }}
