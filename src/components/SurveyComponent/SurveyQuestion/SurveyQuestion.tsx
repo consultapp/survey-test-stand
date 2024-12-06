@@ -2,22 +2,22 @@ import Box from '@mui/material/Box'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
 import { SliderQuestion } from '../QuestionTypes/SliderQuestion'
+import { NumberQuestion } from '../QuestionTypes/NumberQuestion'
 
 type Props = { id: string }
+
+const QuestionTypes: Record<string, typeof SliderQuestion> = {
+  [VariantsType.slider]: SliderQuestion,
+  [VariantsType.number]: NumberQuestion,
+}
 
 export const SurveyQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
 
   if (!question) return
 
-  const { name, type } = question
-
-  let component
-  switch (type) {
-    case VariantsType.slider:
-      component = <SliderQuestion id={id} />
-      break
-  }
+  const { name, helper_text, type } = question
+  const QuestionComponent = QuestionTypes[type]
 
   return (
     <Box
@@ -25,12 +25,13 @@ export const SurveyQuestion = ({ id }: Props) => {
       sx={{
         py: 2,
         px: 6,
-        border: '1px solid black',
+        border: '2px dotted black',
         borderRadius: '1rem',
       }}
     >
-      <h3>{name}</h3>
-      {component}
+      {name && <h3>{name}</h3>}
+      {helper_text && <p>{helper_text}</p>}
+      {QuestionTypes[type] && <QuestionComponent id={id} />}
     </Box>
   )
 }

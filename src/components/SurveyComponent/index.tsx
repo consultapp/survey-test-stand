@@ -4,10 +4,7 @@ import { SurveyQuestions } from './SurveyQuestions/SurveyQuestions'
 export const SurveyContainer = () => {
   return (
     <SurveyProvider>
-      <div>
-        <h2>Заголовок 2</h2>
-        <SurveyQuestions />
-      </div>
+      <SurveyQuestions />
     </SurveyProvider>
   )
 }

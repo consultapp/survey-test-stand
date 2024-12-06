@@ -12,8 +12,7 @@ export const SurveyQuestions = () => {
       sx={{
         display: 'grid',
         gap: '1rem',
-        border: '1px solid black',
-        borderRadius: '1rem',
+
         p: 2,
       }}
     >

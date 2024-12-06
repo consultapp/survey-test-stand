@@ -2,10 +2,8 @@ import Box from '@mui/material/Box'
 import Slider from '@mui/material/Slider'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
-
-function valuetext(value: number) {
-  return `${value}`
-}
+import { VariantsType } from '@/fixtures/variantsType'
+import { useCallback } from 'react'
 
 type Props = { id: string }
 
@@ -13,31 +11,43 @@ export const SliderQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
   const dispatch = useSurveyContextDispatch()
 
-  const handleChange = (_: Event, newValue: number | number[]) => {
-    console.log('newValue', newValue)
-    dispatch({
-      type: 'setSliderValue',
-      payload: { id, value: newValue },
-    })
-  }
+  const handleChange = useCallback(
+    (_: Event, value: number | number[]) => {
+      dispatch({
+        type: `set${VariantsType.number}Value`,
+        payload: { id, value },
+      })
+    },
+    [dispatch, id]
+  )
 
   if (!question) return
 
-  const variants = (question.variants as ISliderVariant[])[0]
+  const variant = (question.variants as ISliderVariant[])[0]
+  const labels = new Array(variant.to - variant.from + 1)
+    .fill(null)
+    .map((_, i) => ({
+      label: (variant.from + i * variant.step).toString(),
+      value: variant.from + i * variant.step,
+    }))
+
+  variant.labels.forEach((item) => {
+    const index = labels.findIndex((l) => l.value === item.value)
+    labels[index] = item
+  })
 
   return (
-    <Box sx={{ width: 300 }}>
+    <Box sx={{}}>
       <Slider
         sx={{
           color: 'black',
         }}
-        defaultValue={variants.value}
-        getAriaValueText={valuetext}
-        step={variants.step}
-        valueLabelDisplay="auto"
-        marks={variants.labels}
-        min={variants.from}
-        max={variants.to}
+        value={variant.value}
+        step={variant.step}
+        valueLabelDisplay="off"
+        marks={labels}
+        min={variant.from}
+        max={variant.to}
         onChange={handleChange}
       />
     </Box>
