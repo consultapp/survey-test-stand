@@ -4,6 +4,7 @@ import { VariantsType } from '@/fixtures/variantsType'
 import { SliderQuestion } from '../QuestionTypes/SliderQuestion'
 import { NumberQuestion } from '../QuestionTypes/NumberQuestion'
 import { CheckboxQuestion } from '../QuestionTypes/CheckboxQuestion'
+import { RadioQuestion } from '../QuestionTypes/RadioQuestion'
 
 type Props = { id: string }
 
@@ -11,6 +12,7 @@ const QuestionTypes: Record<string, typeof SliderQuestion> = {
   [VariantsType.slider]: SliderQuestion,
   [VariantsType.number]: NumberQuestion,
   [VariantsType.checkbox]: CheckboxQuestion,
+  [VariantsType.radio]: RadioQuestion,
 }
 
 export const SurveyQuestion = ({ id }: Props) => {

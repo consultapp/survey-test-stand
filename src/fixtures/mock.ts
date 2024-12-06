@@ -139,4 +139,25 @@ export const mockData: IQuestions = [
       },
     ],
   },
+  {
+    id: '66',
+    block: 'block_1',
+    type: 'radio',
+    name: 'Выберите один вариант ответа',
+    helper_text: '',
+    variants: [
+      {
+        label: 'Вариант 11',
+        value: false,
+      },
+      {
+        label: 'Вариант 22',
+        value: true,
+      },
+      {
+        label: 'Вариант 33',
+        value: true,
+      },
+    ],
+  },
 ]

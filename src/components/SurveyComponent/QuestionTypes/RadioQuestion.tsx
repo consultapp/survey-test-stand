@@ -2,25 +2,22 @@ import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { COLOR_PRIMARY } from '@/fixtures/theme'
 import { VariantsType } from '@/fixtures/variantsType'
-import { Checkbox, FormControlLabel, FormGroup } from '@mui/material'
+import { FormControlLabel, Radio, RadioGroup } from '@mui/material'
 import { useCallback } from 'react'
 
 type Props = { id: string }
 
-const CheckboxQuestion = ({ id }: Props) => {
+const RadioQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
   const dispatch = useSurveyContextDispatch()
 
   const handleChange = useCallback(
     ({ target }: React.ChangeEvent<HTMLInputElement>) => {
       dispatch({
-        type: `set${VariantsType.checkbox}Value`,
+        type: `set${VariantsType.radio}Value`,
         payload: {
           id,
-          value: target.checked,
-          index:
-            target.parentElement?.attributes.getNamedItem('dataset-index')
-              ?.value ?? false,
+          value: target.value,
         },
       })
     },
@@ -28,20 +25,23 @@ const CheckboxQuestion = ({ id }: Props) => {
   )
 
   if (!question) return
-  const variants = question.variants as ICheckVariant[]
-
+  const variants = question.variants as IRadioVariant[]
+  const checked = variants.find((item) => item.value === true)?.label ?? ''
   return (
-    <FormGroup sx={{ display: 'grid', gap: '1rem', color: COLOR_PRIMARY }}>
-      {variants.map(({ label, value }, i) => (
+    <RadioGroup
+      sx={{ display: 'grid', gap: '1rem', color: COLOR_PRIMARY }}
+      value={checked}
+    >
+      {variants.map(({ label }) => (
         <FormControlLabel
-          checked={!!value}
-          control={<Checkbox dataset-index={i} onChange={handleChange} />}
+          control={<Radio onChange={handleChange} />}
           label={label}
+          value={label}
           key={label}
         />
       ))}
-    </FormGroup>
+    </RadioGroup>
   )
 }
 
-export { CheckboxQuestion }
+export { RadioQuestion }

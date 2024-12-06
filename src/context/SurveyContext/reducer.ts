@@ -10,17 +10,14 @@ export function reducer(
   { type, payload }: { type: string; payload?: any }
 ) {
   const position = getPositionById(payload?.id || 0, state)
-  console.log(payload, position)
-  if (!position) new Error('Не найден id вопроса, ошибка сохранения.')
+  console.log('payload:', payload, position)
+
+  if (position < 0) console.error('Не найден id вопроса, ошибка сохранения.')
 
   switch (type) {
     case `set${VariantsType.slider}Value`: {
       const vars = state[position]?.variants as ISliderVariant[]
-      if (vars[0]) {
-        vars[0].value = Number(payload.value ?? 0)
-      }
-      state[position].variants = vars
-      console.log('state', state)
+      vars[0].value = Number(payload.value ?? 0)
 
       return [...state]
     }
@@ -28,11 +25,7 @@ export function reducer(
     case `set${VariantsType.number}Value`: {
       const vars = state[position]?.variants as INumberVariant[]
       const currentIndex = payload.index ?? 0
-      if (vars[currentIndex]) {
-        vars[currentIndex].value = Number(payload.value ?? 0)
-      }
-      state[position].variants = vars
-      console.log('state', state)
+      vars[currentIndex].value = Number(payload.value ?? 0)
 
       return [...state]
     }
@@ -40,17 +33,24 @@ export function reducer(
     case `set${VariantsType.checkbox}Value`: {
       const vars = state[position]?.variants as ICheckVariant[]
       const currentIndex = payload.index ?? 0
-      if (vars[currentIndex]) {
-        vars[currentIndex].value = Boolean(payload.value ?? false)
-      }
-      state[position].variants = vars
-      console.log('state', state)
+      vars[currentIndex].value = Boolean(payload.value ?? false)
+
+      return [...state]
+    }
+
+    case `set${VariantsType.radio}Value`: {
+      const vars = state[position]?.variants as IRadioVariant[]
+
+      vars.forEach((_, i) => {
+        vars[i].value = false
+      })
+      vars[vars.findIndex((v) => v.label === payload.value)].value = true
 
       return [...state]
     }
 
     default:
-      break
+      console.error('Неопределенное событие')
   }
 
   return state
