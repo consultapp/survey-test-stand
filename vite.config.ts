@@ -9,4 +9,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    rollupOptions: {
+      input: [
+        path.join(process.cwd(), 'index.html'),
+        path.join(process.cwd(), 'src', 'main.tsx'),
+      ],
+      preserveEntrySignatures: 'allow-extension',
+    },
+  },
 })
