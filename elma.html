@@ -8,11 +8,8 @@
   <body>
     <div class="surveyQuizRoot"></div>
     <script type="module">
-      import { mountReact } from './dist/assets/main-DACeI73w.js'
-      window.addEventListener('load', () => {
-        const node = document.querySelector('.surveyQuizRoot')
-        mountReact(node)
-      })
+      import './dist/my-lib.umd.js'
+      MyLib.mountReact(document.querySelector('.surveyQuizRoot'))
     </script>
   </body>
 </html>

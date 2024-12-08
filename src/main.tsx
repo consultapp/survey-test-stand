@@ -28,10 +28,11 @@ import App from './App.tsx'
 
 // initElmaReact()
 
-export function mountReact(node: HTMLDivElement) {
+function mountReact(node: HTMLDivElement) {
   createRoot(node).render(
     <StrictMode>
       <App />
     </StrictMode>
   )
 }
+export { mountReact }
