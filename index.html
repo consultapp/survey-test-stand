@@ -7,12 +7,6 @@
   </head>
   <body>
     <div class="surveyQuizRoot"></div>
-    <script type="module">
-      import { mountReact } from './dist/my-lib.es.js'
-      window.addEventListener('load', () => {
-        const node = document.querySelector('.surveyQuizRoot')
-        mountReact(node)
-      })
-    </script>
+    <script src="./src/main.tsx" type="module"></script>
   </body>
 </html>

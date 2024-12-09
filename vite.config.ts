@@ -11,20 +11,14 @@ export default defineConfig({
     },
   },
   define: {
-    'process.env': {},
+    'process.env': { NODE_ENV: 'production' },
   },
 
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/main.tsx'),
+      entry: resolve(__dirname, 'src/elma.tsx'),
       name: 'MyLib',
       fileName: (format) => `my-lib.${format}.js`,
-    },
-    rollupOptions: {
-      external: [''],
-      output: {
-        globals: {},
-      },
     },
   },
 })
