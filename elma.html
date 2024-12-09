@@ -8,8 +8,8 @@
   <body>
     <div class="surveyQuizRoot"></div>
     <script type="module">
-      import('./dist/my-lib.umd.js').then(() => {
-        MyLib.mountReact(document.querySelector('.surveyQuizRoot'))
+      import('./dist/elmaSurveyLib.umd.js').then((module) => {
+        mountReact(document.querySelector('.surveyQuizRoot'))
       })
     </script>
   </body>

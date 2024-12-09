@@ -1,9 +1,3 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import { reactRender } from './elma.tsx'
 
-createRoot(document.querySelector(`.surveyQuizRoot`)!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-)
+reactRender({ root: document.querySelector(`.surveyQuizRoot`) })

@@ -1,5 +1,12 @@
 type VariantsType = 'slider' | 'number' | 'checkbox' | 'radio' | 'text'
 
+type ElmaProps = {
+  root: HTMLDivElement | null
+  data?: IBlocks
+  changeHandler?: (data: IBlocks) => void
+}
+
+type IBlocks = IBlock[]
 type IQuestions = IQuestion[]
 type ID = string
 

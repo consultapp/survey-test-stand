@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
 const libName = 'elmaSurveyLib'
-const useHash = true
+const useHash = false
 
 export default defineConfig({
   plugins: [react()],
@@ -27,9 +27,14 @@ export default defineConfig({
     },
 
     rollupOptions: {
-      input: [path.join(process.cwd(), 'index.html')],
+      // input: [path.join(process.cwd(), 'index.html')],
+      // external: ['react', 'react-dom'],
       output: {
         assetFileNames: `${libName}${useHash ? '-[hash]' : ''}.[ext]`,
+        // globals: {
+        //   react: 'React',
+        //   'react-dom': 'ReactDOM',
+        // },
       },
     },
   },
