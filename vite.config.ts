@@ -21,10 +21,13 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/elma.tsx'),
       name: libName,
+      formats: ['umd', 'es'],
       fileName: (format) =>
         `${libName}${useHash ? '-[hash]' : ''}.${format}.js`,
     },
+
     rollupOptions: {
+      input: [path.join(process.cwd(), 'index.html')],
       output: {
         assetFileNames: `${libName}${useHash ? '-[hash]' : ''}.[ext]`,
       },
