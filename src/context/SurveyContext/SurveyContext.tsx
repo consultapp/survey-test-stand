@@ -2,10 +2,10 @@ import React, { useReducer } from 'react'
 import { SurveyContext, SurveyContextDispatch, initialSurveyData } from '.'
 import { reducer } from './reducer'
 
-type Props = { children: React.ReactElement }
+type Props = { questions: IQuestions; children: React.ReactElement }
 
-export const SurveyProvider = ({ children }: Props) => {
-  const [state, dispatch] = useReducer(reducer, initialSurveyData)
+export const SurveyProvider = ({ children, questions }: Props) => {
+  const [state, dispatch] = useReducer(reducer, questions ?? initialSurveyData)
 
   return (
     <SurveyContextDispatch.Provider value={dispatch}>

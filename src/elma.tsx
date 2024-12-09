@@ -2,8 +2,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import { ElmaContext } from './context/ElmaContext/index.ts'
+import { mockBlocks } from './fixtures/mockBlocks.ts'
 
-function reactRender({ root, data, changeHandler }: ElmaProps) {
+function reactRender({ root, data = mockBlocks, changeHandler }: ElmaProps) {
   if (root)
     createRoot(root).render(
       <StrictMode>

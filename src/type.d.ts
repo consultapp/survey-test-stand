@@ -24,7 +24,7 @@ interface IQuestion {
   type: VariantsType
   name: string
   helper_text: string | null
-  // sequence: number
+  sequence: number
   variants:
     | ISliderVariant[]
     | INumberVariant[]
@@ -32,7 +32,7 @@ interface IQuestion {
     | IRadioVariant[]
     | ITextVariant[]
   checksum?: number // если вопрос типа 'number' и нужно выполнить валидацию, что сумма чисел равна определенному значению
-  // blockSequence: number
+  blockSequence: number
 }
 
 interface ISliderVariant {

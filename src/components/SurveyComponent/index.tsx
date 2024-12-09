@@ -1,9 +1,9 @@
 import { SurveyProvider } from '@/context/SurveyContext/SurveyContext'
 import { SurveyQuestions } from './SurveyQuestions/SurveyQuestions'
 
-export const SurveyContainer = () => {
+export const SurveyComponent = ({ questions }: { questions: IQuestions }) => {
   return (
-    <SurveyProvider>
+    <SurveyProvider questions={questions}>
       <SurveyQuestions />
     </SurveyProvider>
   )

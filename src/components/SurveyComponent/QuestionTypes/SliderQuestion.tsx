@@ -23,12 +23,13 @@ export const SliderQuestion = ({ id }: Props) => {
   if (!question) return
 
   const variant = (question.variants as ISliderVariant[])[0]
-  const labels = new Array(variant.to - variant.from + 1)
-    .fill(null)
-    .map((_, i) => ({
-      label: (variant.from + i * variant.step).toString(),
-      value: variant.from + i * variant.step,
-    }))
+  const labels =
+    variant.to - variant.from > 10
+      ? variant.labels
+      : new Array(variant.to - variant.from + 1).fill(null).map((_, i) => ({
+          label: (variant.from + i * variant.step).toString(),
+          value: variant.from + i * variant.step,
+        }))
 
   variant.labels.forEach((item) => {
     const index = labels.findIndex((l) => l.value === item.value)
@@ -40,11 +41,10 @@ export const SliderQuestion = ({ id }: Props) => {
       <Slider
         value={variant.value}
         step={variant.step}
-        // valueLabelDisplay="off"
         marks={labels}
         min={variant.from}
         max={variant.to}
-        onChangeEnd={handleChange}
+        onChange={handleChange}
       />
     </Stack>
   )
