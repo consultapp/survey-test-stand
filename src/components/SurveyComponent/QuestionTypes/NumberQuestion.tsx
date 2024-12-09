@@ -1,9 +1,9 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
-import { COLOR_PRIMARY } from '@/fixtures/theme'
 import { VariantsType } from '@/fixtures/variantsType'
-import { Box, TextField } from '@mui/material'
-import { ChangeEvent, useCallback } from 'react'
+import { useCallback } from 'react'
+import styles from './styles.module.scss'
+import { NumberInput, Stack } from '@mantine/core'
 
 type Props = { id: string }
 
@@ -12,15 +12,17 @@ const NumberQuestion = ({ id }: Props) => {
   const dispatch = useSurveyContextDispatch()
 
   const handleChange = useCallback(
-    ({ target }: ChangeEvent<HTMLInputElement>) => {
-      dispatch({
-        type: `set${VariantsType.number}Value`,
-        payload: {
-          id,
-          value: target.value,
-          index: target.attributes.getNamedItem('dataset')?.value,
-        },
-      })
+    (index: number) => {
+      return (value: string | number) => {
+        dispatch({
+          type: `set${VariantsType.number}Value`,
+          payload: {
+            id,
+            value: value,
+            index,
+          },
+        })
+      }
     },
     [dispatch, id]
   )
@@ -35,49 +37,24 @@ const NumberQuestion = ({ id }: Props) => {
   const diff = checksum - currentSum
 
   return (
-    <Box sx={{ display: 'grid', gap: '2rem', fontSize: '1.7rem' }}>
-      {variants.map(({ label, value }, dataset) => (
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: '100px 100px ',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '2rem',
-            fontSize: '1.7rem',
-          }}
-          key={label}
-        >
+    <Stack gap="1rem">
+      {variants.map(({ label, value }, i) => (
+        <div className={styles.number} key={label}>
           <div>{label}</div>
-          <TextField
-            type="number"
+          <NumberInput
             value={value}
-            onChange={handleChange}
-            sx={{
-              textAlign: 'right',
-              color: COLOR_PRIMARY,
-              borderBlockColor: COLOR_PRIMARY,
-            }}
-            size="small"
-            slotProps={{
-              input: {
-                inputProps: {
-                  style: { textAlign: 'center', fontSize: '1.2rem' },
-                  dataset,
-                },
-              },
-            }}
+            onChange={handleChange(i)}
+            error={
+              diff === 0
+                ? ''
+                : diff > 0
+                ? `не хавтает ${diff}`
+                : `лишнее ${diff}`
+            }
           />
-        </Box>
+        </div>
       ))}
-      {diff !== 0 && (
-        <Box sx={{ textAlign: 'center', color: 'red' }}>
-          Сумма должна равняться {currentSum}
-          {diff > 0 && `, не хавтает: ${diff}`}
-          {diff < 0 && `, лишнее ${diff}`}
-        </Box>
-      )}
-    </Box>
+    </Stack>
   )
 }
 

@@ -1,21 +1,9 @@
-import Box from '@mui/material/Box'
 import { useQuestion } from '@/context/SurveyContext/hooks'
-import { VariantsType } from '@/fixtures/variantsType'
-import { SliderQuestion } from '../QuestionTypes/SliderQuestion'
-import { NumberQuestion } from '../QuestionTypes/NumberQuestion'
-import { CheckboxQuestion } from '../QuestionTypes/CheckboxQuestion'
-import { RadioQuestion } from '../QuestionTypes/RadioQuestion'
-import { TextQuestion } from '../QuestionTypes/TextQuestion'
+
+import styles from './styles.module.scss'
+import { QuestionTypes } from '../QuestionTypes'
 
 type Props = { id: string }
-
-const QuestionTypes: Record<string, typeof SliderQuestion> = {
-  [VariantsType.slider]: SliderQuestion,
-  [VariantsType.number]: NumberQuestion,
-  [VariantsType.checkbox]: CheckboxQuestion,
-  [VariantsType.radio]: RadioQuestion,
-  [VariantsType.text]: TextQuestion,
-}
 
 export const SurveyQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
@@ -26,18 +14,10 @@ export const SurveyQuestion = ({ id }: Props) => {
   const QuestionComponent = QuestionTypes[type]
 
   return (
-    <Box
-      component="section"
-      sx={{
-        py: 2,
-        px: 6,
-        border: '2px dotted black',
-        borderRadius: '1rem',
-      }}
-    >
+    <section className={styles.root}>
       {name && <h3>{name}</h3>}
       {helper_text && <p>{helper_text}</p>}
       {QuestionTypes[type] && <QuestionComponent id={id} />}
-    </Box>
+    </section>
   )
 }

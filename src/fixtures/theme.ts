@@ -1,1 +1,6 @@
-export const COLOR_PRIMARY = 'black'
+import { createTheme } from '@mantine/core'
+
+export const theme = createTheme({
+  fontFamily: 'Montserrat, sans-serif',
+  defaultRadius: 'md',
+})

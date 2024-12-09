@@ -1,0 +1,11 @@
+.root {
+  display: grid;
+  gap: 1rem;
+  border: 2px dotted black;
+  border-radius: 1rem;
+  padding: 1rem;
+
+  &__buttons {
+    margin-top: 3rem;
+  }
+}

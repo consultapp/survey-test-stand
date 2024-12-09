@@ -3,12 +3,21 @@ type VariantsType = 'slider' | 'number' | 'checkbox' | 'radio' | 'text'
 type IQuestions = IQuestion[]
 type ID = string
 
-interface IQuestion {
+interface IBlock {
   id: ID
-  block: string
-  type: VariantsType
   name: string
   helper_text?: string
+  sequence?: number
+  questions: IQuestions
+}
+
+interface IQuestion {
+  id: ID
+  block: ID
+  type: VariantsType
+  name: string
+  helper_text: string | null
+  // sequence: number
   variants:
     | ISliderVariant[]
     | INumberVariant[]
@@ -16,6 +25,7 @@ interface IQuestion {
     | IRadioVariant[]
     | ITextVariant[]
   checksum?: number // если вопрос типа 'number' и нужно выполнить валидацию, что сумма чисел равна определенному значению
+  // blockSequence: number
 }
 
 interface ISliderVariant {
@@ -43,3 +53,5 @@ interface IRadioVariant {
 interface ITextVariant {
   text: string
 }
+
+type SurveyQuestionElement = ({ id }: Props) => JSX.Element | undefined

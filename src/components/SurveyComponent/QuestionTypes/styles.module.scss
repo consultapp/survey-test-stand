@@ -1,0 +1,11 @@
+.number {
+  display: grid;
+  grid-template-columns: 100px 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  & input {
+    text-align: center;
+  }
+}

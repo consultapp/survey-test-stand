@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
+const libName = 'elmaSurveyLib'
+const useHash = false
+
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -17,8 +20,14 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/elma.tsx'),
-      name: 'MyLib',
-      fileName: (format) => `my-lib.${format}.js`,
+      name: libName,
+      fileName: (format) =>
+        `${libName}${useHash ? '-[hash]' : ''}.${format}.js`,
+    },
+    rollupOptions: {
+      output: {
+        assetFileNames: `[name]${useHash ? '-[hash]' : ''}.[ext]`,
+      },
     },
   },
 })

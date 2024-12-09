@@ -1,9 +1,8 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
-import { COLOR_PRIMARY } from '@/fixtures/theme'
 import { VariantsType } from '@/fixtures/variantsType'
-import { Checkbox, FormControlLabel, FormGroup } from '@mui/material'
 import { useCallback } from 'react'
+import { Checkbox, Stack } from '@mantine/core'
 
 type Props = { id: string }
 
@@ -12,17 +11,17 @@ const CheckboxQuestion = ({ id }: Props) => {
   const dispatch = useSurveyContextDispatch()
 
   const handleChange = useCallback(
-    ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch({
-        type: `set${VariantsType.checkbox}Value`,
-        payload: {
-          id,
-          value: target.checked,
-          index:
-            target.parentElement?.attributes.getNamedItem('dataset-index')
-              ?.value ?? false,
-        },
-      })
+    (index: number) => {
+      return ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch({
+          type: `set${VariantsType.checkbox}Value`,
+          payload: {
+            id,
+            value: target.checked,
+            index,
+          },
+        })
+      }
     },
     [dispatch, id]
   )
@@ -31,23 +30,16 @@ const CheckboxQuestion = ({ id }: Props) => {
   const variants = question.variants as ICheckVariant[]
 
   return (
-    <FormGroup
-      sx={{
-        display: 'grid',
-        gap: '1rem',
-        color: COLOR_PRIMARY,
-        fontSize: '1.7rem',
-      }}
-    >
+    <Stack gap="1rem">
       {variants.map(({ label, value }, i) => (
-        <FormControlLabel
+        <Checkbox
           checked={!!value}
-          control={<Checkbox dataset-index={i} onChange={handleChange} />}
+          onChange={handleChange(i)}
           label={label}
           key={label}
         />
       ))}
-    </FormGroup>
+    </Stack>
   )
 }
 

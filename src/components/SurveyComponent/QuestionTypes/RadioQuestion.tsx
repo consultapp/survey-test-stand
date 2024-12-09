@@ -1,9 +1,8 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
-import { COLOR_PRIMARY } from '@/fixtures/theme'
 import { VariantsType } from '@/fixtures/variantsType'
-import { FormControlLabel, Radio, RadioGroup } from '@mui/material'
 import { useCallback } from 'react'
+import { Radio, Stack } from '@mantine/core'
 
 type Props = { id: string }
 
@@ -12,12 +11,12 @@ const RadioQuestion = ({ id }: Props) => {
   const dispatch = useSurveyContextDispatch()
 
   const handleChange = useCallback(
-    ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    (value: string | number) => {
       dispatch({
         type: `set${VariantsType.radio}Value`,
         payload: {
           id,
-          value: target.value,
+          value,
         },
       })
     },
@@ -28,24 +27,13 @@ const RadioQuestion = ({ id }: Props) => {
   const variants = question.variants as IRadioVariant[]
   const checked = variants.find((item) => item.value === true)?.label ?? ''
   return (
-    <RadioGroup
-      sx={{
-        display: 'grid',
-        gap: '1rem',
-        color: COLOR_PRIMARY,
-        fontSize: '1.7rem',
-      }}
-      value={checked}
-    >
-      {variants.map(({ label }) => (
-        <FormControlLabel
-          control={<Radio onChange={handleChange} />}
-          label={label}
-          value={label}
-          key={label}
-        />
-      ))}
-    </RadioGroup>
+    <Radio.Group value={checked} withAsterisk onChange={handleChange}>
+      <Stack gap="sm">
+        {variants.map(({ label }) => (
+          <Radio label={label} value={label} key={label} />
+        ))}
+      </Stack>
+    </Radio.Group>
   )
 }
 

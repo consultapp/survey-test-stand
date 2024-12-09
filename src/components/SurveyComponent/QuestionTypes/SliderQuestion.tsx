@@ -1,9 +1,8 @@
-import Box from '@mui/material/Box'
-import Slider from '@mui/material/Slider'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { VariantsType } from '@/fixtures/variantsType'
 import { useCallback } from 'react'
+import { Slider, Stack } from '@mantine/core'
 
 type Props = { id: string }
 
@@ -12,7 +11,7 @@ export const SliderQuestion = ({ id }: Props) => {
   const dispatch = useSurveyContextDispatch()
 
   const handleChange = useCallback(
-    (_: Event, value: number | number[]) => {
+    (value: number) => {
       dispatch({
         type: `set${VariantsType.number}Value`,
         payload: { id, value },
@@ -37,20 +36,16 @@ export const SliderQuestion = ({ id }: Props) => {
   })
 
   return (
-    <Box sx={{}}>
+    <Stack m="md">
       <Slider
-        sx={{
-          color: 'black',
-          fontSize: '1.7rem',
-        }}
         value={variant.value}
         step={variant.step}
-        valueLabelDisplay="off"
+        // valueLabelDisplay="off"
         marks={labels}
         min={variant.from}
         max={variant.to}
-        onChange={handleChange}
+        onChangeEnd={handleChange}
       />
-    </Box>
+    </Stack>
   )
 }
