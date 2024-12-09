@@ -1,12 +1,19 @@
 import { useSurveyContext } from '@/context/SurveyContext'
 import { SurveyQuestion } from '../SurveyQuestion/SurveyQuestion'
 import { SaveSurveyButton } from '../SaveSurveyButton/SaveSurveyButton'
-import { log } from '@/utils'
+
 import styles from './styles.module.scss'
+import { useEffect } from 'react'
+import { useUpdateElmaDataQuestions } from '@/context/ElmaContext/hooks'
 
 export const SurveyQuestions = () => {
   const ctx = useSurveyContext()
-  log('ctx', ctx)
+  const update = useUpdateElmaDataQuestions()
+
+  useEffect(() => {
+    update(ctx)
+  })
+
   return (
     <div className={styles.root}>
       {!ctx && <div>Ошибка загрузки данных.</div>}

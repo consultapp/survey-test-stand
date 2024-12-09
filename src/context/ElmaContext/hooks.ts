@@ -17,3 +17,15 @@ export function useElmaCallback() {
     })
   )
 }
+
+export function useUpdateElmaDataQuestions() {
+  const data = useElmaData()
+  const cb = useElmaCallback()
+
+  return (q: IQuestions) => {
+    data.forEach((d) => {
+      if (d.id === q.at(-1)?.block) d.questions = q
+    })
+    cb(data)
+  }
+}

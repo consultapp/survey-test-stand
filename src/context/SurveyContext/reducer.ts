@@ -10,31 +10,27 @@ export function reducer(
   { type, payload }: { type: string; payload?: any }
 ) {
   const position = getPositionById(payload?.id || 0, state)
-
   if (position < 0) console.error('Не найден id вопроса, ошибка сохранения.')
 
   switch (type) {
     case `set${VariantsType.slider}Value`: {
       const vars = state[position]?.variants as ISliderVariant[]
       vars[0].value = Number(payload.value ?? 0)
-
-      return [...state]
+      break
     }
 
     case `set${VariantsType.number}Value`: {
       const vars = state[position]?.variants as INumberVariant[]
       const currentIndex = payload.index ?? 0
       vars[currentIndex].value = Number(payload.value ?? 0)
-
-      return [...state]
+      break
     }
 
     case `set${VariantsType.checkbox}Value`: {
       const vars = state[position]?.variants as ICheckVariant[]
       const currentIndex = payload.index ?? 0
       vars[currentIndex].value = Boolean(payload.value ?? false)
-
-      return [...state]
+      break
     }
 
     case `set${VariantsType.radio}Value`: {
@@ -44,20 +40,18 @@ export function reducer(
         vars[i].value = false
       })
       vars[vars.findIndex((v) => v.label === payload.value)].value = true
-
-      return [...state]
+      break
     }
 
     case `set${VariantsType.text}Value`: {
       const vars = state[position]?.variants as ITextVariant[]
       vars[0].text = payload.value
-
-      return [...state]
+      break
     }
 
     default:
       console.error('Неопределенное событие')
   }
 
-  return state
+  return [...state]
 }
