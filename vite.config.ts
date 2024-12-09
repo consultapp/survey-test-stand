@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
 const libName = 'elmaSurveyLib'
-const useHash = false
+const useHash = true
 
 export default defineConfig({
   plugins: [react()],
