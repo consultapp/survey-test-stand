@@ -48,7 +48,7 @@ const NumberQuestion = ({ id }: Props) => {
               diff === 0
                 ? ''
                 : diff > 0
-                ? `не хавтает ${diff}`
+                ? `не хватает ${diff}`
                 : `лишнее ${diff}`
             }
           />
