@@ -7,7 +7,7 @@ import { SurveyComponent } from '../SurveyComponent'
 const BlockComponent = () => {
   const data = useElmaData()
 
-  const [active, setActive] = useState(data.length)
+  const [active, setActive] = useState(0)
   const nextStep = () =>
     setActive((current) => (current < data.length ? current + 1 : current))
   const prevStep = () =>

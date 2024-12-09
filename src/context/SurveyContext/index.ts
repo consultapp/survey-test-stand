@@ -1,4 +1,3 @@
-import { mockData } from '@/fixtures/mock'
 import { createContext, useContext } from 'react'
 
 declare global {
@@ -8,8 +7,7 @@ declare global {
   }
 }
 
-export const initialSurveyData: IQuestions =
-  window.SURVEY_INITIAL_DATA ?? mockData
+export const initialSurveyData: IQuestions = window.SURVEY_INITIAL_DATA
 
 export const SurveyContext = createContext<IQuestions>(initialSurveyData)
 

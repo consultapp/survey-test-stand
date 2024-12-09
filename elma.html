@@ -9,7 +9,9 @@
     <div class="surveyQuizRoot"></div>
     <script type="module">
       import('./dist/elmaSurveyLib.umd.js').then((module) => {
-        mountReact(document.querySelector('.surveyQuizRoot'))
+        elmaSurveyLib.reactRender({
+          root: document.querySelector('.surveyQuizRoot'),
+        })
       })
     </script>
   </body>
