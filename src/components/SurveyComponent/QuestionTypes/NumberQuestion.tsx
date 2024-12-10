@@ -44,6 +44,7 @@ const NumberQuestion = ({ id }: Props) => {
           <NumberInput
             value={value}
             onChange={handleChange(i)}
+            suffix="%"
             error={
               diff === 0
                 ? ''
