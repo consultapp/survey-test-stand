@@ -19,7 +19,10 @@ const BlockComponent = () => {
       <Stepper active={active} onStepClick={setActive} className={styles.root}>
         {data.map((d) => (
           <Stepper.Step label={d.name} description={d.helper_text} key={d.id}>
-            <SurveyComponent questions={d.questions} />
+            <SurveyComponent
+              questions={d.questions}
+              key={`SurveyComponent:${d.id}`}
+            />
           </Stepper.Step>
         ))}
 
