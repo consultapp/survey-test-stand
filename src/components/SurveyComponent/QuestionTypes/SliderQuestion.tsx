@@ -1,7 +1,7 @@
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { VariantsType } from '@/fixtures/variantsType'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { Slider, Stack } from '@mantine/core'
 
 type Props = { id: string }
@@ -9,6 +9,7 @@ type Props = { id: string }
 export const SliderQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
   const dispatch = useSurveyContextDispatch()
+  const [value, setValue] = useState(0)
 
   const handleChange = useCallback(
     (value: number) => {
@@ -20,9 +21,14 @@ export const SliderQuestion = ({ id }: Props) => {
     [dispatch, id]
   )
 
-  if (!question) return
-
-  const variant = (question.variants as ISliderVariant[])[0]
+  const variant = (
+    (question?.variants ?? {
+      to: 10,
+      from: 0,
+      step: 1,
+      value: 0,
+    }) as ISliderVariant[]
+  )[0]
   const labels =
     variant.to - variant.from > 10
       ? variant.labels
@@ -39,12 +45,15 @@ export const SliderQuestion = ({ id }: Props) => {
   return (
     <Stack m="md">
       <Slider
-        value={variant.value}
+        value={value}
         step={variant.step}
         marks={labels}
         min={variant.from}
         max={variant.to}
-        onChange={handleChange}
+        onChange={(v) => {
+          setValue(v)
+        }}
+        onChangeEnd={handleChange}
       />
     </Stack>
   )
