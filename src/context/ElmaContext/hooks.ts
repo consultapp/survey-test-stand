@@ -5,7 +5,7 @@ export function useElmaContext() {
   return useContext(ElmaContext)
 }
 
-export function useElmaData(): IBlocks {
+export function useElmaData(): IQuestions {
   return useElmaContext().data ?? []
 }
 
@@ -23,9 +23,7 @@ export function useUpdateElmaDataQuestions() {
   const cb = useElmaCallback()
 
   return (q: IQuestions) => {
-    data.forEach((d) => {
-      if (d.id === q.at(-1)?.block) d.questions = q
-    })
-    cb(data)
+    data.forEach((d, i) => (d = q[i]))
+    cb(q)
   }
 }

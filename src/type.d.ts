@@ -3,8 +3,8 @@ type VariantsType = 'slider' | 'number' | 'checkbox' | 'radio' | 'text'
 type ElmaProps = {
   root: HTMLDivElement | null
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data?: any //IBlocks
-  changeHandler?: (data: IBlocks) => void
+  data?: IQuestions
+  changeHandler?: (data: IQuestions) => void
 }
 
 type IBlocks = IBlock[]
