@@ -1,252 +1,263 @@
-export const mockBlocks = [
+export const mockBlocks: IQuestions = [
   {
-    id: '0193a238-85cc-7657-b72e-671119ff2d84',
-    name: 'первый блок',
-    helper_text: 'первый блок первый блок',
-    sequence: 1,
-    questions: [
+    id: '0193b121-5dca-7a2c-b55e-6b128f799a77',
+    name: 'Экспериментатор произвёл закладку клубней картофеля на зиму. Как изменились масса клубней и количество крахмала? ',
+    type: 'slider',
+    block: '00000',
+    sequence: 10,
+    variants: [
       {
-        id: '0193a238-8673-7657-8a93-ea0831ffeb36',
-        name: 'первый вопрос',
-        type: 'slider',
-        block: '0193a238-85cc-7657-b72e-671119ff2d84',
-        sequence: 1,
-        variants: [
+        to: 5,
+        from: 1,
+        step: 1,
+        value: 3,
+        labels: [
           {
-            to: 5,
-            from: 1,
-            step: 1,
+            label: 'Отвратительно',
             value: 1,
-            labels: [
-              { label: 'bad', value: 1 },
-              { label: 'excellent', value: 5 },
-            ],
+          },
+          {
+            label: 'Средне',
+            value: 3,
+          },
+          {
+            label: 'Прекрасно',
+            value: 5,
           },
         ],
-        helper_text: 'helper to the 1st quest',
-        blockSequence: 1,
       },
+    ],
+    helper_text:
+      'Для каждой величины определите соответствующий характер её изменения.',
+    blockSequence: 0,
+  },
+  {
+    id: '0193b127-6bc7-7a2c-b520-51f45251460b',
+    name: 'Установите соответствие между характеристиками и органоидами клетки инфузории, обозначенными цифрами на схеме: к каждой позиции, данной в первом столбце, подберите соответствующую позицию из второго столбца.',
+    type: 'slider',
+    block: '00000',
+    sequence: 8,
+    variants: [
       {
-        id: '0193a238-8703-7657-9121-c62f93c478f9',
-        name: 'второй вопрос',
-        type: 'slider',
-        block: '0193a238-85cc-7657-b72e-671119ff2d84',
-        sequence: 2,
-        variants: [
+        to: 3,
+        from: 1,
+        step: 1,
+        value: 1,
+        labels: [
           {
-            to: 100,
-            from: 0,
-            step: 1,
+            label: 'Хроматин',
+            value: 1,
+          },
+          {
+            label: 'Желудок',
+            value: 3,
+          },
+        ],
+      },
+    ],
+    helper_text:
+      'ХАРАКТЕРИСТИКИ\nА)  Содержит хроматин\nБ)  Сливается с лизосомами\nВ)  Отвечает за поступление пищи в клетку\nГ)  Регулирует осмотическое давление\nД)  Регулирует ток жидкости в клетке\nЕ)  Участвует в расщеплении пищи',
+    blockSequence: 0,
+  },
+  {
+    id: '0193b122-3688-7a2c-ac86-e889cd2585b2',
+    name: 'Сколько молекул ДНК содержится в трёх бивалентах, образованных тремя парами гомологичных хромосом? ',
+    type: 'slider',
+    block: '00000',
+    sequence: 6,
+    variants: [
+      {
+        to: 50,
+        from: 10,
+        step: 5,
+        value: 20,
+        labels: [
+          {
+            label: 'Мало',
+            value: 10,
+          },
+          {
+            label: 'Много',
             value: 50,
-            labels: [
-              { label: 'Very cold', value: 0 },
-              { label: 'Cold', value: 10 },
-              { label: 'Moderate warm', value: 30 },
-              { label: 'Warm', value: 50 },
-              { label: 'Hot', value: 70 },
-              { label: 'Boiled', value: 100 },
-            ],
           },
         ],
-        helper_text: '',
-        blockSequence: 1,
-      },
-      {
-        id: '1',
-        name: 'Маслянистость',
-        type: 'slider',
-        block: 'block_1',
-        sequence: 3,
-        variants: [
-          {
-            from: 0,
-            to: 10,
-            step: 1,
-            value: 7,
-            labels: [
-              { value: 0, label: 'Сухой' },
-              { value: 10, label: 'Жирный' },
-            ],
-          },
-        ],
-        helper_text: '',
-      },
-      {
-        id: '2',
-        name: 'Сыпучесть (липкость)',
-        type: 'slider',
-        block: 'block_1',
-        sequence: 4,
-        variants: [
-          {
-            from: 0,
-            to: 10,
-            step: 1,
-            value: 7,
-            labels: [
-              { value: 0, label: 'Сыпучий' },
-              { value: 10, label: 'Липкий' },
-            ],
-          },
-        ],
-        helper_text: '',
-      },
-      {
-        id: 'test',
-        name: 'Тестовый слайдер',
-        type: 'slider',
-        block: 'block_1',
-        sequence: 5,
-        variants: [
-          {
-            from: 1,
-            to: 5,
-            step: 1,
-            value: 2,
-            labels: [
-              { value: 1, label: 'Плохо' },
-              { value: 3, label: 'Средне' },
-              { value: 5, label: 'Хорошо' },
-            ],
-          },
-        ],
-        helper_text: '',
       },
     ],
+    helper_text: 'В ответе запишите только число.',
+    blockSequence: 0,
   },
   {
-    id: 'block_2',
-    name: 'второй блок',
-    helper_text: 'Добавленный второй блок',
+    id: '0193b125-3984-7a2c-959e-b4b1a5c53a20',
+    name: 'Сколько молекул ДНК содержится в трёх бивалентах, образованных тремя парами гомологичных хромосом?',
+    type: 'slider',
+    block: '00000',
+    sequence: 5,
+    variants: [
+      {
+        to: 5,
+        from: 1,
+        step: 1,
+        value: 1,
+        labels: [
+          {
+            label: 'Мало',
+            value: 1,
+          },
+          {
+            label: 'Много',
+            value: 5,
+          },
+        ],
+      },
+    ],
+    helper_text: 'В ответе запишите только число.',
+    blockSequence: 0,
+  },
+  {
+    id: '0193b123-8ddb-7a2c-83fd-a9db8eadd879',
+    name: 'В семье, где родители хорошо слышали, и один из них имел светлые глаза, а другой карие, родился один ребенок глухой с карими глазами, а второй  — хорошо слышал и имел светлые глаза. Какова вероятность дальнейшего появления глухих детей с карими глазами в семье, если известно, что ген карих глаз доминирует над светлыми, глухота  — признак рецессивный, и обе пары генов находятся в разных хромосомах?',
+    type: 'slider',
+    block: '00000',
     sequence: 2,
-    questions: [
+    variants: [
       {
-        id: '4',
-        name: 'Выберите один или несколько вариантов',
-        type: 'checkbox',
-        block: 'block_2',
-        sequence: 1,
-        variants: [
-          { label: 'Вариант 1', value: false },
-          { label: 'Вариант 2', value: false },
-          { label: 'Вариант 3', value: true },
-        ],
-        helper_text: '',
-      },
-      {
-        id: '5',
-        name: 'Выберите один вариант ответа',
-        type: 'radio',
-        block: 'block_2',
-        sequence: 2,
-        variants: [
-          { label: 'Вариант 1', value: false },
-          { label: 'Вариант 2', value: true },
-        ],
-        helper_text: '',
-      },
-      {
-        id: 'test',
-        name: 'Тестовый слайдер',
-        type: 'slider',
-        block: 'block_2',
-        sequence: 3,
-        variants: [
+        to: 3,
+        from: 1,
+        step: 1,
+        value: 2,
+        labels: [
           {
-            from: 1,
-            to: 5,
-            step: 1,
+            label: 'Светлые',
+            value: 1,
+          },
+          {
+            label: 'Карие',
             value: 2,
-            labels: [
-              { value: 1, label: 'Плохо' },
-              { value: 3, label: 'Средне' },
-              { value: 5, label: 'Хорошо' },
-            ],
+          },
+          {
+            label: 'Тёмные',
+            value: 3,
           },
         ],
-        helper_text: '',
-      },
-      {
-        id: '3333',
-        name: 'Соотношение гранул по форме',
-        type: 'number',
-        block: 'block_2',
-        sequence: 4,
-        helper_text:
-          'Введите процент для каждого элемента. введите "0", если вы не хотите ничего выделять для элемента. сумма должна быть равна 100.',
-        variants: [
-          { label: 'Диск', value: 10 },
-          { label: 'Прямоуг. Б', value: 20 },
-          { label: 'Прямоуг. М', value: 70 },
-        ],
-        checksum: 100,
       },
     ],
+    helper_text:
+      'Ответ запишите в виде числа, показывающего искомую вероятность в процентах. Знак % не используйте.',
+    blockSequence: 0,
   },
   {
-    id: '0193a5bc-bff6-771c-87f7-1aee04ecfc42',
-    name: 'третий блок',
-    helper_text: 'test-3',
-    sequence: 3,
-    questions: [
+    id: '0193b124-7ca2-750a-bf42-c8b3c0c3a88e',
+    name: 'Экспериментатор произвёл закладку клубней картофеля на зиму. Как изменились масса клубней и количество крахмала?',
+    type: 'slider',
+    block: '00000',
+    sequence: 9,
+    variants: [
       {
-        id: '0193a5bd-f871-771c-bf02-756ffaeef6bc',
-        name: '3-2',
-        type: 'slider',
-        block: '0193a5bc-bff6-771c-87f7-1aee04ecfc42',
-        sequence: 1,
-        variants: [{ to: 100, from: -100, step: 1, value: 0, labels: [] }],
-        helper_text: null,
-        blockSequence: 3,
-      },
-      {
-        id: '3',
-        name: 'Соотношение гранул по форме',
-        type: 'number',
-        block: '0193a5bc-bff6-771c-87f7-1aee04ecfc42',
-        sequence: 2,
-        helper_text:
-          'Введите процент для каждого элемента. введите "0", если вы не хотите ничего выделять для элемента. сумма должна быть равна 100.',
-        variants: [
-          { label: 'Диск', value: 10 },
-          { label: 'Прямоуг. Б', value: 20 },
-          { label: 'Прямоуг. М', value: 70 },
-        ],
-        checksum: 100,
-      },
-      {
-        id: '2',
-        name: 'Сыпучесть (липкость)',
-        type: 'slider',
-        block: '0193a5bc-bff6-771c-87f7-1aee04ecfc42',
-        sequence: 3,
-        variants: [
+        to: 3,
+        from: 1,
+        step: 1,
+        value: 1,
+        labels: [
           {
-            from: 0,
-            to: 10,
-            step: 1,
-            value: 7,
-            labels: [
-              { value: 0, label: 'Сыпучий' },
-              { value: 10, label: 'Липкий' },
-            ],
+            label: 'Уменьшилась',
+            value: 1,
           },
-        ],
-        helper_text: '',
-      },
-      {
-        id: '245',
-        block: '0193a5bc-bff6-771c-87f7-1aee04ecfc42',
-        type: 'text',
-        name: 'Напишите ответ',
-        helper_text: 'Сколько весит альбатрос?',
-        variants: [
           {
-            label: 'Вариант 11',
-            value: false,
+            label: 'Не изменилась',
+            value: 2,
+          },
+          {
+            label: 'Увеличилась',
+            value: 3,
           },
         ],
       },
     ],
+    helper_text:
+      'Для каждой величины определите соответствующий характер её изменения.',
+    blockSequence: 0,
+  },
+  {
+    id: '0193b126-7613-7a2c-88a2-09078950d5d8',
+    name: 'В канун Нового года Дед Мороз решил отправить Снегурочку развозить подарки. На его карте изображена схема дорог между населёнными пунктами.  В помощь Снегурочке Дед Мороз составил таблицу расстояний между точками на карте, но в спешке перед праздником забыл подписать буквенные обозначения городов.',
+    type: 'slider',
+    block: '00000',
+    sequence: 1,
+    variants: [
+      {
+        to: 4,
+        from: 1,
+        step: 1,
+        value: 1,
+        labels: [
+          {
+            label: '10 рублей',
+            value: 1,
+          },
+          {
+            label: '1000 рублей',
+            value: 4,
+          },
+        ],
+      },
+    ],
+    helper_text: 'Сколько стоит бутылка водки?',
+    blockSequence: 0,
+  },
+  {
+    id: '0193b128-b2ec-750a-afac-5400027fc6fa',
+    name: 'Каким номером на рисунке обозначена структура паразита, представляющая собой членик с оплодотворёнными яйцами?',
+    type: 'slider',
+    block: '00000',
+    sequence: 4,
+    variants: [
+      {
+        to: 20,
+        from: 1,
+        step: 1,
+        value: 1,
+        labels: [],
+      },
+    ],
+    helper_text: 'Выберите число на шкале',
+    blockSequence: 0,
+  },
+  {
+    id: '0193b128-4345-7720-be9d-d9a14a0a680c',
+    name: 'Установите последовательность процессов при биосинтезе белка в клетке.',
+    type: 'slider',
+    block: '00000',
+    sequence: 7,
+    variants: [
+      {
+        to: 6,
+        from: 1,
+        step: 1,
+        value: 1,
+        labels: [],
+      },
+    ],
+    helper_text:
+      '1.  Образование пептидной связи между аминокислотами.\n2.  Взаимодействие кодона иРНК и антикодона тРНК.\n3)  Выход тРНК из рибосомы.\n4.  Соединение иРНК с рибосомой.\n5.  Выход иРНК из ядра в цитоплазму.\n6.  Синтез иРНК.',
+    blockSequence: 0,
+  },
+  {
+    id: '0193b127-dc3a-7a2c-93f9-a13d56d7bcc1',
+    name: 'Все перечисленные ниже понятия и процессы, кроме трёх, используют для описания световой стадии фотосинтеза в клетке растения. Определите три понятия, «выпадающих» из общего списка, и запишите в таблицу цифры, под которыми они указаны.',
+    type: 'slider',
+    block: '00000',
+    sequence: 3,
+    variants: [
+      {
+        to: 5,
+        from: 1,
+        step: 1,
+        value: 1,
+        labels: [],
+      },
+    ],
+    helper_text:
+      '1.  Перемещение электронов.\n2.  Фотолиз воды.\n3.  Окисление НАДФ·Н.\n4.  Восстановление углерода водородом.\n5.  Фотофосфорилирование.\n6.  Окислительное фосфорилирование.',
+    blockSequence: 0,
   },
 ]
