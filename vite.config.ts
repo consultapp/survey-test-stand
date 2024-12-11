@@ -21,7 +21,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/elma.tsx'),
       name: libName,
-      formats: ['umd', 'es'],
+      formats: ['umd'],
       fileName: (format) =>
         `${libName}${useHash ? '-[hash]' : ''}.${format}.js`,
     },
