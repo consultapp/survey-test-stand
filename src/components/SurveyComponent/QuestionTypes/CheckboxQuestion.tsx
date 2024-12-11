@@ -1,8 +1,10 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
-import { useCallback } from 'react'
 import { Checkbox, Stack } from '@mantine/core'
+
+import React from '@/react/react'
+const { useCallback } = React
 
 type Props = { id: string }
 

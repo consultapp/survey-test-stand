@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import React from '@/react/react'
 
 declare global {
   interface Window {
@@ -6,6 +6,8 @@ declare global {
     SURVEY_INITIAL_DATA: IQuestions
   }
 }
+
+const { createContext, useContext } = React
 
 export const initialSurveyData: IQuestions = window.SURVEY_INITIAL_DATA
 

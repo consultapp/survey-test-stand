@@ -2,8 +2,10 @@ import { useSurveyContext } from '@/context/SurveyContext'
 import { SurveyQuestion } from '../SurveyQuestion/SurveyQuestion'
 
 import styles from './styles.module.scss'
-import { useEffect } from 'react'
 import { useUpdateElmaDataQuestions } from '@/context/ElmaContext/hooks'
+
+import React from '@/react/react'
+const { useEffect } = React
 
 export const SurveyQuestions = () => {
   const ctx = useSurveyContext()
