@@ -8,6 +8,7 @@ export function useElmaContext() {
 }
 
 export function useElmaData(): IQuestions {
+export function useElmaData(): IQuestions {
   return useElmaContext().data ?? []
 }
 
