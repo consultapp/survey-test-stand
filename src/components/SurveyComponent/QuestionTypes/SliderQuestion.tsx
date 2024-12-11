@@ -1,10 +1,8 @@
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { VariantsType } from '@/fixtures/variantsType'
+import { useCallback, useMemo, useState } from 'react'
 import { Slider, Stack } from '@mantine/core'
-
-import React from '@/react/react'
-const { useCallback, useMemo, useState } = React
 
 type Props = { id: string }
 

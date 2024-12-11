@@ -1,11 +1,8 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
-import { ChangeEventHandler } from 'react'
+import { ChangeEventHandler, useCallback } from 'react'
 import { Textarea } from '@mantine/core'
-
-import React from '@/react/react'
-const { useCallback } = React
 
 type Props = { id: string }
 

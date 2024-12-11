@@ -1,8 +1,6 @@
 import { useSurveyContext } from '@/context/SurveyContext'
+import { useCallback, useMemo } from 'react'
 import { Button } from '@mantine/core'
-
-import React from '@/react/react'
-const { useCallback, useMemo } = React
 
 export const SaveSurveyButton = () => {
   const ctx = useSurveyContext()

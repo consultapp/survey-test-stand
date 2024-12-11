@@ -1,4 +1,3 @@
-import React from '@/react/react'
-const { createContext } = React
+import { createContext } from 'react'
 
 export const ElmaContext = createContext<Omit<ElmaProps, 'root'>>({})
