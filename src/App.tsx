@@ -4,21 +4,22 @@ import { theme } from './fixtures/theme'
 import { SurveyComponent } from './components/SurveyComponent'
 import { useElmaData } from './context/ElmaContext/hooks'
 
-function App({ root }: { root: HTMLDivElement | null }) {
+function App() {
   const data = useElmaData()
 
-  const getRootElement = () =>
-    typeof window === 'undefined' || root === null ? undefined : root
+  // { root }: { root: HTMLDivElement | null }
+  // const getRootElement = () =>
+  //   typeof window === 'undefined' || root === null ? undefined : root
 
-  console.log('first', getRootElement())
+  // console.log('root:', getRootElement())
 
   return (
     <MantineProvider
       // getRootElement={getRootElement}
-      withGlobalClasses={false}
-      defaultColorScheme="light"
-      forceColorScheme="light"
       // cssVariablesSelector={`#${root?.id}`}
+      // withGlobalClasses={false}
+      // defaultColorScheme="light"
+      forceColorScheme="light"
       theme={theme}
     >
       <SurveyComponent questions={data} key={`SurveyComponent`} />
