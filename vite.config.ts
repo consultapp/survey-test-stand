@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
-const libName = 'surveyLib'
-const useHash = true
+const libName = 'SurveyLibThin'
+const useHash = false
 
 export default defineConfig({
   plugins: [react()],
