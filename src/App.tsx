@@ -4,21 +4,21 @@ import { theme } from './fixtures/theme'
 import { SurveyComponent } from './components/SurveyComponent'
 import { useElmaData } from './context/ElmaContext/hooks'
 
-function App() {
+function App({ root }: { root: HTMLDivElement | null }) {
   const data = useElmaData()
 
   // { root }: { root: HTMLDivElement | null }
-  // const getRootElement = () =>
-  //   typeof window === 'undefined' || root === null ? undefined : root
+  const getRootElement = () =>
+    typeof window === 'undefined' || root === null ? undefined : root
 
-  // console.log('root:', getRootElement())
+  console.log('root:', getRootElement())
 
   return (
     <MantineProvider
-      // getRootElement={getRootElement}
-      // cssVariablesSelector={`#${root?.id}`}
-      // withGlobalClasses={false}
-      // defaultColorScheme="light"
+      getRootElement={getRootElement}
+      cssVariablesSelector={`#${root?.id}`}
+      withGlobalClasses={false}
+      defaultColorScheme="light"
       forceColorScheme="light"
       theme={theme}
     >

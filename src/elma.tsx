@@ -9,7 +9,7 @@ function reactRender({ root, data = mockBlocks, changeHandler }: ElmaProps) {
     createRoot(root).render(
       <StrictMode>
         <ElmaContext.Provider value={{ data, changeHandler }}>
-          <App />
+          <App root={root} />
         </ElmaContext.Provider>
       </StrictMode>
     )
