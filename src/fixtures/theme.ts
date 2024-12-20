@@ -23,7 +23,7 @@ console.log('generateColors(),', generateColors('#6baad8'))
 // ] as const
 
 export const theme = createTheme({
-  fontFamily: 'Montserrat, sans-serif',
+  fontFamily: '"SF Pro Display", Helvetica, Arial, sans-serif',
   defaultRadius: 'md',
   scale: 1.6,
   primaryColor: 'elma-colors',
