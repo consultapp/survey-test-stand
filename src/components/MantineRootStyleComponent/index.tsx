@@ -5,9 +5,5 @@ import './styles.css'
 type Props = { children: React.ReactElement }
 
 export const MantineRootStyleComponent = ({ children }: Props) => {
-  return (
-    <div className={styles.root} data-mantine-color-scheme="light">
-      {children}
-    </div>
-  )
+  return <div className={styles.root}>{children}</div>
 }
