@@ -1,9 +1,8 @@
-import './styles.css'
 import { MantineProvider } from '@mantine/core'
 import { theme } from './fixtures/theme'
 import { SurveyComponent } from './components/SurveyComponent'
 import { useElmaData } from './context/ElmaContext/hooks'
-import { RootStyleComponent } from './components/RootStyleComponent'
+import { MantineRootStyleComponent } from './components/MantineRootStyleComponent'
 
 function App({ root }: { root: HTMLDivElement | null }) {
   const data = useElmaData()
@@ -15,7 +14,7 @@ function App({ root }: { root: HTMLDivElement | null }) {
   console.log('root:', getRootElement())
 
   return (
-    <RootStyleComponent>
+    <MantineRootStyleComponent>
       <MantineProvider
         getRootElement={getRootElement}
         cssVariablesSelector={`#${root?.id}`}
@@ -26,7 +25,7 @@ function App({ root }: { root: HTMLDivElement | null }) {
       >
         <SurveyComponent questions={data} key={`SurveyComponent`} />
       </MantineProvider>
-    </RootStyleComponent>
+    </MantineRootStyleComponent>
   )
 }
 
