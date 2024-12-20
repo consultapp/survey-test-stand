@@ -3,13 +3,15 @@ import { theme } from './fixtures/theme'
 import { SurveyComponent } from './components/SurveyComponent'
 import { useElmaData } from './context/ElmaContext/hooks'
 import { MantineRootStyleComponent } from './components/MantineRootStyleComponent'
+import { useCallback } from 'react'
 
 function App({ root }: { root: HTMLDivElement | null }) {
   const data = useElmaData()
 
-  // { root }: { root: HTMLDivElement | null }
-  const getRootElement = () =>
-    typeof window === 'undefined' || root === null ? undefined : root
+  const getRootElement = useCallback(
+    () => (typeof window === 'undefined' || root === null ? undefined : root),
+    [root]
+  )
 
   console.log('root:', getRootElement())
 
