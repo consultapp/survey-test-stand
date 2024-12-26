@@ -2,7 +2,7 @@ import { useQuestion } from '@/context/SurveyContext/hooks'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { VariantsType } from '@/fixtures/variantsType'
 import { useCallback, useMemo, useState } from 'react'
-import { Center, Container, Slider, Stack } from '@mantine/core'
+import { Container, Slider } from '@mantine/core'
 
 type Props = { id: string }
 
