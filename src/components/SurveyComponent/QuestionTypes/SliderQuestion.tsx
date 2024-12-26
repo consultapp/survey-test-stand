@@ -31,12 +31,14 @@ export const SliderQuestion = ({ id }: Props) => {
 
   const labels = useMemo(
     () =>
-      variant.to - variant.from > 10
+      (variant.to - variant.from) / variant.step > 10
         ? variant.labels
-        : new Array(variant.to - variant.from + 1).fill(null).map((_, i) => ({
-            label: (variant.from + i * variant.step).toString(),
-            value: variant.from + i * variant.step,
-          })),
+        : new Array((variant.to - variant.from) / variant.step + 1)
+            .fill(null)
+            .map((_, i) => ({
+              label: (variant.from + i * variant.step).toString(),
+              value: variant.from + i * variant.step,
+            })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [id]
   )
