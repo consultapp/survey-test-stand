@@ -2,7 +2,7 @@ import { useQuestion } from '@/context/SurveyContext/hooks'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { VariantsType } from '@/fixtures/variantsType'
 import { useCallback, useMemo, useState } from 'react'
-import { Slider, Stack } from '@mantine/core'
+import { Center, Container, Slider, Stack } from '@mantine/core'
 
 type Props = { id: string }
 
@@ -50,7 +50,7 @@ export const SliderQuestion = ({ id }: Props) => {
   const [value, setValue] = useState(variant.value)
 
   return (
-    <Stack m="md">
+    <Container m="md" size="70%">
       <Slider
         value={value}
         step={variant.step}
@@ -62,6 +62,6 @@ export const SliderQuestion = ({ id }: Props) => {
         }}
         onChangeEnd={handleChange}
       />
-    </Stack>
+    </Container>
   )
 }
