@@ -63,5 +63,3 @@ interface ITextVariant {
 }
 
 type SurveyQuestionElement = ({ id }: Props) => JSX.Element | undefined
-
-type IError = Record<string, boolean>

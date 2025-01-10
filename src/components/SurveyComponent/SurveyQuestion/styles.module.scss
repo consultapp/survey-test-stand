@@ -4,17 +4,29 @@
   padding: 0;
 
   & > div:first-child {
-    background-color: var(--mantine-color-gray-light);
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     padding: 1rem;
   }
 }
 
-.error {
-  border: 1px solid var(--mantine-color-error);
+.idle {
+  border-color: black;
+  & > div:first-child {
+    background-color: var(--mantine-color-gray-light);
+  }
+}
 
+.error {
+  border-color: var(--mantine-color-error);
   & > div:first-child {
     background-color: var(--mantine-color-red-1);
+  }
+}
+
+.approved {
+  border-color: 1px solid var(--mantine-color-green-9);
+  & > div:first-child {
+    background-color: var(--mantine-color-green-light);
   }
 }

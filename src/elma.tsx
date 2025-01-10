@@ -3,7 +3,9 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import { ElmaContext } from './context/ElmaContext/index.ts'
 import { mockBlocks } from './fixtures/mockBlocks.ts'
-import { ErrorProvider } from './context/ErrorContext/ErrorContext.tsx'
+import { StatusProvider } from './context/StatusContext/StatusContext.tsx'
+import { Status } from './fixtures/status.ts'
+import { TStatusContext } from './context/StatusContext/index.ts'
 
 function reactRender({
   root,
@@ -15,9 +17,15 @@ function reactRender({
     createRoot(root).render(
       <StrictMode>
         <ElmaContext.Provider value={{ data, changeHandler, completeHandler }}>
-          <ErrorProvider errors={{ '4': true, '6': true }}>
+          <StatusProvider
+            statuses={
+              Object.fromEntries(
+                data.map((item) => [item.id, Status.idle])
+              ) as TStatusContext
+            }
+          >
             <App root={root} />
-          </ErrorProvider>
+          </StatusProvider>
         </ElmaContext.Provider>
       </StrictMode>
     )
