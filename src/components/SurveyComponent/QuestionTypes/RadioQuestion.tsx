@@ -1,17 +1,46 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Radio, Stack } from '@mantine/core'
+import {
+  useStatusById,
+  useStatusContextDispatch,
+} from '@/context/StatusContext/hooks'
+import { Status } from '@/fixtures/status'
 
 type Props = { id: string }
+
+const updateStatus = (
+  question: IQuestion,
+  dispatch: ReturnType<typeof useStatusContextDispatch>
+) => {
+  if (testIsApproved(question)) {
+    dispatch({ type: Status.approved, payload: question.id })
+  } else {
+    dispatch({ type: Status.empty, payload: question.id })
+  }
+}
+
+const testIsApproved = (question: IQuestion | undefined) =>
+  question &&
+  (question.variants as ICheckVariant[]).reduce(
+    (acc, item) => acc || Boolean(item.value),
+    false
+  )
 
 const RadioQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
   const dispatch = useSurveyContextDispatch()
+  const status = useStatusById(id)
+  const statusDispatch = useStatusContextDispatch()
+
+  const isApproved = testIsApproved(question)
 
   const handleChange = useCallback(
     (value: string | number) => {
+      if (status === Status.idle)
+        statusDispatch({ type: Status.empty, payload: id })
       dispatch({
         type: `set${VariantsType.radio}Value`,
         payload: {
@@ -20,8 +49,13 @@ const RadioQuestion = ({ id }: Props) => {
         },
       })
     },
-    [dispatch, id]
+    [dispatch, id, status, statusDispatch]
   )
+
+  useEffect(() => {
+    if (question && status !== Status.idle)
+      updateStatus(question, statusDispatch)
+  }, [isApproved, question, status, statusDispatch])
 
   if (!question) return
   const variants = question.variants as IRadioVariant[]

@@ -1,14 +1,41 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Checkbox, Stack } from '@mantine/core'
+import { Status } from '@/fixtures/status'
+import {
+  useStatusById,
+  useStatusContextDispatch,
+} from '@/context/StatusContext/hooks'
 
 type Props = { id: string }
+
+const updateStatus = (
+  question: IQuestion,
+  dispatch: ReturnType<typeof useStatusContextDispatch>
+) => {
+  if (testIsApproved(question)) {
+    dispatch({ type: Status.approved, payload: question.id })
+  } else {
+    dispatch({ type: Status.empty, payload: question.id })
+  }
+}
+
+const testIsApproved = (question: IQuestion | undefined) =>
+  question &&
+  (question.variants as ICheckVariant[]).reduce(
+    (acc, item) => acc || Boolean(item.value),
+    false
+  )
 
 const CheckboxQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
   const dispatch = useSurveyContextDispatch()
+  const status = useStatusById(id)
+  const statusDispatch = useStatusContextDispatch()
+
+  const isApproved = testIsApproved(question)
 
   const handleChange = useCallback(
     (index: number) => {
@@ -21,10 +48,17 @@ const CheckboxQuestion = ({ id }: Props) => {
             index,
           },
         })
+        if (status === Status.idle)
+          statusDispatch({ type: Status.empty, payload: id })
       }
     },
-    [dispatch, id]
+    [dispatch, id, status, statusDispatch]
   )
+
+  useEffect(() => {
+    if (question && status !== Status.idle)
+      updateStatus(question, statusDispatch)
+  }, [isApproved, question, status, statusDispatch])
 
   if (!question) return
   const variants = question.variants as ICheckVariant[]

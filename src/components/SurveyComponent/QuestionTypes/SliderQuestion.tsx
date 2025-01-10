@@ -1,14 +1,41 @@
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { VariantsType } from '@/fixtures/variantsType'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Container, Slider } from '@mantine/core'
+import {
+  useStatusById,
+  useStatusContextDispatch,
+} from '@/context/StatusContext/hooks'
+import { Status } from '@/fixtures/status'
 
 type Props = { id: string }
+
+const updateStatus = (
+  question: IQuestion,
+  dispatch: ReturnType<typeof useStatusContextDispatch>
+) => {
+  if (testIsApproved(question)) {
+    dispatch({ type: Status.approved, payload: question.id })
+  } else {
+    dispatch({ type: Status.empty, payload: question.id })
+  }
+}
+
+const testIsApproved = (question: IQuestion | undefined) =>
+  question &&
+  (question.variants as ISliderVariant[]).reduce(
+    (acc, item) => acc || item.value !== undefined,
+    false
+  )
 
 export const SliderQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
   const dispatch = useSurveyContextDispatch()
+  const status = useStatusById(id)
+  const statusDispatch = useStatusContextDispatch()
+
+  const isApproved = testIsApproved(question)
 
   const handleChange = useCallback(
     (value: number) => {
@@ -16,9 +43,16 @@ export const SliderQuestion = ({ id }: Props) => {
         type: `set${VariantsType.number}Value`,
         payload: { id, value },
       })
+      if (status === Status.idle)
+        statusDispatch({ type: Status.empty, payload: id })
     },
-    [dispatch, id]
+    [dispatch, id, status, statusDispatch]
   )
+
+  useEffect(() => {
+    if (question && status !== Status.idle)
+      updateStatus(question, statusDispatch)
+  }, [isApproved, question, status, statusDispatch])
 
   const variant = (
     (question?.variants ?? {

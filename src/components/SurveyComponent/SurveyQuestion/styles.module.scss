@@ -25,7 +25,7 @@
 }
 
 .approved {
-  border-color: 1px solid var(--mantine-color-green-9);
+  border-color: var(--mantine-color-green-9);
   & > div:first-child {
     background-color: var(--mantine-color-green-light);
   }

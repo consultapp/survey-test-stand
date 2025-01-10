@@ -8,6 +8,6 @@ export const StatusContext = createContext<TStatusContext>({})
 export const StatusContextDispatch = createContext<
   React.Dispatch<{
     type: string
-    payload: { id: string; status?: TStatus }
+    payload: string
   }>
 >(() => {})
