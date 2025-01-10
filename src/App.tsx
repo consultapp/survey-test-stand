@@ -2,8 +2,8 @@ import { MantineProvider } from '@mantine/core'
 import { theme } from './fixtures/theme'
 import { SurveyComponent } from './components/SurveyComponent'
 import { useElmaData } from './context/ElmaContext/hooks'
-import { MantineRootStyleComponent } from './components/MantineRootStyleComponent'
 import { useCallback } from 'react'
+import './styles.css'
 
 function App({ root }: { root: HTMLDivElement | null }) {
   const data = useElmaData()
@@ -16,18 +16,13 @@ function App({ root }: { root: HTMLDivElement | null }) {
   console.log('root:', getRootElement())
 
   return (
-    <MantineRootStyleComponent>
-      <MantineProvider
-        getRootElement={getRootElement}
-        cssVariablesSelector={`#${root?.id}`}
-        withGlobalClasses={false}
-        defaultColorScheme="light"
-        forceColorScheme="light"
-        theme={theme}
-      >
-        <SurveyComponent questions={data} key={`SurveyComponent`} />
-      </MantineProvider>
-    </MantineRootStyleComponent>
+    <MantineProvider
+      defaultColorScheme="light"
+      forceColorScheme="light"
+      theme={theme}
+    >
+      <SurveyComponent questions={data} key={`SurveyComponent`} />
+    </MantineProvider>
   )
 }
 
