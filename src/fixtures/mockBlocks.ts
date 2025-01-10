@@ -47,6 +47,7 @@ export const mockBlocks: IQuestions = [
     checksum: 97,
     blockSequence: 0,
   },
+
   {
     id: '0193b121-5dca-7a2c-b55e-6b128f799a77',
     name: 'Экспериментатор произвёл закладку клубней картофеля на зиму. Как изменились масса клубней и количество крахмала? ',
@@ -307,5 +308,59 @@ export const mockBlocks: IQuestions = [
     helper_text:
       '1.  Перемещение электронов.\n2.  Фотолиз воды.\n3.  Окисление НАДФ·Н.\n4.  Восстановление углерода водородом.\n5.  Фотофосфорилирование.\n6.  Окислительное фосфорилирование.',
     blockSequence: 0,
+  },
+
+  {
+    id: '4',
+    block: 'block_1',
+    type: 'checkbox',
+    name: 'Выберите один или несколько вариантов',
+    helper_text: '',
+    variants: [
+      {
+        label: 'Вариант 1',
+        value: false,
+      },
+      {
+        label: 'Вариант 2',
+        value: false,
+      },
+      {
+        label: 'Вариант 3',
+        value: false,
+      },
+    ],
+    blockSequence: 0,
+    sequence: 4,
+  },
+  {
+    id: '5',
+    block: 'block_1',
+    type: 'radio',
+    name: 'Выберите один вариант ответа',
+    helper_text: '',
+    variants: [
+      {
+        label: 'Вариант 1',
+        value: false,
+      },
+      {
+        label: 'Вариант 2',
+        value: false,
+      },
+    ],
+    blockSequence: 0,
+    sequence: 5,
+  },
+
+  {
+    id: '6',
+    block: 'block_1',
+    type: 'text',
+    name: 'Какой-то текст',
+    helper_text: '',
+    variants: [{ text: '' }],
+    blockSequence: 0,
+    sequence: 6,
   },
 ]
