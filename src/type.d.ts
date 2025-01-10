@@ -4,6 +4,7 @@ type ElmaProps = {
   root: HTMLDivElement | null
   data?: IQuestions
   changeHandler?: (data: IQuestions) => void
+  submitHandler?: () => void
 }
 
 type IBlocks = IBlock[]
