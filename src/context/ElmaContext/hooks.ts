@@ -18,6 +18,15 @@ export function useElmaCallback() {
   )
 }
 
+export function useElmaSubmitCallback() {
+  return (
+    useElmaContext().submitHandler ??
+    (() => {
+      console.error('Elma SubmitHandler Callback unknown')
+    })
+  )
+}
+
 export function useUpdateElmaDataQuestions() {
   const data = useElmaData()
   const cb = useElmaCallback()

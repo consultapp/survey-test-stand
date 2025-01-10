@@ -4,11 +4,16 @@ import App from './App.tsx'
 import { ElmaContext } from './context/ElmaContext/index.ts'
 import { mockBlocks } from './fixtures/mockBlocks.ts'
 
-function reactRender({ root, data = mockBlocks, changeHandler }: ElmaProps) {
+function reactRender({
+  root,
+  data = mockBlocks,
+  changeHandler,
+  submitHandler,
+}: ElmaProps) {
   if (root)
     createRoot(root).render(
       <StrictMode>
-        <ElmaContext.Provider value={{ data, changeHandler }}>
+        <ElmaContext.Provider value={{ data, changeHandler, submitHandler }}>
           <App root={root} />
         </ElmaContext.Provider>
       </StrictMode>
