@@ -9,13 +9,13 @@ function reactRender({
   root,
   data = mockBlocks,
   changeHandler,
-  submitHandler,
+  completeHandler,
 }: ElmaProps) {
   if (root)
     createRoot(root).render(
       <StrictMode>
-        <ElmaContext.Provider value={{ data, changeHandler, submitHandler }}>
-          <ErrorProvider errors={{ '4': true }}>
+        <ElmaContext.Provider value={{ data, changeHandler, completeHandler }}>
+          <ErrorProvider errors={{ '4': true, '6': true }}>
             <App root={root} />
           </ErrorProvider>
         </ElmaContext.Provider>

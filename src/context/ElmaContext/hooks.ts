@@ -18,9 +18,9 @@ export function useElmaCallback() {
   )
 }
 
-export function useElmaSubmitCallback() {
+export function useElmaCompleteCallback() {
   return (
-    useElmaContext().submitHandler ??
+    useElmaContext().completeHandler ??
     (() => {
       console.error('Elma SubmitHandler Callback unknown')
     })
