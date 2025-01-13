@@ -1,7 +1,7 @@
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { VariantsType } from '@/fixtures/variantsType'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Box, Container, Flex, Slider } from '@mantine/core'
 import {
   useStatusById,
@@ -34,7 +34,7 @@ export const SliderQuestion = ({ id }: Props) => {
   const dispatch = useSurveyContextDispatch()
   const status = useStatusById(id)
   const statusDispatch = useStatusContextDispatch()
-  const idle = useRef(status === Status.idle)
+  const [idle, setIdle] = useState(status === Status.idle)
 
   const isApproved = testIsApproved(question)
 
@@ -44,14 +44,14 @@ export const SliderQuestion = ({ id }: Props) => {
         type: `set${VariantsType.number}Value`,
         payload: { id, value },
       })
-      idle.current = false
+      if (idle) setIdle(false)
     },
-    [dispatch, id]
+    [dispatch, id, idle]
   )
 
   useEffect(() => {
-    if (question && !idle.current) updateStatus(question, statusDispatch)
-  }, [isApproved, question, status, statusDispatch])
+    if (question && !idle) updateStatus(question, statusDispatch)
+  }, [isApproved, question, status, idle, statusDispatch])
 
   const variant = (
     (question?.variants ?? {

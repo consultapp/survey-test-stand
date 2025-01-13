@@ -1,7 +1,7 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 import { NumberInput, Stack } from '@mantine/core'
 import {
@@ -38,7 +38,7 @@ const NumberQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
   const dispatch = useSurveyContextDispatch()
   const status = useStatusById(id)
-  const idle = useRef(status === Status.idle)
+  const [idle, setIdle] = useState(status === Status.idle)
   const statusDispatch = useStatusContextDispatch()
 
   const isApproved = testIsApproved(question)
@@ -54,17 +54,15 @@ const NumberQuestion = ({ id }: Props) => {
             index,
           },
         })
-        idle.current = false
+        if (idle) setIdle(false)
       }
     },
-    [dispatch, id]
+    [dispatch, id, idle]
   )
 
-  console.log('question', question)
-
   useEffect(() => {
-    if (question && !idle.current) updateStatus(question, statusDispatch)
-  }, [isApproved, question, status, statusDispatch])
+    if (question && !idle) updateStatus(question, statusDispatch)
+  }, [idle, isApproved, question, status, statusDispatch])
 
   if (!question) return
   const variants = question.variants as INumberVariant[]
