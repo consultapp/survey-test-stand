@@ -44,7 +44,7 @@ export const CompleteComponent = ({ root }: Props) => {
   )
 
   const fireTryCompleteEventTestBtn = useCallback(() => {
-    log('TryCompleteEvent dispatched')
+    log('TryCompleteEvent dispatched' + root)
     if (root)
       root.dispatchEvent(
         new CustomEvent('TryCompleteEvent', {
@@ -57,11 +57,13 @@ export const CompleteComponent = ({ root }: Props) => {
 
   useEffect(() => {
     const currentController = new AbortController()
-    if (root)
+    if (root) {
+      console.log('TryCompleteEvent: event added', currentController)
+
       root.addEventListener(
         'TryCompleteEvent',
         () => {
-          log('TryCompleteEvent caught')
+          log('TryCompleteEvent caught' + root)
           open()
           checkStatuses()
         },
@@ -69,8 +71,11 @@ export const CompleteComponent = ({ root }: Props) => {
           signal: currentController.signal,
         }
       )
-
-    return () => currentController.abort()
+    }
+    return () => {
+      console.log('TryCompleteEvent: event aborted', currentController)
+      currentController.abort()
+    }
   }, [checkStatuses, open, root])
 
   const errorCount = countErrors()
