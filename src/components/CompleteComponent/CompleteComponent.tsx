@@ -1,7 +1,7 @@
 import { Flex, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { Modal, Button } from '@mantine/core'
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useElmaCompleteCallback } from '@/context/ElmaContext/hooks'
 import { log } from '@/utils'
 import {
@@ -26,9 +26,18 @@ export const CompleteComponent = ({ root }: Props) => {
     close()
   }, [close, completeHandler])
 
+  const firstErrorId = useMemo(() => {
+    console.log('statuses', statuses)
+    return ''
+  }, [statuses])
+
   const rejectHandler = useCallback(() => {
     close()
-  }, [close])
+    console.log('firstErrorId', firstErrorId)
+    document
+      .getElementById(firstErrorId)
+      ?.scrollIntoView({ behavior: 'smooth' })
+  }, [close, firstErrorId])
 
   const checkStatuses = useCallback(() => {
     Object.entries(statusRef.current).forEach(([k, v]) => {
@@ -36,7 +45,7 @@ export const CompleteComponent = ({ root }: Props) => {
     })
   }, [dispatch])
 
-  const countErrors = useCallback(
+  const errorCount = useMemo(
     () =>
       Object.values(statuses).reduce(
         (acc, val) => acc + (val !== Status.approved ? 1 : 0),
@@ -79,8 +88,6 @@ export const CompleteComponent = ({ root }: Props) => {
       currentController.abort()
     }
   }, [checkStatuses, open, root])
-
-  const errorCount = countErrors()
 
   return (
     <>

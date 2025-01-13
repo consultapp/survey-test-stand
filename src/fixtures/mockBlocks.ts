@@ -53,7 +53,7 @@ export const mockBlocks: IQuestions = [
     name: 'Экспериментатор произвёл закладку клубней картофеля на зиму. Как изменились масса клубней и количество крахмала? ',
     type: 'slider',
     block: '00000',
-    sequence: 10,
+    sequence: 2,
     variants: [
       {
         to: 5,

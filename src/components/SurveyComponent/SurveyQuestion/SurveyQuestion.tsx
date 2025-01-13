@@ -27,6 +27,7 @@ export const SurveyQuestion = ({ id }: Props) => {
         status === Status.empty && styles.error,
         status === Status.approved && styles.approved
       )}
+      data-question-id={id}
     >
       <Stack>
         {name && <Text fw={700}>{name}</Text>}
