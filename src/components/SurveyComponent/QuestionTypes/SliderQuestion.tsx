@@ -2,7 +2,7 @@ import { useQuestion } from '@/context/SurveyContext/hooks'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { VariantsType } from '@/fixtures/variantsType'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Container, Slider } from '@mantine/core'
+import { Box, Container, Flex, Grid, Slider } from '@mantine/core'
 import {
   useStatusById,
   useStatusContextDispatch,
@@ -63,7 +63,10 @@ export const SliderQuestion = ({ id }: Props) => {
     }) as ISliderVariant[]
   )[0]
 
-  const labels = useMemo(
+  const labels: {
+    value: number
+    label: string | React.ReactElement
+  }[] = useMemo(
     () =>
       (variant.to - variant.from) / variant.step > 10
         ? variant.labels
@@ -76,15 +79,24 @@ export const SliderQuestion = ({ id }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [id]
   )
+
   variant.labels.forEach((item) => {
     const index = labels.findIndex((l) => l.value === item.value)
-    labels[index] = item
+    labels[index] = {
+      ...item,
+      label: (
+        <Flex direction="column" justify="center" gap="4px">
+          <Box style={{ textAlign: 'center' }}>{item.value}</Box>
+          <Box style={{ textAlign: 'center' }}>{item.label}</Box>
+        </Flex>
+      ),
+    }
   })
 
   const [value, setValue] = useState(variant.value)
 
   return (
-    <Container m="md" size="70%">
+    <Container m="md" size="70%" pb="md">
       <Slider
         value={value}
         step={variant.step}
