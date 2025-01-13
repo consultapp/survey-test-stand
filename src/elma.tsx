@@ -16,7 +16,13 @@ function reactRender({
   if (root)
     createRoot(root).render(
       <StrictMode>
-        <ElmaContext.Provider value={{ data, changeHandler, completeHandler }}>
+        <ElmaContext.Provider
+          value={{
+            data: data.sort((a, b) => a.sequence - b.sequence),
+            changeHandler,
+            completeHandler,
+          }}
+        >
           <StatusProvider
             statuses={
               Object.fromEntries(

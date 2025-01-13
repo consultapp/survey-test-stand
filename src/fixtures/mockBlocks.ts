@@ -349,7 +349,7 @@ export const mockBlocks: IQuestions = [
       },
     ],
     blockSequence: 0,
-    sequence: 5,
+    sequence: 6,
   },
 
   {
@@ -360,6 +360,6 @@ export const mockBlocks: IQuestions = [
     helper_text: '',
     variants: [{ text: '' }],
     blockSequence: 0,
-    sequence: 6,
+    sequence: 5,
   },
 ]
