@@ -1,15 +1,47 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import styles from './styles.module.scss'
 import { NumberInput, Stack } from '@mantine/core'
+import {
+  useStatusById,
+  useStatusContextDispatch,
+} from '@/context/StatusContext/hooks'
+import { Status } from '@/fixtures/status'
 
 type Props = { id: string }
+
+const updateStatus = (
+  question: IQuestion,
+  dispatch: ReturnType<typeof useStatusContextDispatch>
+) => {
+  if (testIsApproved(question)) {
+    dispatch({ type: Status.approved, payload: question.id })
+  } else {
+    dispatch({ type: Status.empty, payload: question.id })
+  }
+}
+
+const testIsApproved = (question: IQuestion | undefined) =>
+  question &&
+  (question.variants as INumberVariant[]).reduce(
+    (acc, item) => acc || Boolean(item.value),
+    false
+  ) &&
+  (question.variants as INumberVariant[]).reduce(
+    (acc, item) => acc + (item.value ?? 0),
+    0
+  ) === question.checksum
 
 const NumberQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
   const dispatch = useSurveyContextDispatch()
+  const status = useStatusById(id)
+  const idle = useRef(status === Status.idle)
+  const statusDispatch = useStatusContextDispatch()
+
+  const isApproved = testIsApproved(question)
 
   const handleChange = useCallback(
     (index: number) => {
@@ -22,10 +54,17 @@ const NumberQuestion = ({ id }: Props) => {
             index,
           },
         })
+        idle.current = false
       }
     },
     [dispatch, id]
   )
+
+  console.log('question', question)
+
+  useEffect(() => {
+    if (question && !idle.current) updateStatus(question, statusDispatch)
+  }, [isApproved, question, status, statusDispatch])
 
   if (!question) return
   const variants = question.variants as INumberVariant[]
@@ -42,7 +81,7 @@ const NumberQuestion = ({ id }: Props) => {
         <div className={styles.number} key={label}>
           <div>{label}</div>
           <NumberInput
-            value={value}
+            value={value ?? 0}
             onChange={handleChange(i)}
             suffix="%"
             error={
