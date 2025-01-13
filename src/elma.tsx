@@ -6,6 +6,7 @@ import { mockBlocks } from './fixtures/mockBlocks.ts'
 import { StatusProvider } from './context/StatusContext/StatusContext.tsx'
 import { Status } from './fixtures/status.ts'
 import { TStatusContext } from './context/StatusContext/index.ts'
+import { log } from './utils.ts'
 
 function reactRender({
   root,
@@ -13,12 +14,14 @@ function reactRender({
   changeHandler,
   completeHandler,
 }: ElmaProps) {
+  const sortedData = data.toSorted((a, b) => a.sequence - b.sequence)
+  log('sortedData', sortedData)
   if (root)
     createRoot(root).render(
       <StrictMode>
         <ElmaContext.Provider
           value={{
-            data: data.sort((a, b) => a.sequence - b.sequence),
+            data: sortedData,
             changeHandler,
             completeHandler,
           }}
