@@ -1,7 +1,7 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { Checkbox, Stack } from '@mantine/core'
 import { Status } from '@/fixtures/status'
 import {
@@ -34,6 +34,7 @@ const CheckboxQuestion = ({ id }: Props) => {
   const dispatch = useSurveyContextDispatch()
   const status = useStatusById(id)
   const statusDispatch = useStatusContextDispatch()
+  const idle = useRef(status === Status.idle)
 
   const isApproved = testIsApproved(question)
 
@@ -48,16 +49,14 @@ const CheckboxQuestion = ({ id }: Props) => {
             index,
           },
         })
-        if (status === Status.idle)
-          statusDispatch({ type: Status.empty, payload: id })
+        idle.current = false
       }
     },
-    [dispatch, id, status, statusDispatch]
+    [dispatch, id]
   )
 
   useEffect(() => {
-    if (question && status !== Status.idle)
-      updateStatus(question, statusDispatch)
+    if (question && !idle.current) updateStatus(question, statusDispatch)
   }, [isApproved, question, status, statusDispatch])
 
   if (!question) return

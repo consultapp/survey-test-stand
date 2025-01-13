@@ -1,7 +1,7 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { Radio, Stack } from '@mantine/core'
 import {
   useStatusById,
@@ -34,13 +34,12 @@ const RadioQuestion = ({ id }: Props) => {
   const dispatch = useSurveyContextDispatch()
   const status = useStatusById(id)
   const statusDispatch = useStatusContextDispatch()
+  const idle = useRef(status === Status.idle)
 
   const isApproved = testIsApproved(question)
 
   const handleChange = useCallback(
     (value: string | number) => {
-      if (status === Status.idle)
-        statusDispatch({ type: Status.empty, payload: id })
       dispatch({
         type: `set${VariantsType.radio}Value`,
         payload: {
@@ -48,13 +47,13 @@ const RadioQuestion = ({ id }: Props) => {
           value,
         },
       })
+      idle.current = false
     },
-    [dispatch, id, status, statusDispatch]
+    [dispatch, id]
   )
 
   useEffect(() => {
-    if (question && status !== Status.idle)
-      updateStatus(question, statusDispatch)
+    if (question && !idle.current) updateStatus(question, statusDispatch)
   }, [isApproved, question, status, statusDispatch])
 
   if (!question) return
