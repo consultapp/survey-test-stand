@@ -2,7 +2,10 @@ import { Flex, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { Modal, Button } from '@mantine/core'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
-import { useElmaCompleteCallback } from '@/context/ElmaContext/hooks'
+import {
+  useElmaCompleteCallback,
+  useElmaDataOrder,
+} from '@/context/ElmaContext/hooks'
 import { log } from '@/utils'
 import {
   useStatusContext,
@@ -17,6 +20,8 @@ export const CompleteComponent = ({ root }: Props) => {
   const completeHandler = useElmaCompleteCallback()
   const statuses = useStatusContext()
   const dispatch = useStatusContextDispatch()
+  const questionOrder = useElmaDataOrder()
+
   const statusRef = useRef(statuses)
   statusRef.current = statuses
 
@@ -26,18 +31,24 @@ export const CompleteComponent = ({ root }: Props) => {
     close()
   }, [close, completeHandler])
 
-  const firstErrorId = useMemo(() => {
-    console.log('statuses', statuses)
-    return ''
-  }, [statuses])
+  const scrollToFirstError = useCallback(() => {
+    const errors = Object.entries(statusRef.current)
+      .filter((item) => item[1] !== Status.approved)
+      .map((item) => item[0])
+    for (let i = 0; i < questionOrder.length; i++) {
+      if (errors.includes(questionOrder[i])) {
+        const selector = `[data-question-id="${questionOrder[i]}"]`
+        document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth' })
+        return
+      }
+    }
+    return
+  }, [questionOrder])
 
   const rejectHandler = useCallback(() => {
     close()
-    console.log('firstErrorId', firstErrorId)
-    document
-      .getElementById(firstErrorId)
-      ?.scrollIntoView({ behavior: 'smooth' })
-  }, [close, firstErrorId])
+    scrollToFirstError()
+  }, [close, scrollToFirstError])
 
   const checkStatuses = useCallback(() => {
     Object.entries(statusRef.current).forEach(([k, v]) => {
@@ -69,7 +80,7 @@ export const CompleteComponent = ({ root }: Props) => {
   useEffect(() => {
     const currentController = new AbortController()
     if (root) {
-      console.log('TryCompleteEvent: event added', currentController)
+      log('TryCompleteEvent: event added', currentController)
 
       root.addEventListener(
         'TryCompleteEvent',
@@ -84,7 +95,7 @@ export const CompleteComponent = ({ root }: Props) => {
       )
     }
     return () => {
-      console.log('TryCompleteEvent: event aborted', currentController)
+      log('TryCompleteEvent: event aborted', currentController)
       currentController.abort()
     }
   }, [checkStatuses, open, root])

@@ -1,5 +1,6 @@
 import { createTheme } from '@mantine/core'
 import { generateColors } from '@mantine/colors-generator'
+import { log } from '@/utils'
 
 const ff = window
   .getComputedStyle(document.body, null)
@@ -19,4 +20,4 @@ export const theme = createTheme({
   },
 })
 
-console.log('theme', theme)
+log('theme', theme)
