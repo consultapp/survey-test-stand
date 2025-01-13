@@ -1,7 +1,7 @@
 import { Flex, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { Modal, Button } from '@mantine/core'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { useElmaCompleteCallback } from '@/context/ElmaContext/hooks'
 import { log } from '@/utils'
 import {
@@ -17,6 +17,8 @@ export const CompleteComponent = ({ root }: Props) => {
   const completeHandler = useElmaCompleteCallback()
   const statuses = useStatusContext()
   const dispatch = useStatusContextDispatch()
+  const statusRef = useRef(statuses)
+  statusRef.current = statuses
 
   const submitHandler = useCallback(() => {
     log('Completed')
@@ -29,10 +31,10 @@ export const CompleteComponent = ({ root }: Props) => {
   }, [close])
 
   const checkStatuses = useCallback(() => {
-    Object.entries(statuses).forEach(([k, v]) => {
+    Object.entries(statusRef.current).forEach(([k, v]) => {
       if (v === Status.idle) dispatch({ type: Status.empty, payload: k })
     })
-  }, [dispatch, statuses])
+  }, [dispatch])
 
   const countErrors = useCallback(
     () =>
