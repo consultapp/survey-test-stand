@@ -2,12 +2,13 @@ import { useQuestion } from '@/context/SurveyContext/hooks'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { VariantsType } from '@/fixtures/variantsType'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Box, Container, Flex, Slider } from '@mantine/core'
+import { Container, Slider } from '@mantine/core'
 import {
   useStatusById,
   useStatusContextDispatch,
 } from '@/context/StatusContext/hooks'
 import { Status } from '@/fixtures/status'
+import { SliderLabelComponent } from '@/components/SliderLabelComponent/SliderLabelComponent'
 
 type Props = { id: string }
 
@@ -83,20 +84,17 @@ export const SliderQuestion = ({ id }: Props) => {
     const index = labels.findIndex((l) => l.value === item.value)
     labels[index] = {
       ...item,
-      label: (
-        <Flex direction="column" justify="center" gap="4px">
-          <Box style={{ textAlign: 'center' }}>{item.value}</Box>
-          <Box style={{ textAlign: 'center' }}>{item.label}</Box>
-        </Flex>
-      ),
+      label: <SliderLabelComponent label={item.label} value={item.value} />,
     }
   })
 
   const [value, setValue] = useState(variant.value)
 
   return (
-    <Container m="md" size="70%" pb="md">
+    <Container m="md" size="70%" pb="lg">
       <Slider
+        ml="lg"
+        mb="md"
         value={value}
         step={variant.step}
         marks={labels}

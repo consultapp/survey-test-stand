@@ -15,7 +15,7 @@ export const mockBlocks: IQuestions = [
         labels: [
           {
             value: 0,
-            label: 'Матовая',
+            label: 'Матовая очень много текста еще зачем-то тут написали',
           },
           {
             value: 10,
