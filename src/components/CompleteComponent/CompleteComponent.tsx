@@ -72,17 +72,17 @@ export const CompleteComponent = ({ root }: Props) => {
     [calculateErrorsCount, statuses]
   )
 
-  const fireTryCompleteEventTestBtn = useCallback(() => {
-    log('TryCompleteEvent dispatched' + root)
-    if (root)
-      root.dispatchEvent(
-        new CustomEvent('TryCompleteEvent', {
-          detail: {
-            id: 'rootId',
-          },
-        })
-      )
-  }, [root])
+  // const fireTryCompleteEventTestBtn = useCallback(() => {
+  //   log('TryCompleteEvent dispatched' + root)
+  //   if (root)
+  //     root.dispatchEvent(
+  //       new CustomEvent('TryCompleteEvent', {
+  //         detail: {
+  //           id: 'rootId',
+  //         },
+  //       })
+  //     )
+  // }, [root])
 
   useEffect(() => {
     const currentController = new AbortController()
@@ -106,7 +106,7 @@ export const CompleteComponent = ({ root }: Props) => {
       log('TryCompleteEvent: event aborted', currentController)
       currentController.abort()
     }
-  }, [checkStatuses, open, root])
+  }, [checkStatuses, open, root, submitHandler])
 
   return (
     <>
@@ -129,9 +129,9 @@ export const CompleteComponent = ({ root }: Props) => {
           </Flex>
         </Flex>
       </Modal>
-      <Button variant="default" onClick={fireTryCompleteEventTestBtn}>
+      {/* <Button variant="default" onClick={fireTryCompleteEventTestBtn}>
         Dispatch Test Complete Event
-      </Button>
+      </Button> */}
     </>
   )
 }
