@@ -25,12 +25,6 @@ export const CompleteComponent = ({ root }: Props) => {
   const statusRef = useRef(statuses)
   statusRef.current = statuses
 
-  const submitHandler = useCallback(() => {
-    log('Completed')
-    completeHandler()
-    close()
-  }, [close, completeHandler])
-
   const scrollToFirstError = useCallback(() => {
     const errors = Object.entries(statusRef.current)
       .filter((item) => item[1] !== Status.approved)
@@ -45,24 +39,37 @@ export const CompleteComponent = ({ root }: Props) => {
     return
   }, [questionOrder])
 
+  const submitHandler = useCallback(() => {
+    log('Completed')
+    completeHandler()
+    close()
+  }, [close, completeHandler])
+
   const rejectHandler = useCallback(() => {
     close()
     scrollToFirstError()
   }, [close, scrollToFirstError])
 
+  const calculateErrorsCount = useCallback(
+    (s: ReturnType<typeof useStatusContext>) =>
+      Object.values(s).reduce(
+        (acc, val) => acc + (val !== Status.approved ? 1 : 0),
+        0
+      ),
+    []
+  )
+
   const checkStatuses = useCallback(() => {
     Object.entries(statusRef.current).forEach(([k, v]) => {
       if (v === Status.idle) dispatch({ type: Status.empty, payload: k })
     })
-  }, [dispatch])
+
+    return calculateErrorsCount(statusRef.current)
+  }, [calculateErrorsCount, dispatch])
 
   const errorCount = useMemo(
-    () =>
-      Object.values(statuses).reduce(
-        (acc, val) => acc + (val !== Status.approved ? 1 : 0),
-        0
-      ),
-    [statuses]
+    () => calculateErrorsCount(statuses),
+    [calculateErrorsCount, statuses]
   )
 
   const fireTryCompleteEventTestBtn = useCallback(() => {
@@ -86,8 +93,9 @@ export const CompleteComponent = ({ root }: Props) => {
         'TryCompleteEvent',
         () => {
           log('TryCompleteEvent caught' + root)
-          open()
-          checkStatuses()
+          const errors = checkStatuses()
+          if (errors > 0) open()
+          else submitHandler()
         },
         {
           signal: currentController.signal,
