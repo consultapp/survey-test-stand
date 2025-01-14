@@ -16,6 +16,7 @@ const SliderLabelComponent = ({ label, value }: Props) => {
           overflow: 'hidden',
           textWrap: 'wrap',
           textOverflow: 'ellipsis',
+          textAlign: 'center',
         }}
       >
         {label}
