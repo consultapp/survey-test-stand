@@ -72,18 +72,6 @@ export const CompleteComponent = ({ root }: Props) => {
     [calculateErrorsCount, statuses]
   )
 
-  // const fireTryCompleteEventTestBtn = useCallback(() => {
-  //   log('TryCompleteEvent dispatched' + root)
-  //   if (root)
-  //     root.dispatchEvent(
-  //       new CustomEvent('TryCompleteEvent', {
-  //         detail: {
-  //           id: 'rootId',
-  //         },
-  //       })
-  //     )
-  // }, [root])
-
   useEffect(() => {
     const currentController = new AbortController()
     if (root) {
@@ -109,30 +97,25 @@ export const CompleteComponent = ({ root }: Props) => {
   }, [checkStatuses, open, root, submitHandler])
 
   return (
-    <>
-      <Modal
-        opened={opened}
-        onClose={close}
-        title="Завершить незаконченный тест?"
-        centered
-        zIndex={1060}
-      >
-        <Flex direction="column" gap="xs">
-          {errorCount && (
-            <Text>{`Незаполненных вопросов: ${errorCount} шт.`}</Text>
-          )}
-          <Flex gap="xs">
-            <Button onClick={submitHandler}>Да</Button>
-            <Button onClick={rejectHandler} variant="outline">
-              Нет
-            </Button>
-          </Flex>
+    <Modal
+      opened={opened}
+      onClose={close}
+      title="Завершить незаконченный тест?"
+      centered
+      zIndex={1060}
+    >
+      <Flex direction="column" gap="xs">
+        {errorCount && (
+          <Text>{`Незаполненных вопросов: ${errorCount} шт.`}</Text>
+        )}
+        <Flex gap="xs">
+          <Button onClick={submitHandler}>Да</Button>
+          <Button onClick={rejectHandler} variant="outline">
+            Нет
+          </Button>
         </Flex>
-      </Modal>
-      {/* <Button variant="default" onClick={fireTryCompleteEventTestBtn}>
-        Dispatch Test Complete Event
-      </Button> */}
-    </>
+      </Flex>
+    </Modal>
   )
 }
 
