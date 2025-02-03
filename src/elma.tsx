@@ -16,7 +16,15 @@ function reactRender({
   completeHandler,
 }: ElmaProps) {
   const sortedData = data.toSorted((a, b) => a.sequence - b.sequence)
+  const statuses = Object.fromEntries(
+    data.map((item) => [
+      item.id,
+      testIsApproved(item) ? Status.approved : Status.idle,
+    ])
+  ) as TStatusContext
+
   log('sortedData', sortedData)
+
   if (root)
     createRoot(root).render(
       <StrictMode>
@@ -27,16 +35,7 @@ function reactRender({
             completeHandler,
           }}
         >
-          <StatusProvider
-            statuses={
-              Object.fromEntries(
-                data.map((item) => [
-                  item.id,
-                  testIsApproved(item) ? Status.approved : Status.idle,
-                ])
-              ) as TStatusContext
-            }
-          >
+          <StatusProvider statuses={statuses}>
             <App root={root} />
           </StatusProvider>
         </ElmaContext.Provider>

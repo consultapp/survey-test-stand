@@ -61,14 +61,7 @@ export const CompleteComponent = ({ root }: Props) => {
 
   const fireTryCompleteEventTestBtn = useCallback(() => {
     log('TryCompleteEvent dispatched' + root)
-    if (root)
-      root.dispatchEvent(
-        new CustomEvent('TryCompleteEvent', {
-          detail: {
-            id: 'rootId',
-          },
-        })
-      )
+    if (root) root.dispatchEvent(new CustomEvent('TryCompleteEvent'))
   }, [root])
 
   const checkStatuses = useCallback(() => {
@@ -93,8 +86,7 @@ export const CompleteComponent = ({ root }: Props) => {
         'TryCompleteEvent',
         () => {
           log('TryCompleteEvent caught' + root)
-          const errors = checkStatuses()
-          if (errors > 0) open()
+          if (checkStatuses() > 0) open()
           else submitHandler()
         },
         {
@@ -106,7 +98,8 @@ export const CompleteComponent = ({ root }: Props) => {
       log('TryCompleteEvent: event aborted', currentController)
       currentController.abort()
     }
-  }, [checkStatuses, open, root, submitHandler])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [root])
 
   return (
     <>
