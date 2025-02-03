@@ -1,28 +1,27 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
-import { ChangeEventHandler, useCallback } from 'react'
+import { ChangeEventHandler, useCallback, useEffect, useState } from 'react'
 import { Textarea } from '@mantine/core'
-import { useStatusContextDispatch } from '@/context/StatusContext/hooks'
+import {
+  useStatusById,
+  useStatusContextDispatch,
+  useUpdateStatus,
+} from '@/context/StatusContext/hooks'
 import { Status } from '@/fixtures/status'
+import { testIsApproved } from '@/context/StatusContext/functions'
 
 type Props = { id: string }
 
 const TextQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
   const dispatch = useSurveyContextDispatch()
+  const status = useStatusById(id)
   const statusDispatch = useStatusContextDispatch()
+  const [idle, setIdle] = useState(status === Status.idle)
+  const updateStatus = useUpdateStatus()
 
-  const checkStatus = useCallback(
-    (value: string) => {
-      if (value.trim()) {
-        statusDispatch({ type: Status.approved, payload: id })
-      } else {
-        statusDispatch({ type: Status.empty, payload: id })
-      }
-    },
-    [id, statusDispatch]
-  )
+  const isApproved = testIsApproved(question)
 
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
     ({ target }) => {
@@ -33,10 +32,15 @@ const TextQuestion = ({ id }: Props) => {
           value: target.value,
         },
       })
-      checkStatus(target.value)
+      if (idle) setIdle(false)
     },
-    [checkStatus, dispatch, id]
+    [dispatch, id, idle]
   )
+
+  useEffect(() => {
+    if (question && !idle) updateStatus(question, statusDispatch)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isApproved, idle])
 
   if (!question) return
   const { text } = (question.variants as ITextVariant[])[0]

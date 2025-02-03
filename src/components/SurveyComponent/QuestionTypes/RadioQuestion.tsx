@@ -6,28 +6,12 @@ import { Radio, Stack } from '@mantine/core'
 import {
   useStatusById,
   useStatusContextDispatch,
+  useUpdateStatus,
 } from '@/context/StatusContext/hooks'
 import { Status } from '@/fixtures/status'
+import { testIsApproved } from '@/context/StatusContext/functions'
 
 type Props = { id: string }
-
-const updateStatus = (
-  question: IQuestion,
-  dispatch: ReturnType<typeof useStatusContextDispatch>
-) => {
-  if (testIsApproved(question)) {
-    dispatch({ type: Status.approved, payload: question.id })
-  } else {
-    dispatch({ type: Status.empty, payload: question.id })
-  }
-}
-
-const testIsApproved = (question: IQuestion | undefined) =>
-  question &&
-  (question.variants as ICheckVariant[]).reduce(
-    (acc, item) => acc || Boolean(item.value),
-    false
-  )
 
 const RadioQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
@@ -35,6 +19,7 @@ const RadioQuestion = ({ id }: Props) => {
   const status = useStatusById(id)
   const statusDispatch = useStatusContextDispatch()
   const [idle, setIdle] = useState(status === Status.idle)
+  const updateStatus = useUpdateStatus()
 
   const isApproved = testIsApproved(question)
 
@@ -54,7 +39,8 @@ const RadioQuestion = ({ id }: Props) => {
 
   useEffect(() => {
     if (question && !idle) updateStatus(question, statusDispatch)
-  }, [idle, isApproved, question, status, statusDispatch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isApproved, idle])
 
   if (!question) return
   const variants = question.variants as IRadioVariant[]

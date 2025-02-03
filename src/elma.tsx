@@ -7,6 +7,7 @@ import { StatusProvider } from './context/StatusContext/StatusContext.tsx'
 import { Status } from './fixtures/status.ts'
 import { TStatusContext } from './context/StatusContext/index.ts'
 import { log } from './utils.ts'
+import { testIsApproved } from '@/context/StatusContext/functions'
 
 function reactRender({
   root,
@@ -29,7 +30,10 @@ function reactRender({
           <StatusProvider
             statuses={
               Object.fromEntries(
-                data.map((item) => [item.id, Status.idle])
+                data.map((item) => [
+                  item.id,
+                  testIsApproved(item) ? Status.approved : Status.idle,
+                ])
               ) as TStatusContext
             }
           >

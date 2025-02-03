@@ -358,7 +358,7 @@ export const mockBlocks: IQuestions = [
     type: 'text',
     name: 'Какой-то текст',
     helper_text: '',
-    variants: [{ text: '' }],
+    variants: [{ text: 'абвгде' }],
     blockSequence: 0,
     sequence: 5,
   },
