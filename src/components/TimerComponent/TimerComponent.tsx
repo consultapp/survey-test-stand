@@ -51,7 +51,12 @@ export const TimerComponent = ({ id }: Props) => {
   if (!question?.timer) return
 
   return (
-    <Flex direction="row" gap="xs" align="center">
+    <Flex
+      direction="row"
+      gap="xs"
+      align="center"
+      style={{ placeSelf: 'baseline' }}
+    >
       <Text>{getTimerText(t)}</Text>
       <Button
         size="xs"
