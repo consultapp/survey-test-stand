@@ -2,10 +2,11 @@ import { useQuestion } from '@/context/SurveyContext/hooks'
 
 import styles from './styles.module.scss'
 import { QuestionTypes } from '../QuestionTypes'
-import { Stack, Text } from '@mantine/core'
+import { Flex, Stack, Text } from '@mantine/core'
 import classNames from 'classnames'
 import { useStatusById } from '@/context/StatusContext/hooks'
 import { Status } from '@/fixtures/status'
+import { TimerComponent } from '@/components/TimerComponent/TimerComponent'
 
 type Props = { id: string }
 
@@ -29,10 +30,14 @@ export const SurveyQuestion = ({ id }: Props) => {
       )}
       data-question-id={id}
     >
-      <Stack>
-        {name && <Text fw={700}>{name}</Text>}
-        {helper_text && <Text size="sm">{helper_text}</Text>}
-      </Stack>
+      <Flex gap="md" justify="space-between" direction="row">
+        <Stack>
+          {name && <Text fw={700}>{name}</Text>}
+          {helper_text && <Text size="sm">{helper_text}</Text>}
+        </Stack>
+        <TimerComponent id={id} />
+      </Flex>
+
       <Stack p="1rem">
         {QuestionTypes[type] && <QuestionComponent id={id} />}
       </Stack>

@@ -6,12 +6,16 @@ export const mockBlocks: IQuestions = [
     name: 'Блеск',
     helper_text: 'Оцените блеск продукта',
     sequence: 1,
+    timer: {
+      maxDuration: 10,
+      type: 'countdown', // countdown | timer
+    },
     variants: [
       {
         from: 0,
         to: 10,
         step: 5,
-        value: 0,
+        value: undefined,
         labels: [
           {
             value: 0,
@@ -26,27 +30,27 @@ export const mockBlocks: IQuestions = [
     ],
     blockSequence: 0,
   },
-  {
-    id: '0193cf95-47fe-7a5a-8510-763f591f4e70',
-    block: '0193b214-2c9e-7530-b99a-1e5220268a7e',
-    type: 'number',
-    name: 'num q',
-    helper_text: '==',
-    sequence: 2,
-    variants: [
-      {
-        label: 'v1',
-      },
-      {
-        label: 'v2',
-      },
-      {
-        label: 'v3',
-      },
-    ],
-    checksum: 97,
-    blockSequence: 0,
-  },
+  // {
+  //   id: '0193cf95-47fe-7a5a-8510-763f591f4e70',
+  //   block: '0193b214-2c9e-7530-b99a-1e5220268a7e',
+  //   type: 'number',
+  //   name: 'num q',
+  //   helper_text: '==',
+  //   sequence: 2,
+  //   variants: [
+  //     {
+  //       label: 'v1',
+  //     },
+  //     {
+  //       label: 'v2',
+  //     },
+  //     {
+  //       label: 'v3',
+  //     },
+  //   ],
+  //   checksum: 97,
+  //   blockSequence: 0,
+  // },
 
   {
     id: '0193b121-5dca-7a2c-b55e-6b128f799a77',
@@ -59,7 +63,7 @@ export const mockBlocks: IQuestions = [
         to: 5,
         from: 1,
         step: 1,
-        value: 3,
+        value: undefined,
         labels: [
           {
             label: 'Отвратительно',
@@ -79,6 +83,10 @@ export const mockBlocks: IQuestions = [
     helper_text:
       'Для каждой величины определите соответствующий характер её изменения.',
     blockSequence: 0,
+    timer: {
+      // maxDuration: 10,
+      type: 'timer', // countdown | timer
+    },
   },
   // {
   //   id: '0193b127-6bc7-7a2c-b520-51f45251460b',
