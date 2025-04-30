@@ -3,6 +3,7 @@ type VariantsType = 'slider' | 'number' | 'checkbox' | 'radio' | 'text'
 type ElmaProps = {
   root: HTMLDivElement | null
   data?: IQuestions
+  timer?: ITimer
   changeHandler?: (data: IQuestions) => void
   completeHandler?: () => void
 }

@@ -8,10 +8,12 @@ import { Status } from './fixtures/status.ts'
 import { TStatusContext } from './context/StatusContext/index.ts'
 import { log } from './utils.ts'
 import { testIsApproved } from '@/context/StatusContext/functions'
+import { TimerContext } from './context/TimerContext/index.ts'
 
 function reactRender({
   root,
   data = mockBlocks,
+  timer,
   changeHandler,
   completeHandler,
 }: ElmaProps) {
@@ -35,9 +37,11 @@ function reactRender({
             completeHandler,
           }}
         >
-          <StatusProvider statuses={statuses}>
-            <App root={root} />
-          </StatusProvider>
+          <TimerContext.Provider value={timer}>
+            <StatusProvider statuses={statuses}>
+              <App root={root} />
+            </StatusProvider>
+          </TimerContext.Provider>
         </ElmaContext.Provider>
       </StrictMode>
     )

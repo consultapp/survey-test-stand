@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { TimerContext } from '.'
 
 export function useTimerContext() {
-  return useContext(TimerContext)
+  return useContext(TimerContext) ?? {}
 }
 
 export function useTimerData() {

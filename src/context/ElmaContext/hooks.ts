@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react'
+import { useCallback, useContext, useMemo } from 'react'
 import { ElmaContext } from '.'
 
 export function useElmaContext() {
@@ -11,8 +11,7 @@ export function useElmaData(): IQuestions {
 
 export function useElmaDataOrder(): ID[] {
   const data = useElmaData()
-  const order = useMemo(() => data?.map((item) => item.id), [data])
-  return order
+  return useMemo(() => data?.map((item) => item.id), [data])
 }
 
 export function useElmaCallback() {
@@ -37,8 +36,11 @@ export function useUpdateElmaDataQuestions() {
   // const data = useElmaData()
   const cb = useElmaCallback()
 
-  return (q: IQuestions) => {
-    // data.forEach((_, i) => (data[i] = q[i]))
-    cb(q)
-  }
+  return useCallback(
+    (q: IQuestions) => {
+      // data.forEach((_, i) => (data[i] = q[i]))
+      cb(q)
+    },
+    [cb]
+  )
 }

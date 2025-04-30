@@ -1,6 +1,7 @@
+import { useMemo } from 'react'
 import { useSurveyContext } from '.'
 
 export function useQuestion(id: ID): IQuestion | undefined {
   const ctx = useSurveyContext()
-  return ctx.find((item) => item.id === id)
+  return useMemo(() => ctx.find((item) => item.id === id), [ctx, id])
 }
