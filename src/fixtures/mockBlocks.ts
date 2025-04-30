@@ -6,15 +6,11 @@ export const mockBlocks: IQuestions = [
     name: 'Блеск',
     helper_text: 'Оцените блеск продукта',
     sequence: 1,
-    timer: {
-      maxDuration: 10,
-      type: 'countdown', // countdown | timer
-    },
     variants: [
       {
         from: 0,
-        to: 10,
-        step: 5,
+        to: 15,
+        step: 1,
         value: undefined,
         labels: [
           {
@@ -22,7 +18,7 @@ export const mockBlocks: IQuestions = [
             label: 'Матовая очень много текста еще зачем-то тут написали',
           },
           {
-            value: 10,
+            value: 15,
             label: 'Блестящая',
           },
         ],
@@ -83,10 +79,6 @@ export const mockBlocks: IQuestions = [
     helper_text:
       'Для каждой величины определите соответствующий характер её изменения.',
     blockSequence: 0,
-    timer: {
-      // maxDuration: 10,
-      type: 'timer', // countdown | timer
-    },
   },
   // {
   //   id: '0193b127-6bc7-7a2c-b520-51f45251460b',

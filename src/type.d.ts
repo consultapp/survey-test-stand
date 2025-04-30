@@ -34,12 +34,13 @@ interface IQuestion {
     | ITextVariant[]
   checksum?: number // если вопрос типа 'number' и нужно выполнить валидацию, что сумма чисел равна определенному значению
   blockSequence: number
-  timer?: ITimer
 }
 
+type TSeconds = number
 interface ITimer {
-  maxDuration?: number
-  type: 'countdown' | 'timer'
+  time?: TSeconds
+  description?: string
+  saveCallback?: (time: TSeconds) => void
 }
 
 interface ISliderVariant {

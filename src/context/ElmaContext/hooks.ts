@@ -34,11 +34,11 @@ export function useElmaCompleteCallback() {
 }
 
 export function useUpdateElmaDataQuestions() {
-  const data = useElmaData()
+  // const data = useElmaData()
   const cb = useElmaCallback()
 
   return (q: IQuestions) => {
-    data.forEach((_, i) => (data[i] = q[i]))
+    // data.forEach((_, i) => (data[i] = q[i]))
     cb(q)
   }
 }

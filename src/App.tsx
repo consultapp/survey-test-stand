@@ -4,6 +4,7 @@ import { SurveyComponent } from './components/SurveyComponent'
 import { useElmaData } from './context/ElmaContext/hooks'
 import CompleteComponent from './components/CompleteComponent/CompleteComponent'
 import './styles.css'
+import { TimerComponent } from './components/TimerComponent/TimerComponent'
 
 function App({ root }: { root: HTMLDivElement | null }) {
   const data = useElmaData()
@@ -14,10 +15,9 @@ function App({ root }: { root: HTMLDivElement | null }) {
       forceColorScheme="light"
       theme={theme}
     >
-      <>
-        <SurveyComponent questions={data} key={`SurveyComponent`} />
-        <CompleteComponent root={root} />
-      </>
+      <TimerComponent />
+      <SurveyComponent questions={data} key={`SurveyComponent`} />
+      <CompleteComponent root={root} />
     </MantineProvider>
   )
 }

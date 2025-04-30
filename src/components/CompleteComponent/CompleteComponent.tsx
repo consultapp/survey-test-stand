@@ -59,10 +59,10 @@ export const CompleteComponent = ({ root }: Props) => {
     []
   )
 
-  // const fireTryCompleteEventTestBtn = useCallback(() => {
-  //   log('TryCompleteEvent dispatched' + root)
-  //   if (root) root.dispatchEvent(new CustomEvent('TryCompleteEvent'))
-  // }, [root])
+  const fireTryCompleteEventTestBtn = useCallback(() => {
+    log('TryCompleteEvent dispatched' + root)
+    if (root) root.dispatchEvent(new CustomEvent('TryCompleteEvent'))
+  }, [root])
 
   const checkStatuses = useCallback(() => {
     Object.entries(statusRef.current).forEach(([k, v]) => {
@@ -122,9 +122,9 @@ export const CompleteComponent = ({ root }: Props) => {
           </Flex>
         </Flex>
       </Modal>
-      {/* <Button variant="default" onClick={fireTryCompleteEventTestBtn}>
+      <Button variant="default" onClick={fireTryCompleteEventTestBtn}>
         Dispatch Test Complete Event
-      </Button> */}
+      </Button>
     </>
   )
 }
