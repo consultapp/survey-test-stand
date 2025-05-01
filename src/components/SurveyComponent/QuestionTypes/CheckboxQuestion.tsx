@@ -2,7 +2,7 @@ import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
 import { useCallback, useEffect, useState } from 'react'
-import { Checkbox, Stack } from '@mantine/core'
+import { Checkbox, Grid } from '@mantine/core'
 import { Status } from '@/fixtures/status'
 import {
   useStatusById,
@@ -10,6 +10,7 @@ import {
   useUpdateStatus,
 } from '@/context/StatusContext/hooks'
 import { testIsApproved } from '@/context/StatusContext/functions'
+import { VariantLabel } from '../VariantLabel/VariantLabel'
 
 type Props = { id: string }
 
@@ -49,16 +50,25 @@ const CheckboxQuestion = ({ id }: Props) => {
   const variants = question.variants as ICheckVariant[]
 
   return (
-    <Stack gap="1rem">
+    <Grid gutter="sm">
       {variants.map(({ label, value }, i) => (
-        <Checkbox
-          checked={!!value}
-          onChange={handleChange(i)}
-          label={label}
-          key={label}
-        />
+        <Grid.Col key={label} span={2}>
+          <Checkbox
+            checked={Boolean(value)}
+            onChange={handleChange(i)}
+            label={<VariantLabel label={label} isChecked={Boolean(value)} />}
+            styles={{
+              input: {
+                display: 'none', // Скрываем стандартный чекбокс
+              },
+              labelWrapper: {
+                width: '100%',
+              },
+            }}
+          />
+        </Grid.Col>
       ))}
-    </Stack>
+    </Grid>
   )
 }
 

@@ -2,7 +2,7 @@ import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
 import { useCallback, useEffect, useState } from 'react'
-import { Radio, Stack } from '@mantine/core'
+import { Grid, Radio } from '@mantine/core'
 import {
   useStatusById,
   useStatusContextDispatch,
@@ -10,6 +10,7 @@ import {
 } from '@/context/StatusContext/hooks'
 import { Status } from '@/fixtures/status'
 import { testIsApproved } from '@/context/StatusContext/functions'
+import { VariantLabel } from '../VariantLabel/VariantLabel'
 
 type Props = { id: string }
 
@@ -47,11 +48,24 @@ const RadioQuestion = ({ id }: Props) => {
   const checked = variants.find((item) => item.value === true)?.label ?? ''
   return (
     <Radio.Group value={checked} withAsterisk onChange={handleChange}>
-      <Stack gap="sm">
+      <Grid gutter="sm">
         {variants.map(({ label }) => (
-          <Radio label={label} value={label} key={label} />
+          <Grid.Col key={label} span={2}>
+            <Radio
+              label={
+                <VariantLabel label={label} isChecked={checked === label} />
+              }
+              value={label}
+              styles={{
+                radio: { display: 'none' },
+                labelWrapper: {
+                  width: '100%',
+                },
+              }}
+            />
+          </Grid.Col>
         ))}
-      </Stack>
+      </Grid>
     </Radio.Group>
   )
 }
