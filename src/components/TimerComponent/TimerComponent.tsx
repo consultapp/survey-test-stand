@@ -125,6 +125,7 @@ export const TimerComponent = (): JSX.Element | null => {
     root: null,
     threshold: 0.1,
   })
+  const timerTimeRef = useRef<number>(time)
 
   const startTimer = useCallback((): void => {
     setIsRunning(true)
@@ -136,12 +137,14 @@ export const TimerComponent = (): JSX.Element | null => {
   useEffect(() => {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
-      saveTimer(time)
+      if (timerTimeRef) saveTimer(timerTimeRef.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
+    timerTimeRef.current = time
+
     if (time % 10 === 9) saveTimer(time)
   }, [saveTimer, time])
 
