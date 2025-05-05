@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
-const libName = 'SurveyLibThin'
+const libName = 'SurveySensorMarsSWLibThin'
 const useHash = false
 
 export default defineConfig({

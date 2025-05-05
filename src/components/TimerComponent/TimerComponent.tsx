@@ -43,7 +43,20 @@ export const TimerComponent = () => {
   if (!hasTimer) return
 
   return (
-    <Stack gap="xs" mb="sm">
+    <Stack
+      gap="xs"
+      mb="sm"
+      style={{
+        position: 'sticky',
+        background: 'transparent',
+        top: 10,
+        zIndex: 100,
+        // backgroundColor: 'var(--mantine-color-body)',
+        padding: '1rem',
+        marginTop: '-1rem', // to compensate for padding
+        placeSelf: 'end',
+      }}
+    >
       <Flex
         direction="row"
         gap="xs"
@@ -59,6 +72,7 @@ export const TimerComponent = () => {
             color="darkgreen"
             size="lg"
             disabled={isRunning}
+            bg="var(--mantine-color-body)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -81,11 +95,13 @@ export const TimerComponent = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            padding: '1rem',
-            fontSize: '2.5rem',
+            paddingInline: '1rem',
+            fontSize: '2.2rem',
             fontWeight: 600,
+            fontFamily: 'monospace',
             gap: '5px',
-            backgroundColor: 'var(--mantine-color-gray-light)',
+            background: 'var(--mantine-color-body)',
+            height: '50px',
           }}
         >
           <svg
@@ -93,10 +109,12 @@ export const TimerComponent = () => {
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            fill={isRunning ? 'darkgreen' : 'darkred'}
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
+            <path
+              d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z"
+              fill={isRunning ? 'darkgreen' : 'darkred'}
+            />
           </svg>
           {formatTime(time)}
         </Box>

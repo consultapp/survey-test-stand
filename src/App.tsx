@@ -1,4 +1,4 @@
-import { MantineProvider } from '@mantine/core'
+import { MantineProvider, Stack } from '@mantine/core'
 import { theme } from './fixtures/theme'
 import { SurveyComponent } from './components/SurveyComponent'
 import { useElmaData } from './context/ElmaContext/hooks'
@@ -15,9 +15,11 @@ function App({ root }: { root: HTMLDivElement | null }) {
       forceColorScheme="light"
       theme={theme}
     >
-      <TimerComponent />
-      <SurveyComponent questions={data} key={`SurveyComponent`} />
-      <CompleteComponent root={root} />
+      <Stack>
+        <TimerComponent />
+        <SurveyComponent questions={data} key={`SurveyComponent`} />
+        <CompleteComponent root={root} />
+      </Stack>
     </MantineProvider>
   )
 }

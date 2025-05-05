@@ -54,7 +54,7 @@ export const VariantLabel = memo(({ label, isChecked }: Props) => {
         }}
       >
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M5 12l5 5l10 -10" />
+        <path d="M5 12l5 5l10 -10" fill="none" />
       </svg>
 
       <Text fw={500} size="md">
