@@ -27,7 +27,7 @@ const RadioQuestion = ({ id }: Props) => {
   const handleChange = useCallback(
     (value: string | number) => {
       dispatch({
-        type: `set${VariantsType.radio}Value`,
+        type: VariantsType.radio,
         payload: {
           id,
           value,

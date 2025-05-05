@@ -26,7 +26,7 @@ const TextQuestion = ({ id }: Props) => {
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
     ({ target }) => {
       dispatch({
-        type: `set${VariantsType.text}Value`,
+        type: VariantsType.text,
         payload: {
           id,
           value: target.value,

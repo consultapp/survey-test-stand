@@ -28,7 +28,7 @@ const NumberQuestion = ({ id }: Props) => {
     (index: number) => {
       return (value: string | number) => {
         dispatch({
-          type: `set${VariantsType.number}Value`,
+          type: VariantsType.number,
           payload: {
             id,
             value: value,

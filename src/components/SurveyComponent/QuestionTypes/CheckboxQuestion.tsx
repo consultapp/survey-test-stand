@@ -28,7 +28,7 @@ const CheckboxQuestion = ({ id }: Props) => {
     (index: number) => {
       return ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         dispatch({
-          type: `set${VariantsType.checkbox}Value`,
+          type: VariantsType.checkbox,
           payload: {
             id,
             value: target.checked,

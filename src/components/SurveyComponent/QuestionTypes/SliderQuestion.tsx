@@ -27,7 +27,7 @@ export const SliderQuestion = ({ id }: Props) => {
   const handleChange = useCallback(
     (value: number) => {
       dispatch({
-        type: `set${VariantsType.number}Value`,
+        type: VariantsType.slider,
         payload: { id, value },
       })
       if (idle) setIdle(false)

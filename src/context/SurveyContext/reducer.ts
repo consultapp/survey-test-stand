@@ -13,27 +13,27 @@ export function reducer(
   if (position < 0) console.error('Не найден id вопроса, ошибка сохранения.')
 
   switch (type) {
-    case `set${VariantsType.slider}Value`: {
+    case VariantsType.slider: {
       const vars = state[position]?.variants as ISliderVariant[]
       vars[0].value = Number(payload.value ?? 0)
       break
     }
 
-    case `set${VariantsType.number}Value`: {
+    case VariantsType.number: {
       const vars = state[position]?.variants as INumberVariant[]
       const currentIndex = payload.index ?? 0
       vars[currentIndex].value = Number(payload.value ?? 0)
       break
     }
 
-    case `set${VariantsType.checkbox}Value`: {
+    case VariantsType.checkbox: {
       const vars = state[position]?.variants as ICheckVariant[]
       const currentIndex = payload.index ?? 0
       vars[currentIndex].value = Boolean(payload.value ?? false)
       break
     }
 
-    case `set${VariantsType.radio}Value`: {
+    case VariantsType.radio: {
       const vars = state[position]?.variants as IRadioVariant[]
 
       vars.forEach((_, i) => {
@@ -43,7 +43,7 @@ export function reducer(
       break
     }
 
-    case `set${VariantsType.text}Value`: {
+    case VariantsType.text: {
       const vars = state[position]?.variants as ITextVariant[]
       vars[0].text = payload.value
       break
