@@ -5,10 +5,9 @@ import {
   useTimerSaveCallback,
 } from '@/context/TimerContext/hooks'
 import { Box, Button, Flex, Stack, Text } from '@mantine/core'
-import { useCallback, useEffect, useRef, useState, useMemo } from 'react'
+import { useCallback, useEffect, useRef, useState, memo } from 'react'
 import { useIntersection } from '@mantine/hooks'
 
-// Utility function for time formatting
 const formatTime = (t: number): string =>
   `${Math.floor(t / 3600)
     .toString()
@@ -16,7 +15,6 @@ const formatTime = (t: number): string =>
     .toString()
     .padStart(2, '0')}:${(t % 60).toString().padStart(2, '0')}`
 
-// SVG Icon Components
 const PlayIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +29,7 @@ const PlayIcon = () => (
   </svg>
 )
 
-const TimerIcon = ({ isRunning }: { isRunning: boolean }) => (
+const TimerIcon = memo(({ isRunning }: { isRunning: boolean }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -45,9 +43,8 @@ const TimerIcon = ({ isRunning }: { isRunning: boolean }) => (
       fill={isRunning ? 'darkgreen' : 'darkred'}
     />
   </svg>
-)
+))
 
-// Styled components
 const TimerDisplay = ({
   time,
   isRunning,
@@ -55,8 +52,6 @@ const TimerDisplay = ({
   time: number
   isRunning: boolean
 }) => {
-  const formattedTime = useMemo(() => formatTime(time), [time])
-
   return (
     <Box
       style={{
@@ -78,7 +73,7 @@ const TimerDisplay = ({
       aria-live="polite"
     >
       <TimerIcon isRunning={isRunning} />
-      {formattedTime}
+      {formatTime(time)}
     </Box>
   )
 }
@@ -90,8 +85,6 @@ const FloatingTimer = ({
   time: number
   isRunning: boolean
 }) => {
-  const formattedTime = useMemo(() => formatTime(time), [time])
-
   return (
     <Box
       style={{
@@ -115,7 +108,7 @@ const FloatingTimer = ({
       aria-live="polite"
     >
       <TimerIcon isRunning={isRunning} />
-      {formattedTime}
+      {formatTime(time)}
     </Box>
   )
 }
@@ -143,7 +136,9 @@ export const TimerComponent = (): JSX.Element | null => {
   useEffect(() => {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
+      saveTimer(time)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
