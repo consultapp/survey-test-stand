@@ -5,6 +5,10 @@ export function useTimerContext() {
   return useContext(TimerContext) ?? {}
 }
 
+export function useHasTimer() {
+  return Boolean(useContext(TimerContext))
+}
+
 export function useTimerData() {
   return useTimerContext().time ?? 0
 }

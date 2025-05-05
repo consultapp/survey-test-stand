@@ -1,4 +1,9 @@
-import { useTimerData, useTimerDescription } from '@/context/TimerContext/hooks'
+import {
+  useHasTimer,
+  useTimerData,
+  useTimerDescription,
+  useTimerSaveCallback,
+} from '@/context/TimerContext/hooks'
 import { Box, Button, Flex, Stack, Text } from '@mantine/core'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
@@ -10,8 +15,10 @@ const formatTime = (t: number) =>
     .padStart(2, '0')}:${(t % 60).toString().padStart(2, '0')}`
 
 export const TimerComponent = () => {
+  const hasTimer = useHasTimer()
   const startSeconds = useTimerData()
   const description = useTimerDescription()
+  const saveTimer = useTimerSaveCallback()
   const [time, setTime] = useState(startSeconds)
   const [isRunning, setIsRunning] = useState(false)
   const intervalRef = useRef<ReturnType<typeof setInterval>>()
@@ -28,6 +35,12 @@ export const TimerComponent = () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
   }, [])
+
+  useEffect(() => {
+    if (time % 10 === 9) saveTimer(time)
+  }, [saveTimer, time])
+
+  if (!hasTimer) return
 
   return (
     <Stack gap="xs" mb="sm">
