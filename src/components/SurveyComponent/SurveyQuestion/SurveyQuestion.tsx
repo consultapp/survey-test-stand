@@ -22,15 +22,22 @@ export const SurveyQuestion = ({ id }: Props) => {
     <section
       className={classNames(
         styles.root,
-        status === Status.idle && styles.idle,
+        (status === Status.idle || !question.isRequired) && styles.idle,
         status === Status.error && styles.error,
         status === Status.empty && styles.error,
-        status === Status.approved && styles.approved
+        status === Status.approved && question.isRequired && styles.approved
       )}
       data-question-id={id}
     >
       <Stack>
-        {name && <Text fw={700}>{name}</Text>}
+        {name && (
+          <Text fw={700}>
+            {question.isRequired && (
+              <span style={{ color: 'red' }}>*&nbsp;</span>
+            )}
+            {name}
+          </Text>
+        )}
         {helper_text && <Text size="sm">{helper_text}</Text>}
       </Stack>
       <Stack p="1rem">

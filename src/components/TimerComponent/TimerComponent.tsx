@@ -1,10 +1,9 @@
 import {
   useHasTimer,
   useTimerData,
-  useTimerDescription,
   useTimerSaveCallback,
 } from '@/context/TimerContext/hooks'
-import { Box, Button, Flex, Stack, Text } from '@mantine/core'
+import { Box, Button, Flex } from '@mantine/core'
 import { useCallback, useEffect, useRef, useState, memo } from 'react'
 import { useIntersection } from '@mantine/hooks'
 
@@ -116,7 +115,6 @@ const FloatingTimer = ({
 export const TimerComponent = (): JSX.Element | null => {
   const hasTimer = useHasTimer()
   const startSeconds = useTimerData()
-  const description = useTimerDescription()
   const saveTimer = useTimerSaveCallback()
   const [time, setTime] = useState<number>(startSeconds)
   const [isRunning, setIsRunning] = useState<boolean>(false)
@@ -152,41 +150,31 @@ export const TimerComponent = (): JSX.Element | null => {
 
   return (
     <>
-      <Stack
+      <Flex
         ref={ref}
+        direction="row"
         gap="xs"
-        mb="sm"
-        style={{
-          padding: '1rem',
-          marginTop: '-1rem',
-        }}
+        align="center"
+        justify="flex-end"
+        w="100%"
+        style={{ placeSelf: 'baseline' }}
       >
-        <Flex
-          direction="row"
-          gap="xs"
-          align="center"
-          justify="flex-end"
-          w="100%"
-          style={{ placeSelf: 'baseline' }}
-        >
-          {!isRunning && (
-            <Button
-              onClick={startTimer}
-              variant="outline"
-              color="darkgreen"
-              size="lg"
-              disabled={isRunning}
-              bg="var(--mantine-color-body)"
-              aria-label="Start timer"
-            >
-              <PlayIcon />
-              &nbsp;Запустить таймер
-            </Button>
-          )}
-          <TimerDisplay time={time} isRunning={isRunning} />
-        </Flex>
-        <Text style={{ placeSelf: 'end' }}>{description}</Text>
-      </Stack>
+        {!isRunning && (
+          <Button
+            onClick={startTimer}
+            variant="outline"
+            color="darkgreen"
+            size="lg"
+            disabled={isRunning}
+            bg="var(--mantine-color-body)"
+            aria-label="Start timer"
+          >
+            <PlayIcon />
+            &nbsp;Запустить таймер
+          </Button>
+        )}
+        <TimerDisplay time={time} isRunning={isRunning} />
+      </Flex>
       {!entry?.isIntersecting && isRunning && (
         <FloatingTimer time={time} isRunning={isRunning} />
       )}

@@ -52,6 +52,8 @@ export const testTextIsApproved = (question: IQuestion | undefined) =>
 export function testIsApproved(question: IQuestion | undefined): boolean {
   if (!question) return false
 
+  if (!question.isRequired) return true
+
   switch (question.type) {
     case 'checkbox':
       return testCheckBoxIsApproved(question)

@@ -21,7 +21,7 @@ export const VariantLabel = memo(({ label, isChecked }: Props) => {
       '&:hover': {
         backgroundColor: 'var(--mantine-color-gray-1)',
       },
-      transition: 'all 0.3s ease',
+      transition: 'all 0.2s ease',
       '&[dataChecked]': {
         borderWidth: '3px',
         transform: 'scale(0.98)',
@@ -49,7 +49,7 @@ export const VariantLabel = memo(({ label, isChecked }: Props) => {
         stroke-linejoin="round"
         style={{
           opacity: isChecked ? 1 : 0,
-          transition: 'opacity 0.3s ease',
+          transition: 'opacity 0.2s ease',
           color: 'var(--mantine-primary-color-filled)',
         }}
       >

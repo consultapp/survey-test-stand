@@ -25,6 +25,7 @@ export const mockBlocks: IQuestions = [
       },
     ],
     blockSequence: 0,
+    isRequired: true,
   },
   // {
   //   id: '0193cf95-47fe-7a5a-8510-763f591f4e70',
@@ -79,6 +80,7 @@ export const mockBlocks: IQuestions = [
     helper_text:
       'Для каждой величины определите соответствующий характер её изменения.',
     blockSequence: 0,
+    isRequired: true,
   },
   // {
   //   id: '0193b127-6bc7-7a2c-b520-51f45251460b',
