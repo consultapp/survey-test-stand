@@ -133,6 +133,8 @@ export const TimerComponent = (): JSX.Element | null => {
   }, [])
 
   useEffect(() => {
+    if (startSeconds !== 0) startTimer()
+
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
       if (timerTimeRef) saveTimer(timerTimeRef.current)
@@ -143,7 +145,10 @@ export const TimerComponent = (): JSX.Element | null => {
   useEffect(() => {
     timerTimeRef.current = time
 
-    if (time % 10 === 9) saveTimer(time)
+    if (time % 5 === 0) {
+      saveTimer(time)
+      console.log('save timer ', time)
+    }
   }, [saveTimer, time])
 
   if (!hasTimer) return null

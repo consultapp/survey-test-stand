@@ -10,7 +10,7 @@ import {
 } from '@/context/StatusContext/hooks'
 import { Status } from '@/fixtures/status'
 import { testIsApproved } from '@/context/StatusContext/functions'
-import { VariantLabel } from '../VariantLabel/VariantLabel'
+import { VariantLabel } from '../CheckboxRadioVariants/VariantLabel'
 
 type Props = { id: string }
 
