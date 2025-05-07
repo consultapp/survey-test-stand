@@ -1,4 +1,4 @@
-import { Flex, Text } from '@mantine/core'
+import { Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { Modal, Button } from '@mantine/core'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
