@@ -105,7 +105,7 @@ export const CompleteComponent = ({ root }: Props) => {
     <>
       <Modal
         opened={opened}
-        onClose={close}
+        onClose={rejectHandler}
         title="Нельзя завершить незаконченный тест"
         centered
         zIndex={1060}
