@@ -114,9 +114,11 @@ export const CompleteComponent = ({ root }: Props) => {
           <Text>{`Незаполненных вопросов: ${errorCount} шт.`}</Text>
         )}
       </Modal>
-      <Button variant="default" onClick={fireTryCompleteEventTestBtn}>
-        Dispatch Test Complete Event
-      </Button>
+      {process.env.NODE_ENV === 'development' && (
+        <Button variant="default" onClick={fireTryCompleteEventTestBtn}>
+          Dispatch Test Complete Event
+        </Button>
+      )}
     </>
   )
 }
