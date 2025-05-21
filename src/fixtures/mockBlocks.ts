@@ -10,7 +10,7 @@ export const mockBlocks: IQuestions = [
       {
         from: 0,
         to: 15,
-        step: 1,
+        step: 0.5,
         value: undefined,
         labels: [
           {
@@ -59,7 +59,7 @@ export const mockBlocks: IQuestions = [
       {
         to: 5,
         from: 1,
-        step: 1,
+        step: 0.5,
         value: undefined,
         labels: [
           {
@@ -84,6 +84,7 @@ export const mockBlocks: IQuestions = [
   },
 
   {
+    isRequired: true,
     id: '4',
     block: 'block_1',
     type: 'checkbox',
@@ -91,7 +92,8 @@ export const mockBlocks: IQuestions = [
     helper_text: '',
     variants: [
       {
-        label: 'Вариант 1',
+        label:
+          'Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
         value: false,
       },
       {
@@ -100,6 +102,58 @@ export const mockBlocks: IQuestions = [
       },
       {
         label: 'Вариант 3',
+        value: false,
+      },
+      {
+        label: 'Вариант 4',
+        value: false,
+      },
+      {
+        label: 'Вариант 5',
+        value: false,
+      },
+      {
+        label: 'Вариант 6',
+        value: false,
+      },
+      {
+        label: 'Вариант 8',
+        value: false,
+      },
+      {
+        label: 'Разработанннннннннннннннное молоко',
+        value: false,
+      },
+      {
+        label: 'Вариант 10',
+        value: false,
+      },
+      {
+        label: 'Вариант 11',
+        value: false,
+      },
+      {
+        label: 'Вариант 12',
+        value: false,
+      },
+      {
+        label: 'Вариант 13',
+        value: false,
+      },
+      {
+        label: 'Вариант 310',
+        value: false,
+      },
+      {
+        label: 'Вариант 311',
+        value: false,
+      },
+      {
+        label: 'Вариант Вариант Вариант 312',
+        value: false,
+      },
+      {
+        label: 'Вариант 313',
         value: false,
       },
     ],
