@@ -2,7 +2,7 @@ import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
 import { useCallback, useEffect, useState } from 'react'
-import { Grid, Radio } from '@mantine/core'
+import { Grid, Radio, Group, Text } from '@mantine/core'
 import {
   useStatusById,
   useStatusContextDispatch,
@@ -10,7 +10,6 @@ import {
 } from '@/context/StatusContext/hooks'
 import { Status } from '@/fixtures/status'
 import { testIsApproved } from '@/context/StatusContext/functions'
-import { VariantLabel } from '../CheckboxRadioVariants/VariantLabel'
 
 type Props = { id: string }
 
@@ -25,7 +24,7 @@ const RadioQuestion = ({ id }: Props) => {
   const isApproved = testIsApproved(question)
 
   const handleChange = useCallback(
-    (value: string | number) => {
+    (value: string) => {
       dispatch({
         type: VariantsType.radio,
         payload: {
@@ -46,23 +45,39 @@ const RadioQuestion = ({ id }: Props) => {
   if (!question) return
   const variants = question.variants as IRadioVariant[]
   const checked = variants.find((item) => item.value === true)?.label ?? ''
+  console.log('variants', variants)
+
   return (
     <Radio.Group value={checked} withAsterisk onChange={handleChange}>
-      <Grid gutter="sm">
+      <Grid
+        gutter="md"
+        style={{
+          overflowWrap: 'break-word',
+          wordBreak: 'break-all',
+          alignItems: 'stretch',
+        }}
+      >
         {variants.map(({ label }) => (
-          <Grid.Col key={label} span={2}>
-            <Radio
-              label={
-                <VariantLabel label={label} isChecked={checked === label} />
-              }
+          <Grid.Col key={label} span={3}>
+            <Radio.Card
+              radius="md"
               value={label}
-              styles={{
-                radio: { display: 'none' },
-                labelWrapper: {
-                  width: '100%',
-                },
+              p="sm"
+              h="100%"
+              bg={
+                checked === label
+                  ? 'var(--mantine-primary-color-light)'
+                  : 'white'
+              }
+              style={{
+                display: 'flex',
               }}
-            />
+            >
+              <Group wrap="nowrap" align="flex-start">
+                <Radio.Indicator />
+                <Text>{label}</Text>
+              </Group>
+            </Radio.Card>
           </Grid.Col>
         ))}
       </Grid>

@@ -47,7 +47,6 @@ const CheckboxQuestion = ({ id }: Props) => {
 
   if (!question) return
   const variants = question.variants as ICheckVariant[]
-  console.log('variants', variants)
 
   return (
     <Grid

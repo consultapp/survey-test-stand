@@ -161,6 +161,8 @@ export const mockBlocks: IQuestions = [
     sequence: 4,
   },
   {
+    isRequired: true,
+
     id: '5',
     block: 'block_1',
     type: 'radio',
@@ -168,11 +170,68 @@ export const mockBlocks: IQuestions = [
     helper_text: '',
     variants: [
       {
-        label: 'Вариант 1',
+        label:
+          'Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
         value: false,
       },
       {
         label: 'Вариант 2',
+        value: false,
+      },
+      {
+        label: 'Вариант 3',
+        value: false,
+      },
+      {
+        label: 'Вариант 4',
+        value: false,
+      },
+      {
+        label: 'Вариант 5',
+        value: false,
+      },
+      {
+        label: 'Вариант 6',
+        value: false,
+      },
+      {
+        label: 'Вариант 8',
+        value: false,
+      },
+      {
+        label: 'Разработанннннннннннннннное молоко',
+        value: false,
+      },
+      {
+        label: 'Вариант 10',
+        value: false,
+      },
+      {
+        label: 'Вариант 11',
+        value: false,
+      },
+      {
+        label: 'Вариант 12',
+        value: false,
+      },
+      {
+        label: 'Вариант 13',
+        value: false,
+      },
+      {
+        label: 'Вариант 310',
+        value: false,
+      },
+      {
+        label: 'Вариант 311',
+        value: false,
+      },
+      {
+        label: 'Вариант Вариант Вариант 312',
+        value: false,
+      },
+      {
+        label: 'Вариант 313',
         value: false,
       },
     ],
