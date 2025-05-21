@@ -54,7 +54,7 @@ export const SliderQuestion = ({ id }: Props) => {
     label: string | React.ReactElement
   }[] = useMemo(
     () =>
-      (variant.to - variant.from) / variant.step > 15
+      (variant.to - variant.from) / variant.step > 40
         ? variant.labels
         : new Array((variant.to - variant.from) / variant.step + 1)
             .fill(null)
