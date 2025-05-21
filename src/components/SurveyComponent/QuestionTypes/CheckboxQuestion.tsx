@@ -2,7 +2,7 @@ import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
 import { useCallback, useEffect, useState } from 'react'
-import { Checkbox, Grid } from '@mantine/core'
+import { Checkbox, Grid, Group, Text } from '@mantine/core'
 import { Status } from '@/fixtures/status'
 import {
   useStatusById,
@@ -10,7 +10,6 @@ import {
   useUpdateStatus,
 } from '@/context/StatusContext/hooks'
 import { testIsApproved } from '@/context/StatusContext/functions'
-import { VariantLabel } from '../CheckboxRadioVariants/VariantLabel'
 
 type Props = { id: string }
 
@@ -26,12 +25,12 @@ const CheckboxQuestion = ({ id }: Props) => {
 
   const handleChange = useCallback(
     (index: number) => {
-      return ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+      return (checked: boolean) => {
         dispatch({
           type: VariantsType.checkbox,
           payload: {
             id,
-            value: target.checked,
+            value: checked,
             index,
           },
         })
@@ -48,24 +47,37 @@ const CheckboxQuestion = ({ id }: Props) => {
 
   if (!question) return
   const variants = question.variants as ICheckVariant[]
+  console.log('variants', variants)
 
   return (
-    <Grid gutter="sm">
-      {variants.map(({ label, value }, i) => (
-        <Grid.Col key={label} span={2}>
-          <Checkbox
-            checked={Boolean(value)}
-            onChange={handleChange(i)}
-            label={<VariantLabel label={label} isChecked={Boolean(value)} />}
-            styles={{
-              input: {
-                display: 'none', // Скрываем стандартный чекбокс
-              },
-              labelWrapper: {
-                width: '100%',
-              },
+    <Grid
+      gutter="md"
+      style={{
+        overflowWrap: 'break-word',
+        wordBreak: 'break-all',
+        alignItems: 'stretch',
+      }}
+    >
+      {variants.map(({ label, value }, index) => (
+        <Grid.Col key={label} span={3}>
+          <Checkbox.Card
+            radius="md"
+            value={label}
+            key={label}
+            checked={value}
+            onChange={handleChange(index)}
+            p="sm"
+            h="100%"
+            bg={value ? 'var(--mantine-primary-color-light)' : 'white'}
+            style={{
+              display: 'flex',
             }}
-          />
+          >
+            <Group wrap="nowrap" align="flex-start">
+              <Checkbox.Indicator />
+              <Text>{label}</Text>
+            </Group>
+          </Checkbox.Card>
         </Grid.Col>
       ))}
     </Grid>
