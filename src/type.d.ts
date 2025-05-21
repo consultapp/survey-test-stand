@@ -36,6 +36,7 @@ interface IQuestion {
   checksum?: number // если вопрос типа 'number' и нужно выполнить валидацию, что сумма чисел равна определенному значению
   blockSequence: number
   isRequired?: boolean
+  visibilityFilter: VisibilityFilter
 }
 
 type TSeconds = number
@@ -73,3 +74,12 @@ interface ITextVariant {
 }
 
 type SurveyQuestionElement = ({ id }: Props) => JSX.Element | undefined
+
+type AnswerID = ID
+type ParentID = ID
+
+type VisibilityFilter = {
+  parentId: ParentID
+  range?: { from: number; to: number }
+  matches?: AnswerID[]
+}
