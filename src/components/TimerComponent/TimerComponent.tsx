@@ -67,6 +67,7 @@ const TimerDisplay = ({
         gap: '5px',
         background: 'var(--mantine-color-body)',
         height: '50px',
+        userSelect: 'none',
       }}
       role="timer"
       aria-live="polite"
@@ -102,6 +103,7 @@ const FloatingTimer = ({
         gap: '5px',
         background: 'var(--mantine-color-body)',
         boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+        userSelect: 'none',
       }}
       role="timer"
       aria-live="polite"
