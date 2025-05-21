@@ -38,7 +38,17 @@ export const SurveyQuestion = ({ id }: Props) => {
             {name}
           </Text>
         )}
-        {helper_text && <Text size="sm">{helper_text}</Text>}
+        {helper_text && (
+          <Text
+            size="sm"
+            style={{
+              whiteSpace: 'pre-wrap',
+              wordBreak: 'break-word',
+            }}
+          >
+            {helper_text}
+          </Text>
+        )}
       </Stack>
       <Stack p="1rem">
         {QuestionTypes[type] && <QuestionComponent id={id} />}
