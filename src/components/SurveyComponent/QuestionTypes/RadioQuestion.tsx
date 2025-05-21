@@ -45,7 +45,6 @@ const RadioQuestion = ({ id }: Props) => {
   if (!question) return
   const variants = question.variants as IRadioVariant[]
   const checked = variants.find((item) => item.value === true)?.label ?? ''
-  console.log('variants', variants)
 
   return (
     <Radio.Group value={checked} withAsterisk onChange={handleChange}>

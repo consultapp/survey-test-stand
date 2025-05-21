@@ -144,11 +144,7 @@ export const TimerComponent = (): JSX.Element | null => {
 
   useEffect(() => {
     timerTimeRef.current = time
-
-    if (time % 5 === 0) {
-      saveTimer(time)
-      console.log('save timer ', time)
-    }
+    if (time % 5 === 0) saveTimer(time)
   }, [saveTimer, time])
 
   if (!hasTimer) return null
