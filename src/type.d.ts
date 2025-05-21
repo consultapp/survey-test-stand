@@ -61,6 +61,7 @@ interface INumberVariant {
 interface ICheckVariant {
   label: string
   value?: boolean
+  isExclusive?: boolean
 }
 
 interface IRadioVariant {

@@ -29,6 +29,17 @@ export function reducer(
     case VariantsType.checkbox: {
       const vars = state[position]?.variants as ICheckVariant[]
       const currentIndex = payload.index ?? 0
+      const isExclusive = vars[currentIndex].isExclusive ?? false
+      if (isExclusive) {
+        vars.forEach((_, i) => {
+          vars[i].value = false
+        })
+      } else {
+        vars.forEach((_, i) => {
+          if (vars[i].isExclusive) vars[i].value = false
+        })
+      }
+
       vars[currentIndex].value = Boolean(payload.value ?? false)
       break
     }
