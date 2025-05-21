@@ -52,27 +52,35 @@ export const SliderQuestion = ({ id }: Props) => {
   const labels: {
     value: number
     label: string | React.ReactElement
-  }[] = useMemo(
-    () =>
-      (variant.to - variant.from) / variant.step > 40
+  }[] = useMemo(() => {
+    const baseLabels =
+      (variant.to - variant.from) / variant.step > 20
         ? variant.labels
         : new Array((variant.to - variant.from) / variant.step + 1)
             .fill(null)
             .map((_, i) => ({
               label: (variant.from + i * variant.step).toString(),
               value: variant.from + i * variant.step,
-            })),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [id]
-  )
+            }))
 
-  variant.labels.forEach((item) => {
-    const index = labels.findIndex((l) => l.value === item.value)
-    labels[index] = {
-      ...item,
-      label: <SliderLabelComponent label={item.label} value={item.value} />,
-    }
-  })
+    return baseLabels.map((label) => {
+      const customLabel = variant.labels.find(
+        (item) => item.value === label.value
+      )
+      if (customLabel) {
+        return {
+          ...label,
+          label: (
+            <SliderLabelComponent
+              label={customLabel.label}
+              value={customLabel.value}
+            />
+          ),
+        }
+      }
+      return label
+    })
+  }, [variant.from, variant.to, variant.step, variant.labels])
 
   const [value, setValue] = useState(variant.value)
 
