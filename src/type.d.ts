@@ -36,7 +36,7 @@ interface IQuestion {
   checksum?: number // если вопрос типа 'number' и нужно выполнить валидацию, что сумма чисел равна определенному значению
   blockSequence: number
   isRequired?: boolean
-  visibilityFilter: VisibilityFilter
+  visibilityFilter?: VisibilityFilter
 }
 
 type TSeconds = number
