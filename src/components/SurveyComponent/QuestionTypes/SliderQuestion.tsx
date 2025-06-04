@@ -49,22 +49,34 @@ export const SliderQuestion = ({ id }: Props) => {
     }) as ISliderVariant[]
   )[0]
 
+  const filteredLabels = useMemo(() => {
+    return variant.labels.filter(
+      (label) => label.value >= variant.from && label.value <= variant.to
+    )
+  }, [variant.from, variant.to, variant.labels])
+
   const labels: {
     value: number
     label: string | React.ReactElement
   }[] = useMemo(() => {
-    const baseLabels =
-      (variant.to - variant.from) / variant.step > 20
-        ? variant.labels
-        : new Array((variant.to - variant.from) / variant.step + 1)
-            .fill(null)
-            .map((_, i) => ({
-              label: (variant.from + i * variant.step).toString(),
-              value: variant.from + i * variant.step,
-            }))
+    const baseLabels = [
+      ...filteredLabels,
+      ...new Array((variant.to - variant.from) / variant.step + 1)
+        .fill(null)
+        .map((_, i) => {
+          const value = variant.from + i * variant.step
+          if (!Number.isInteger(value)) return null
+
+          return {
+            label: value.toString(),
+            value: value,
+          }
+        })
+        .filter((item) => item !== null),
+    ]
 
     return baseLabels.map((label) => {
-      const customLabel = variant.labels.find(
+      const customLabel = filteredLabels.find(
         (item) => item.value === label.value
       )
       if (customLabel) {
@@ -80,7 +92,7 @@ export const SliderQuestion = ({ id }: Props) => {
       }
       return label
     })
-  }, [variant.from, variant.to, variant.step, variant.labels])
+  }, [variant.from, variant.to, variant.step, filteredLabels])
 
   const [value, setValue] = useState(variant.value)
 
