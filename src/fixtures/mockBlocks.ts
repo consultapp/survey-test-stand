@@ -8,14 +8,26 @@ export const mockBlocks: IQuestions = [
     sequence: 1,
     variants: [
       {
-        from: 0,
+        from: 1,
         to: 15,
         step: 0.5,
         value: undefined,
         labels: [
           {
             value: 0,
+            label: 'BAD MARK - should not be displayed',
+          },
+          {
+            value: 1,
             label: 'Матовая очень много текста еще зачем-то тут написали',
+          },
+          {
+            value: 2.5,
+            label: 'Матовая очень много текста еще зачем-то тут написали',
+          },
+          {
+            value: 7,
+            label: 'Матовая очень много текста еще зачем-то тут написали1',
           },
           {
             value: 15,
@@ -68,7 +80,7 @@ export const mockBlocks: IQuestions = [
           },
           {
             label: 'Средне',
-            value: 3,
+            value: 3.5,
           },
           {
             label: 'Прекрасно',
