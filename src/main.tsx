@@ -1,4 +1,5 @@
 import { reactRender } from './elma.tsx'
+import { log } from './utils.ts'
 
 reactRender({
   root: document.querySelector(`.surveyQuizRoot`),
@@ -6,7 +7,7 @@ reactRender({
     time: 60,
     description: 'Local test timer descr',
     saveCallback: (t: number) => {
-      console.log('local test timer callback', t)
+      log('local test timer callback', t)
     },
   },
 })
