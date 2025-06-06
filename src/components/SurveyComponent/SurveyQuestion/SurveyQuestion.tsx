@@ -11,6 +11,7 @@ import { useStatusById } from '@/context/StatusContext/hooks'
 import { Status } from '@/fixtures/status'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useEffect } from 'react'
+import { useStatusContextDispatch } from '@/context/StatusContext/hooks'
 
 type Props = { id: string }
 
@@ -18,14 +19,16 @@ export const SurveyQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
   const status = useStatusById(id)
   const dispatch = useSurveyContextDispatch()
+  const statusDispatch = useStatusContextDispatch()
 
   const isVisible = useIsQuestionVisible(id)
 
   useEffect(() => {
     if (!isVisible) {
       dispatch({ type: 'clear', payload: { id } })
+      statusDispatch({ type: Status.hidden, payload: id })
     }
-  }, [dispatch, id, isVisible])
+  }, [dispatch, id, isVisible, statusDispatch])
 
   if (!question || !isVisible) return null
 
@@ -38,8 +41,9 @@ export const SurveyQuestion = ({ id }: Props) => {
         styles.root,
         (status === Status.idle || !question.isRequired) && styles.idle,
         status === Status.error && styles.error,
-        status === Status.empty && styles.error,
-        status === Status.approved && question.isRequired && styles.approved
+        status === Status.empty && styles.empty,
+        status === Status.approved && question.isRequired && styles.approved,
+        status === Status.hidden && styles.hidden
       )}
       data-question-id={id}
     >
@@ -49,7 +53,7 @@ export const SurveyQuestion = ({ id }: Props) => {
             {question.isRequired && (
               <span style={{ color: 'red' }}>*&nbsp;</span>
             )}
-            {name}
+            {id} - {name}
           </Text>
         )}
         {helper_text && (

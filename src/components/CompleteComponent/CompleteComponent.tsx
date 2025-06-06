@@ -29,6 +29,7 @@ export const CompleteComponent = ({ root }: Props) => {
     const errors = Object.entries(statusRef.current)
       .filter((item) => item[1] !== Status.approved)
       .map((item) => item[0])
+    console.log('errors', errors)
     for (let i = 0; i < questionOrder.length; i++) {
       if (errors.includes(questionOrder[i])) {
         const selector = `[data-question-id="${questionOrder[i]}"]`
@@ -53,16 +54,12 @@ export const CompleteComponent = ({ root }: Props) => {
   const calculateErrorsCount = useCallback(
     (s: ReturnType<typeof useStatusContext>) =>
       Object.values(s).reduce(
-        (acc, val) => acc + (val !== Status.approved ? 1 : 0),
+        (acc, val) =>
+          acc + (val !== Status.approved && val !== Status.hidden ? 1 : 0),
         0
       ),
     []
   )
-
-  const fireTryCompleteEventTestBtn = useCallback(() => {
-    log('TryCompleteEvent dispatched' + root)
-    if (root) root.dispatchEvent(new CustomEvent('TryCompleteEvent'))
-  }, [root])
 
   const checkStatuses = useCallback(() => {
     Object.entries(statusRef.current).forEach(([k, v]) => {
@@ -71,6 +68,11 @@ export const CompleteComponent = ({ root }: Props) => {
 
     return calculateErrorsCount(statusRef.current)
   }, [calculateErrorsCount, dispatch])
+
+  const fireTryCompleteEventTestBtn = useCallback(() => {
+    log('TryCompleteEvent dispatched' + root)
+    if (root) root.dispatchEvent(new CustomEvent('TryCompleteEvent'))
+  }, [root])
 
   const errorCount = useMemo(
     () => calculateErrorsCount(statuses),

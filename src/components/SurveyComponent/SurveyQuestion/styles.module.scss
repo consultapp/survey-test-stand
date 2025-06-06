@@ -17,10 +17,24 @@
   }
 }
 
+.hidden {
+  border-color: black;
+  & > div:first-child {
+    background-color: var(--mantine-color-gray-light);
+  }
+}
+
 .error {
   border-color: var(--mantine-color-error);
   & > div:first-child {
-    background-color: var(--mantine-color-red-1);
+    background-color: rgba(255, 227, 227, 0.5);
+  }
+}
+
+.empty {
+  border-color: var(--mantine-color-red-3);
+  & > div:first-child {
+    background-color: rgba(255, 227, 227, 0.5);
   }
 }
 

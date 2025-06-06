@@ -1,6 +1,6 @@
 export const mockBlocks: IQuestions = [
   {
-    id: 'ПЕРВЫЙ СЛАЙДЕР',
+    id: '1',
     block: '0193b214-2c9e-7530-b99a-1e5220268a7e',
     type: 'slider',
     name: '(ПЕРВЫЙ СЛАЙДЕР) Блеск ',
@@ -64,7 +64,7 @@ export const mockBlocks: IQuestions = [
   // },
 
   {
-    id: 'ВТОРОЙ СЛАЙДЕР',
+    id: '2',
     name: '(ВТОРОЙ СЛАЙДЕР) Экспериментатор произвёл закладку клубней картофеля на зиму. Как изменились масса клубней и количество крахмала? ',
     type: 'slider',
     block: '00000',
@@ -98,14 +98,14 @@ export const mockBlocks: IQuestions = [
     blockSequence: 0,
     isRequired: true,
     visibilityFilter: {
-      parentId: 'ПЕРВЫЙ СЛАЙДЕР',
+      parentId: '1',
       type: 'range',
       range: { from: 4, to: 5 },
     },
   },
 
   {
-    id: 'ПЕРВЫЙ ЧЕКБОКС',
+    id: '3',
     block: 'block_1',
     type: 'checkbox',
     name: 'Выберите один или несколько вариантов',
@@ -234,6 +234,8 @@ export const mockBlocks: IQuestions = [
     sequence: 7,
   },
   {
+    isRequired: true,
+
     id: '5',
     block: 'block_1',
     type: 'radio',
@@ -352,9 +354,9 @@ export const mockBlocks: IQuestions = [
     blockSequence: 0,
     sequence: 5,
     visibilityFilter: {
-      parentId: 'ПЕРВЫЙ СЛАЙДЕР',
+      parentId: '1',
       type: 'range',
-      range: { from: 2, to: 5.5 },
+      range: { from: 1, to: 5 },
     },
   },
   {
@@ -368,7 +370,7 @@ export const mockBlocks: IQuestions = [
     blockSequence: 0,
     sequence: 5,
     visibilityFilter: {
-      parentId: 'ВТОРОЙ СЛАЙДЕР',
+      parentId: '2',
       type: 'range',
       range: { from: 4, to: 5 },
     },
@@ -384,7 +386,7 @@ export const mockBlocks: IQuestions = [
     blockSequence: 0,
     sequence: 5,
     visibilityFilter: {
-      parentId: 'ПЕРВЫЙ ЧЕКБОКС',
+      parentId: '3',
       type: 'matches',
       matches: ['1003', '1004', '1006'], // OR
     },
