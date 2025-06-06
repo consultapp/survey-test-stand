@@ -9,14 +9,23 @@ import { Stack, Text } from '@mantine/core'
 import classNames from 'classnames'
 import { useStatusById } from '@/context/StatusContext/hooks'
 import { Status } from '@/fixtures/status'
+import { useSurveyContextDispatch } from '@/context/SurveyContext'
+import { useEffect } from 'react'
 
 type Props = { id: string }
 
 export const SurveyQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
   const status = useStatusById(id)
+  const dispatch = useSurveyContextDispatch()
 
   const isVisible = useIsQuestionVisible(id)
+
+  useEffect(() => {
+    if (!isVisible) {
+      dispatch({ type: 'clear', payload: { id } })
+    }
+  }, [dispatch, id, isVisible])
 
   if (!question || !isVisible) return null
 

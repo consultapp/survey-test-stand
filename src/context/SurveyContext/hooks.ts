@@ -20,17 +20,13 @@ export function useQuestionVisibilityFilter(
 export const useIsQuestionVisible = (questionId: string): boolean => {
   const questionFilter = useQuestionVisibilityFilter(questionId)
   const parentVariants = useQuestionVariants(questionFilter?.parentId ?? '')
-
-  // Проверяем видимость родительского вопроса
-  const parentQuestion = useQuestion(questionFilter?.parentId ?? '')
-  const parentParentVariants = useQuestionVariants(
-    parentQuestion?.visibilityFilter?.parentId ?? ''
+  const parentFilter = useQuestionVisibilityFilter(
+    questionFilter?.parentId ?? ''
   )
-  // нет фильтра - всегда показываем
-  if (!questionFilter) return true
+  const parentParentVariants = useQuestionVariants(parentFilter?.parentId ?? '')
 
   return (
     isQuestionVisible(questionFilter, parentVariants) &&
-    isQuestionVisible(parentQuestion?.visibilityFilter, parentParentVariants)
+    isQuestionVisible(parentFilter, parentParentVariants)
   )
 }

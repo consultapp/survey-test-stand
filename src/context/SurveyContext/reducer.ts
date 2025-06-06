@@ -60,6 +60,16 @@ export function reducer(
       break
     }
 
+    case 'clear': {
+      const vars = state[position]?.variants as IQuestion['variants']
+      vars.forEach((_, i) => {
+        if ('value' in vars[i]) vars[i].value = undefined
+        if ('text' in vars[i]) vars[i].text = ''
+      })
+
+      break
+    }
+
     default:
       console.error('Неопределенное событие')
   }
