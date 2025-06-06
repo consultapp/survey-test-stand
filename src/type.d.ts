@@ -50,6 +50,7 @@ interface ITimer {
 
 interface ISliderVariant {
   id: VariantID
+  type: Extract<VariantsType, 'slider'>
   from: number
   to: number
   step: number
@@ -59,24 +60,31 @@ interface ISliderVariant {
 
 interface INumberVariant {
   id: VariantID
+  type: Extract<VariantsType, 'number'>
   label: string
   value?: number
 }
 
 interface ICheckVariant {
   id: VariantID
+  type: Extract<VariantsType, 'checkbox'>
   label: string
   value?: boolean
+
+  isChangeable?: boolean
+
   isExclusive?: boolean
 }
 
 interface IRadioVariant {
   id: VariantID
+  type: Extract<VariantsType, 'radio'>
   label: string
   value?: boolean
 }
 interface ITextVariant {
   id: VariantID
+  type: Extract<VariantsType, 'text'>
   text: string
 }
 
