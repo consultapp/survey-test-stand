@@ -18,7 +18,9 @@ export function useElmaCallback() {
   return (
     useElmaContext().changeHandler ??
     (() => {
-      console.error('Elma Callback unknown')
+      if (process.env.NODE_ENV !== 'development') {
+        console.error('Elma Callback unknown')
+      }
     })
   )
 }
@@ -27,7 +29,9 @@ export function useElmaCompleteCallback() {
   return (
     useElmaContext().completeHandler ??
     (() => {
-      console.error('Elma SubmitHandler Callback unknown')
+      if (process.env.NODE_ENV !== 'development') {
+        console.error('Elma SubmitHandler Callback unknown')
+      }
     })
   )
 }
