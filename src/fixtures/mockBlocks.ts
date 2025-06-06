@@ -9,6 +9,7 @@ export const mockBlocks: IQuestions = [
     variants: [
       {
         id: '1001',
+        type: 'slider',
         from: 1,
         to: 15,
         step: 0.5,
@@ -71,6 +72,7 @@ export const mockBlocks: IQuestions = [
     variants: [
       {
         id: '1002',
+        type: 'slider',
         to: 5,
         from: 1,
         step: 0.5,
@@ -103,7 +105,7 @@ export const mockBlocks: IQuestions = [
   },
 
   {
-    id: '4',
+    id: 'ПЕРВЫЙ ЧЕКБОКС',
     block: 'block_1',
     type: 'checkbox',
     name: 'Выберите один или несколько вариантов',
@@ -111,100 +113,119 @@ export const mockBlocks: IQuestions = [
     variants: [
       {
         id: '1003',
+        type: 'checkbox',
         label: 'никакие из представленных вариантов1',
         value: false,
         isExclusive: true,
       },
       {
         id: '1004',
+        type: 'checkbox',
         label: 'никакие из представленных вариантов2',
         value: false,
         isExclusive: true,
       },
       {
         id: '1005',
+        type: 'checkbox',
         label: 'никакие из представленных вариантов3',
         value: false,
         isExclusive: true,
       },
       {
         id: '1006',
+        type: 'checkbox',
         label:
           'Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
         value: false,
       },
       {
         id: '1007',
+        type: 'checkbox',
         label: 'Вариант 2',
         value: false,
       },
       {
         id: '1008',
+        type: 'checkbox',
         label: 'Вариант 3',
         value: false,
       },
       {
         id: '1009',
+        type: 'checkbox',
         label: 'Вариант 4',
         value: false,
       },
       {
         id: '1010',
+        type: 'checkbox',
         label: 'Вариант 5',
         value: false,
       },
       {
         id: '1011',
+        type: 'checkbox',
         label: 'Вариант 6',
         value: false,
       },
       {
         id: '1012',
+        type: 'checkbox',
         label: 'Вариант 8',
         value: false,
       },
       {
         id: '1013',
+        type: 'checkbox',
         label: 'Разработанннннннннннннннное молоко',
         value: false,
       },
       {
         id: '1014',
+        type: 'checkbox',
         label: 'Вариант 10',
         value: false,
       },
       {
         id: '1015',
+        type: 'checkbox',
         label: 'Вариант 11',
         value: false,
       },
       {
         id: '1016',
+        type: 'checkbox',
         label: 'Вариант 12',
         value: false,
       },
       {
         id: '1017',
+        type: 'checkbox',
         label: 'Вариант 13',
         value: false,
       },
       {
         id: '1018',
+        type: 'checkbox',
         label: 'Вариант 310',
         value: false,
       },
       {
         id: '1019',
+        type: 'checkbox',
         label: 'Вариант 311',
         value: false,
       },
       {
         id: '1020',
+        type: 'checkbox',
         label: 'Вариант Вариант Вариант 312',
         value: false,
       },
       {
         id: '1021',
+        type: 'checkbox',
         label: 'Вариант 313',
         value: false,
       },
@@ -221,82 +242,98 @@ export const mockBlocks: IQuestions = [
     variants: [
       {
         id: '1022',
+        type: 'radio',
         label:
           'Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
         value: false,
       },
       {
         id: '1023',
+        type: 'radio',
         label: 'Вариант 2',
         value: false,
       },
       {
         id: '1024',
+        type: 'radio',
         label: 'Вариант 3',
         value: false,
       },
       {
         id: '1025',
+        type: 'radio',
         label: 'Вариант 4',
         value: false,
       },
       {
         id: '1026',
+        type: 'radio',
         label: 'Вариант 5',
         value: false,
       },
       {
         id: '1027',
+        type: 'radio',
         label: 'Вариант 6',
         value: false,
       },
       {
         id: '1028',
+        type: 'radio',
         label: 'Вариант 8',
         value: false,
       },
       {
         id: '1029',
+        type: 'radio',
         label: 'Разработанннннннннннннннное молоко',
         value: false,
       },
       {
         id: '1030',
+        type: 'radio',
         label: 'Вариант 10',
         value: false,
       },
       {
         id: '1031',
+        type: 'radio',
         label: 'Вариант 11',
         value: false,
       },
       {
         id: '1032',
+        type: 'radio',
         label: 'Вариант 12',
         value: false,
       },
       {
         id: '1033',
+        type: 'radio',
         label: 'Вариант 13',
         value: false,
       },
       {
         id: '1034',
+        type: 'radio',
         label: 'Вариант 310',
         value: false,
       },
       {
         id: '1035',
+        type: 'radio',
         label: 'Вариант 311',
         value: false,
       },
       {
         id: '1036',
+        type: 'radio',
         label: 'Вариант Вариант Вариант 312',
         value: false,
       },
       {
         id: '1037',
+        type: 'radio',
         label: 'Вариант 313',
         value: false,
       },
@@ -311,7 +348,7 @@ export const mockBlocks: IQuestions = [
     type: 'text',
     name: 'Какой-то текст (ВИДЕН ЕСЛИ ПЕРВЫЙ СЛАЙДЕР БОЛЬШЕ 2 И МЕНЬШЕ 5.5)',
     helper_text: '',
-    variants: [{ id: '1038', text: '' }],
+    variants: [{ id: '1038', type: 'text', text: '' }],
     blockSequence: 0,
     sequence: 5,
     visibilityFilter: {
@@ -327,13 +364,29 @@ export const mockBlocks: IQuestions = [
     type: 'text',
     name: 'Какой-то текст (ВИДЕН ЕСЛИ ВТОРОЙ СЛАЙДЕР БОЛЬШЕ 4 И МЕНЬШЕ 5)',
     helper_text: '',
-    variants: [{ id: '1039', text: '' }],
+    variants: [{ id: '1039', type: 'text', text: '' }],
     blockSequence: 0,
     sequence: 5,
     visibilityFilter: {
       parentId: 'ВТОРОЙ СЛАЙДЕР',
       type: 'range',
       range: { from: 4, to: 5 },
+    },
+  },
+  {
+    id: '8',
+    isRequired: true,
+    block: 'block_1',
+    type: 'text',
+    name: 'Какой-то текст (ВИДЕН ЕСЛИ ПЕРВЫЙ ЧЕКБОКС ВЫБРАН)',
+    helper_text: '',
+    variants: [{ id: '1039', type: 'text', text: '' }],
+    blockSequence: 0,
+    sequence: 5,
+    visibilityFilter: {
+      parentId: 'ПЕРВЫЙ ЧЕКБОКС',
+      type: 'matches',
+      matches: ['1003', '1004', '1006'], // OR
     },
   },
 ]
