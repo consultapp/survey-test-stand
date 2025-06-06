@@ -1,9 +1,9 @@
 export const mockBlocks: IQuestions = [
   {
-    id: '0193bcde-c5a9-751a-9058-b4bf907b090d',
+    id: 'ПЕРВЫЙ СЛАЙДЕР',
     block: '0193b214-2c9e-7530-b99a-1e5220268a7e',
     type: 'slider',
-    name: 'Блеск',
+    name: '(ПЕРВЫЙ СЛАЙДЕР) Блеск ',
     helper_text: 'Оцените блеск продукта',
     sequence: 1,
     variants: [
@@ -62,8 +62,8 @@ export const mockBlocks: IQuestions = [
   // },
 
   {
-    id: '0193b121-5dca-7a2c-b55e-6b128f799a77',
-    name: 'Экспериментатор произвёл закладку клубней картофеля на зиму. Как изменились масса клубней и количество крахмала? ',
+    id: 'ВТОРОЙ СЛАЙДЕР',
+    name: '(ВТОРОЙ СЛАЙДЕР) Экспериментатор произвёл закладку клубней картофеля на зиму. Как изменились масса клубней и количество крахмала? ',
     type: 'slider',
     block: '00000',
     sequence: 2,
@@ -96,7 +96,6 @@ export const mockBlocks: IQuestions = [
   },
 
   {
-    isRequired: true,
     id: '4',
     block: 'block_1',
     type: 'checkbox',
@@ -185,11 +184,9 @@ export const mockBlocks: IQuestions = [
       },
     ],
     blockSequence: 0,
-    sequence: 4,
+    sequence: 7,
   },
   {
-    isRequired: true,
-
     id: '5',
     block: 'block_1',
     type: 'radio',
@@ -270,10 +267,31 @@ export const mockBlocks: IQuestions = [
     id: '6',
     block: 'block_1',
     type: 'text',
-    name: 'Какой-то текст',
+    name: 'Какой-то текст (ВИДЕН ЕСЛИ ПЕРВЫЙ СЛАЙДЕР БОЛЬШЕ 2 И МЕНЬШЕ 5.5)',
     helper_text: '',
-    variants: [{ text: 'абвгде' }],
+    variants: [{ text: '' }],
     blockSequence: 0,
     sequence: 5,
+    visibilityFilter: {
+      parentId: 'ПЕРВЫЙ СЛАЙДЕР',
+      type: 'range',
+      range: { from: 2, to: 5.5 },
+    },
+  },
+  {
+    id: '7',
+    isRequired: true,
+    block: 'block_1',
+    type: 'text',
+    name: 'Какой-то текст (ВИДЕН ЕСЛИ ВТОРОЙ СЛАЙДЕР БОЛЬШЕ 4 И МЕНЬШЕ 5)',
+    helper_text: '',
+    variants: [{ text: '' }],
+    blockSequence: 0,
+    sequence: 5,
+    visibilityFilter: {
+      parentId: 'ВТОРОЙ СЛАЙДЕР',
+      type: 'range',
+      range: { from: 4, to: 5 },
+    },
   },
 ]

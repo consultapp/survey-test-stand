@@ -1,4 +1,4 @@
-import { useQuestion } from '@/context/SurveyContext/hooks'
+import { useQuestion, useVisibilityFilter } from '@/context/SurveyContext/hooks'
 
 import styles from './styles.module.scss'
 import { QuestionTypes } from '../QuestionTypes'
@@ -13,7 +13,10 @@ export const SurveyQuestion = ({ id }: Props) => {
   const question = useQuestion(id)
   const status = useStatusById(id)
 
-  if (!question) return
+  const isVisible = useVisibilityFilter(id)
+  // console.log('isVisible', isVisible, question)
+
+  if (!question || !isVisible) return null
 
   const { name, helper_text, type } = question
   const QuestionComponent = QuestionTypes[type]

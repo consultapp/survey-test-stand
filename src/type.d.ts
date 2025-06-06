@@ -11,6 +11,9 @@ type ElmaProps = {
 type IBlocks = IBlock[]
 type IQuestions = IQuestion[]
 type ID = string
+type VariantID = ID
+type ParentID = ID
+type TSeconds = number
 
 interface IBlock {
   id: ID
@@ -39,7 +42,6 @@ interface IQuestion {
   visibilityFilter?: VisibilityFilter
 }
 
-type TSeconds = number
 interface ITimer {
   time?: TSeconds
   description?: string
@@ -75,11 +77,18 @@ interface ITextVariant {
 
 type SurveyQuestionElement = ({ id }: Props) => JSX.Element | undefined
 
-type AnswerID = ID
-type ParentID = ID
+type VisibilityFilterType = 'range' | 'matches'
 
-type VisibilityFilter = {
+type VisibilityFilterRange = {
   parentId: ParentID
-  range?: { from: number; to: number }
-  matches?: AnswerID[]
+  type: Extract<VisibilityFilterType, 'range'>
+  range: { from: number; to: number }
 }
+
+type VisibilityFilterMatches = {
+  parentId: ParentID
+  type: Extract<VisibilityFilterType, 'matches'>
+  matches: VariantID[]
+}
+
+type VisibilityFilter = VisibilityFilterRange | VisibilityFilterMatches
