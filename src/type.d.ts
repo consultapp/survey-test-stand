@@ -49,6 +49,7 @@ interface ITimer {
 }
 
 interface ISliderVariant {
+  id: VariantID
   from: number
   to: number
   step: number
@@ -57,21 +58,25 @@ interface ISliderVariant {
 }
 
 interface INumberVariant {
+  id: VariantID
   label: string
   value?: number
 }
 
 interface ICheckVariant {
+  id: VariantID
   label: string
   value?: boolean
   isExclusive?: boolean
 }
 
 interface IRadioVariant {
+  id: VariantID
   label: string
   value?: boolean
 }
 interface ITextVariant {
+  id: VariantID
   text: string
 }
 
