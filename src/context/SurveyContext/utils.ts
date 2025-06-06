@@ -1,7 +1,21 @@
-export function checkVisibilityConditions(
-  filter: VisibilityFilter,
-  value: string | number | boolean | string[] | null
+type VariantValue = number | string[] | undefined | null
+
+export function isQuestionVisible(
+  filter: VisibilityFilter | undefined,
+  variants:
+    | (
+        | ISliderVariant
+        | INumberVariant
+        | ICheckVariant
+        | IRadioVariant
+        | ITextVariant
+      )[]
+    | undefined
 ): boolean {
+  if (!filter) return true
+
+  const value = getVariantValue(variants, filter.type)
+
   if (filter.type === 'range') {
     const numValue = Number(value)
     if (isNaN(numValue)) return false
@@ -11,8 +25,13 @@ export function checkVisibilityConditions(
   }
 
   if (filter.type === 'matches') {
-    const strValue = String(value)
-    return filter.matches.includes(strValue)
+    if (Array.isArray(value))
+      return value.reduce(
+        (acc, curr) => acc || filter.matches.includes(curr),
+        false
+      )
+
+    return filter.matches.includes(String(value))
   }
 
   return false
@@ -29,25 +48,31 @@ export function getVariantValue(
       )[]
     | undefined,
   type: VisibilityFilterType
-): string | string[] | null {
-  if (!variants) return null
+): VariantValue {
+  if (!variants || variants.length === 0) return null
 
+  // Для range всегда берем только первый вариант
   if (type === 'range') {
-    return String(
-      variants?.[0] && 'value' in variants[0] ? variants[0].value : null
-    )
-  }
-  console.log('matches', variants)
-
-  if (type === 'matches') {
-    if (variants.length > 0) {
-      return variants.map((variant) => String(variant.value))
+    const firstVariant = variants[0]
+    if (
+      'type' in firstVariant &&
+      firstVariant.type === 'slider' &&
+      'value' in firstVariant
+    ) {
+      return firstVariant.value
     }
-    return String(
-      variants?.[0] && 'value' in variants[0] ? variants[0].value : undefined
-    )
+    return null
   }
 
-  console.log('getVariantValue: TYPE NOT FOUND')
+  // Для matches проверяем все варианты
+  if (type === 'matches') {
+    return (variants as ICheckVariant[] | IRadioVariant[])
+      .filter(
+        (v) =>
+          v.value && v.label && (v.type === 'checkbox' || v.type === 'radio')
+      )
+      .map((v) => v.id)
+  }
+
   return null
 }

@@ -378,7 +378,7 @@ export const mockBlocks: IQuestions = [
     isRequired: true,
     block: 'block_1',
     type: 'text',
-    name: 'Какой-то текст (ВИДЕН ЕСЛИ ПЕРВЫЙ ЧЕКБОКС ВЫБРАН)',
+    name: 'Какой-то текст (ВИДЕН ЕСЛИ ПЕРВЫЙ ЧЕКБОКС ВЫБРАНЫ 1003, 1004, 1006)',
     helper_text: '',
     variants: [{ id: '1039', type: 'text', text: '' }],
     blockSequence: 0,
