@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { useSurveyContext } from '.'
+import { checkVisibilityConditions, getVariantValue } from './utils'
 
 export function useQuestion(id: ID): IQuestion | undefined {
   const ctx = useSurveyContext()
@@ -16,30 +17,34 @@ export function useQuestionVisibilityFilter(
   return useQuestion(id)?.visibilityFilter
 }
 
-export const useVisibilityFilter = (questionId: string): boolean => {
-  const questionVisibilityFilter = useQuestionVisibilityFilter(questionId)
-  const parentQuestionVariants = useQuestionVariants(
-    questionVisibilityFilter?.parentId ?? ''
+export const useIsQuestionVisible = (questionId: string): boolean => {
+  const questionFilter = useQuestionVisibilityFilter(questionId)
+  const parentVariants = useQuestionVariants(questionFilter?.parentId ?? '')
+
+  // Проверяем видимость родительского вопроса
+  const parentQuestion = useQuestion(questionFilter?.parentId ?? '')
+  const parentParentVariants = useQuestionVariants(
+    parentQuestion?.visibilityFilter?.parentId ?? ''
   )
-  const parentVariant = parentQuestionVariants?.[0]
-  const parentValue =
-    parentVariant && 'value' in parentVariant ? parentVariant.value : undefined
 
-  return useMemo(() => {
-    if (!questionVisibilityFilter) return true
+  // нет фильтра - всегда показываем
+  if (!questionFilter) return true
 
-    const filter = questionVisibilityFilter
+  // нет родителя в списке вопросов - всегда скрыт
+  if (!parentQuestion) return false
 
-    if ('range' in filter) {
-      const value = Number(parentValue)
-      return value >= filter.range.from && value <= filter.range.to
-    }
+  const parentFilter = parentQuestion.visibilityFilter
 
-    if ('matches' in filter) {
-      const value = String(parentValue)
-      return filter.matches.includes(value)
-    }
-
+  if (
+    parentFilter &&
+    !checkVisibilityConditions(
+      parentFilter,
+      getVariantValue(parentParentVariants, parentFilter.type)
+    )
+  )
     return false
-  }, [questionVisibilityFilter, parentValue])
+
+  const testValue = getVariantValue(parentVariants, questionFilter.type)
+  // Проверяем условия видимости текущего вопроса
+  return checkVisibilityConditions(questionFilter, testValue)
 }
