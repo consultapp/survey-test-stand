@@ -15,6 +15,9 @@ import { Status } from '@/fixtures/status'
 
 type Props = { root: HTMLDivElement | null }
 
+const notFilledButImportant = (v: string) =>
+  v !== Status.notRequired && v !== Status.approved && v !== Status.hidden
+
 export const CompleteComponent = ({ root }: Props) => {
   const [opened, { open, close }] = useDisclosure(false)
   const completeHandler = useElmaCompleteCallback()
@@ -27,9 +30,9 @@ export const CompleteComponent = ({ root }: Props) => {
 
   const scrollToFirstError = useCallback(() => {
     const errors = Object.entries(statusRef.current)
-      .filter((item) => item[1] !== Status.approved)
+      .filter((item) => notFilledButImportant(item[1]))
       .map((item) => item[0])
-    console.log('errors', errors)
+
     for (let i = 0; i < questionOrder.length; i++) {
       if (errors.includes(questionOrder[i])) {
         const selector = `[data-question-id="${questionOrder[i]}"]`
@@ -54,8 +57,7 @@ export const CompleteComponent = ({ root }: Props) => {
   const calculateErrorsCount = useCallback(
     (s: ReturnType<typeof useStatusContext>) =>
       Object.values(s).reduce(
-        (acc, val) =>
-          acc + (val !== Status.approved && val !== Status.hidden ? 1 : 0),
+        (acc, val) => acc + (notFilledButImportant(val) ? 1 : 0),
         0
       ),
     []

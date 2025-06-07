@@ -22,7 +22,9 @@ function reactRender({
   const statuses = Object.fromEntries(
     data.map((item) => [
       item.id,
-      item.visibilityFilter
+      !item.isRequired
+        ? Status.notRequired
+        : item.visibilityFilter
         ? Status.hidden
         : testIsApproved(item)
         ? Status.approved

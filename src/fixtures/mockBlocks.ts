@@ -231,12 +231,11 @@ export const mockBlocks: IQuestions = [
       },
     ],
     blockSequence: 0,
-    sequence: 7,
+    sequence: 3,
   },
   {
     isRequired: true,
-
-    id: '5',
+    id: '4',
     block: 'block_1',
     type: 'radio',
     name: 'Выберите один вариант ответа',
@@ -341,11 +340,11 @@ export const mockBlocks: IQuestions = [
       },
     ],
     blockSequence: 0,
-    sequence: 8,
+    sequence: 4,
   },
 
   {
-    id: '6',
+    id: '5',
     block: 'block_1',
     type: 'text',
     name: 'Какой-то текст (ВИДЕН ЕСЛИ ПЕРВЫЙ СЛАЙДЕР БОЛЬШЕ 2 И МЕНЬШЕ 5.5)',
@@ -360,7 +359,7 @@ export const mockBlocks: IQuestions = [
     },
   },
   {
-    id: '7',
+    id: '6',
     isRequired: true,
     block: 'block_1',
     type: 'text',
@@ -368,7 +367,7 @@ export const mockBlocks: IQuestions = [
     helper_text: '',
     variants: [{ id: '1039', type: 'text', text: '' }],
     blockSequence: 0,
-    sequence: 5,
+    sequence: 6,
     visibilityFilter: {
       parentId: '2',
       type: 'range',
@@ -376,15 +375,15 @@ export const mockBlocks: IQuestions = [
     },
   },
   {
-    id: '8',
+    id: '7',
     isRequired: true,
     block: 'block_1',
     type: 'text',
     name: 'Какой-то текст (ВИДЕН ЕСЛИ ПЕРВЫЙ ЧЕКБОКС ВЫБРАНЫ 1003, 1004, 1006)',
     helper_text: '',
-    variants: [{ id: '1039', type: 'text', text: '' }],
+    variants: [{ id: '1040', type: 'text', text: '' }],
     blockSequence: 0,
-    sequence: 5,
+    sequence: 7,
     visibilityFilter: {
       parentId: '3',
       type: 'matches',

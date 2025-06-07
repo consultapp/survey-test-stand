@@ -7,11 +7,12 @@ import styles from './styles.module.scss'
 import { QuestionTypes } from '../QuestionTypes'
 import { Stack, Text } from '@mantine/core'
 import classNames from 'classnames'
-import { useStatusById } from '@/context/StatusContext/hooks'
+import { useStatusById, useUpdateStatus } from '@/context/StatusContext/hooks'
 import { Status } from '@/fixtures/status'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
-import { useEffect } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useStatusContextDispatch } from '@/context/StatusContext/hooks'
+import { testIsApproved } from '@/context/StatusContext/functions'
 
 type Props = { id: string }
 
@@ -20,15 +21,30 @@ export const SurveyQuestion = ({ id }: Props) => {
   const status = useStatusById(id)
   const dispatch = useSurveyContextDispatch()
   const statusDispatch = useStatusContextDispatch()
+  const updateStatus = useUpdateStatus()
+  const isApproved = testIsApproved(question)
+  const [idle, setIdle] = useState(status === Status.idle)
+
+  const setIdleCallback = useCallback(() => {
+    if (idle) setIdle(false)
+  }, [idle])
 
   const isVisible = useIsQuestionVisible(id)
 
   useEffect(() => {
-    if (!isVisible) {
+    if (question && !idle) updateStatus(question, statusDispatch)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isApproved, idle])
+
+  useEffect(() => {
+    if (isVisible) {
+      setIdle(true)
+      statusDispatch({ type: Status.idle, payload: id })
+    } else {
       dispatch({ type: 'clear', payload: { id } })
       statusDispatch({ type: Status.hidden, payload: id })
     }
-  }, [dispatch, id, isVisible, statusDispatch])
+  }, [isVisible, id, statusDispatch, dispatch])
 
   if (!question || !isVisible) return null
 
@@ -69,7 +85,9 @@ export const SurveyQuestion = ({ id }: Props) => {
         )}
       </Stack>
       <Stack p="1rem">
-        {QuestionTypes[type] && <QuestionComponent id={id} />}
+        {QuestionTypes[type] && (
+          <QuestionComponent id={id} setIdleCallback={setIdleCallback} />
+        )}
       </Stack>
     </section>
   )

@@ -1,28 +1,15 @@
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { VariantsType } from '@/fixtures/variantsType'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Container, Slider } from '@mantine/core'
-import {
-  useStatusById,
-  useStatusContextDispatch,
-  useUpdateStatus,
-} from '@/context/StatusContext/hooks'
-import { Status } from '@/fixtures/status'
 import { SliderLabelComponent } from '@/components/SliderLabelComponent/SliderLabelComponent'
-import { testIsApproved } from '@/context/StatusContext/functions'
 
-type Props = { id: string }
+type Props = { id: string; setIdleCallback: () => void }
 
-export const SliderQuestion = ({ id }: Props) => {
+export const SliderQuestion = ({ id, setIdleCallback }: Props) => {
   const question = useQuestion(id)
   const dispatch = useSurveyContextDispatch()
-  const status = useStatusById(id)
-  const statusDispatch = useStatusContextDispatch()
-  const [idle, setIdle] = useState(status === Status.idle)
-  const updateStatus = useUpdateStatus()
-
-  const isApproved = testIsApproved(question)
 
   const handleChange = useCallback(
     (value: number) => {
@@ -30,15 +17,10 @@ export const SliderQuestion = ({ id }: Props) => {
         type: VariantsType.slider,
         payload: { id, value },
       })
-      if (idle) setIdle(false)
+      setIdleCallback()
     },
-    [dispatch, id, idle]
+    [dispatch, id, setIdleCallback]
   )
-
-  useEffect(() => {
-    if (question && !idle) updateStatus(question, statusDispatch)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isApproved, idle])
 
   const variant = (
     (question?.variants ?? {

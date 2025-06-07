@@ -4,6 +4,7 @@ export const Status = {
   error: 'error',
   approved: 'approved',
   hidden: 'hidden',
+  notRequired: 'notRequired',
 }
 
 export type TStatus = keyof typeof Status

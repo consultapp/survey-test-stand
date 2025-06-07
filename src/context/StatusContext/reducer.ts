@@ -5,7 +5,8 @@ export function reducer(
   state: TStatusContext,
   { type, payload }: { type: string; payload: string }
 ) {
-  console.log('state', JSON.stringify(state, null, 2))
+  if (state[payload] === Status.notRequired) return { ...state }
+
   switch (type) {
     case Status.idle: {
       // @ts-expect-error Status??
@@ -31,6 +32,11 @@ export function reducer(
     case Status.hidden: {
       // @ts-expect-error Status??
       state[payload] = Status.hidden
+      break
+    }
+    case Status.notRequired: {
+      // @ts-expect-error Status??
+      state[payload] = Status.notRequired
       break
     }
 

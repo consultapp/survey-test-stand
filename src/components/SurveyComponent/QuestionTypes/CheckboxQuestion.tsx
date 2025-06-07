@@ -1,27 +1,14 @@
 import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 import { Checkbox, Grid, Group, Text } from '@mantine/core'
-import { Status } from '@/fixtures/status'
-import {
-  useStatusById,
-  useStatusContextDispatch,
-  useUpdateStatus,
-} from '@/context/StatusContext/hooks'
-import { testIsApproved } from '@/context/StatusContext/functions'
 
-type Props = { id: string }
+type Props = { id: string; setIdleCallback: () => void }
 
-const CheckboxQuestion = ({ id }: Props) => {
+const CheckboxQuestion = ({ id, setIdleCallback }: Props) => {
   const question = useQuestion(id)
   const dispatch = useSurveyContextDispatch()
-  const status = useStatusById(id)
-  const statusDispatch = useStatusContextDispatch()
-  const [idle, setIdle] = useState(status === Status.idle)
-  const updateStatus = useUpdateStatus()
-
-  const isApproved = testIsApproved(question)
 
   const handleChange = useCallback(
     (index: number) => {
@@ -34,16 +21,11 @@ const CheckboxQuestion = ({ id }: Props) => {
             index,
           },
         })
-        if (idle) setIdle(false)
+        setIdleCallback()
       }
     },
-    [dispatch, id, idle]
+    [dispatch, id, setIdleCallback]
   )
-
-  useEffect(() => {
-    if (question && !idle) updateStatus(question, statusDispatch)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isApproved, idle])
 
   if (!question) return
   const variants = question.variants as ICheckVariant[]
