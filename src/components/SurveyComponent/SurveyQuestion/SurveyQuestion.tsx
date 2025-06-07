@@ -58,8 +58,7 @@ export const SurveyQuestion = ({ id }: Props) => {
         (status === Status.idle || !question.isRequired) && styles.idle,
         status === Status.error && styles.error,
         status === Status.empty && styles.empty,
-        status === Status.approved && question.isRequired && styles.approved,
-        status === Status.hidden && styles.hidden
+        status === Status.approved && question.isRequired && styles.approved
       )}
       data-question-id={id}
     >
