@@ -106,6 +106,8 @@ interface IRadioVariant {
   type: Extract<QuestionType, 'radio'>
   label: string
   value?: boolean
+
+  isChangeable?: boolean
 }
 interface ITextVariant {
   id: VariantID
