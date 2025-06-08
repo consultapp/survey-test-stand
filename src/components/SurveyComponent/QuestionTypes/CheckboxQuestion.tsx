@@ -12,18 +12,32 @@ const CheckboxQuestion = ({ id, setIdleCallback }: Props) => {
   const dispatch = useSurveyContextDispatch()
 
   const handleChange = useCallback(
-    (index: number) => {
-      return (checked: boolean) => {
-        dispatch({
-          type: VariantsType.checkbox,
-          payload: {
-            id,
-            value: checked,
-            index,
-          },
-        })
-        setIdleCallback()
-      }
+    (index: number) => (checked: boolean) => {
+      dispatch({
+        type: VariantsType.checkbox,
+        payload: {
+          id,
+          value: checked,
+          index,
+        },
+      })
+      setIdleCallback()
+    },
+    [dispatch, id, setIdleCallback]
+  )
+
+  const handleLabelChange = useCallback(
+    (index: number) => (label: string) => {
+      dispatch({
+        type: VariantsType.checkbox,
+        payload: {
+          id,
+          label,
+          value: true,
+          index,
+        },
+      })
+      setIdleCallback()
     },
     [dispatch, id, setIdleCallback]
   )
@@ -39,12 +53,14 @@ const CheckboxQuestion = ({ id, setIdleCallback }: Props) => {
         alignItems: 'stretch',
       }}
     >
-      {question.variants.map(({ label, value }, index) => (
+      {question.variants.map(({ label, value, isChangeable }, index) => (
         <Grid.Col key={label} span={3}>
           <CheckboxVariant
             label={label}
             value={value ?? false}
             onChange={handleChange(index)}
+            isChangeable={isChangeable}
+            onLabelChange={handleLabelChange(index)}
           />
         </Grid.Col>
       ))}
