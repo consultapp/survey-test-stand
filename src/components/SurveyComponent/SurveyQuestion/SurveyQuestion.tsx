@@ -4,7 +4,6 @@ import {
 } from '@/context/SurveyContext/hooks'
 
 import styles from './styles.module.scss'
-import { QuestionTypes } from '../QuestionTypes'
 import { Stack, Text } from '@mantine/core'
 import classNames from 'classnames'
 import { useStatusById, useUpdateStatus } from '@/context/StatusContext/hooks'
@@ -13,6 +12,7 @@ import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useEffect, useState, useCallback } from 'react'
 import { useStatusContextDispatch } from '@/context/StatusContext/hooks'
 import { testIsApproved } from '@/context/StatusContext/functions'
+import { QuestionComponent } from '../QuestionComponent/QuestionComponent'
 
 type Props = { id: string }
 
@@ -49,7 +49,6 @@ export const SurveyQuestion = ({ id }: Props) => {
   if (!question || !isVisible) return null
 
   const { name, helper_text, type } = question
-  const QuestionComponent = QuestionTypes[type]
 
   return (
     <section
@@ -84,9 +83,11 @@ export const SurveyQuestion = ({ id }: Props) => {
         )}
       </Stack>
       <Stack p="1rem">
-        {QuestionTypes[type] && (
-          <QuestionComponent id={id} setIdleCallback={setIdleCallback} />
-        )}
+        <QuestionComponent
+          id={id}
+          setIdleCallback={setIdleCallback}
+          type={type}
+        />
       </Stack>
     </section>
   )

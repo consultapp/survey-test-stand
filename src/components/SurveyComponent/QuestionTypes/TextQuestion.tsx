@@ -24,8 +24,8 @@ const TextQuestion = ({ id, setIdleCallback }: Props) => {
     [dispatch, id, setIdleCallback]
   )
 
-  if (!question) return
-  const { text } = (question.variants as ITextVariant[])[0]
+  if (!question || question.type !== 'text') return
+  const { text } = question.variants[0]
 
   return (
     <Textarea

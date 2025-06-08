@@ -25,7 +25,7 @@ const RadioQuestion = ({ id, setIdleCallback }: Props) => {
     [dispatch, id, setIdleCallback]
   )
 
-  if (!question) return
+  if (!question || question.type !== 'radio') return
   const variants = question.variants as IRadioVariant[]
   const checked = variants.find((item) => item.value === true)?.label ?? ''
 
@@ -48,5 +48,4 @@ const RadioQuestion = ({ id, setIdleCallback }: Props) => {
     </Radio.Group>
   )
 }
-
 export { RadioQuestion }

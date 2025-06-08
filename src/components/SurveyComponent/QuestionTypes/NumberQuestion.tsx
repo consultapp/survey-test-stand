@@ -28,18 +28,16 @@ const NumberQuestion = ({ id, setIdleCallback }: Props) => {
     [dispatch, id, setIdleCallback]
   )
 
-  if (!question) return
-  const variants = question.variants as INumberVariant[]
-  const checksum = question.checksum ?? 0
+  if (!question || question.type !== 'number') return
 
-  if (!checksum) new Error('Не указана контрольная сумма')
+  if (!question.checksum) new Error('Не указана контрольная сумма')
 
-  const currentSum = variants.reduce((a, v) => a + (v.value ?? 0), 0)
-  const diff = checksum - currentSum
+  const currentSum = question.variants.reduce((a, v) => a + (v.value ?? 0), 0)
+  const diff = (question.checksum ?? 0) - currentSum
 
   return (
     <Stack gap="1rem">
-      {variants.map(({ label, value }, i) => (
+      {question.variants.map(({ label, value }, i) => (
         <div className={styles.number} key={label}>
           <div>{label}</div>
           <NumberInput

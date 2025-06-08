@@ -1,38 +1,34 @@
 export const testCheckBoxIsApproved = (question: IQuestion | undefined) =>
   Boolean(
     question &&
-      (question.variants as ICheckVariant[]).reduce(
-        (acc, item) => acc || Boolean(item.value),
-        false
-      )
+      question.type === 'checkbox' &&
+      question.variants.reduce((acc, item) => acc || Boolean(item.value), false)
   )
 
 export const testNumberIsApproved = (question: IQuestion | undefined) =>
   Boolean(
     question &&
-      (question.variants as INumberVariant[]).reduce(
+      question.type === 'number' &&
+      question.variants.reduce(
         (acc, item) => acc || Boolean(item.value),
         false
       ) &&
-      (question.variants as INumberVariant[]).reduce(
-        (acc, item) => acc + (item.value ?? 0),
-        0
-      ) === question.checksum
+      question.variants.reduce((acc, item) => acc + (item.value ?? 0), 0) ===
+        question.checksum
   )
 
 export const testRadioIsApproved = (question: IQuestion | undefined) =>
   Boolean(
     question &&
-      (question.variants as ICheckVariant[]).reduce(
-        (acc, item) => acc || Boolean(item.value),
-        false
-      )
+      question.type === 'radio' &&
+      question.variants.reduce((acc, item) => acc || Boolean(item.value), false)
   )
 
 export const testSliderIsApproved = (question: IQuestion | undefined) =>
   Boolean(
     question &&
-      (question.variants as ISliderVariant[]).reduce(
+      question.type === 'slider' &&
+      question.variants.reduce(
         (acc, item) => acc || item.value !== undefined,
         false
       )
@@ -41,7 +37,8 @@ export const testSliderIsApproved = (question: IQuestion | undefined) =>
 export const testTextIsApproved = (question: IQuestion | undefined) =>
   Boolean(
     question &&
-      (question.variants as ITextVariant[]).reduce(
+      question.type === 'text' &&
+      question.variants.reduce(
         (acc, item) =>
           acc || (item.text !== undefined && Boolean(item.text.trim())),
         false

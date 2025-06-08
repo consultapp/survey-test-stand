@@ -1,4 +1,4 @@
-type VariantsType = 'slider' | 'number' | 'checkbox' | 'radio' | 'text'
+type QuestionType = 'radio' | 'checkbox' | 'slider' | 'number' | 'text'
 
 type ElmaProps = {
   root: HTMLDivElement | null
@@ -23,24 +23,49 @@ interface IBlock {
   questions: IQuestions
 }
 
-interface IQuestion {
+interface BaseQuestion {
   id: ID
   block: ID
-  type: VariantsType
   name: string
   helper_text: string | null
   sequence: number
-  variants:
-    | ISliderVariant[]
-    | INumberVariant[]
-    | ICheckVariant[]
-    | IRadioVariant[]
-    | ITextVariant[]
-  checksum?: number // если вопрос типа 'number' и нужно выполнить валидацию, что сумма чисел равна определенному значению
   blockSequence: number
   isRequired?: boolean
   visibilityFilter?: VisibilityFilter
 }
+
+interface RadioQuestion extends BaseQuestion {
+  type: Extract<QuestionType, 'radio'>
+  variants: IRadioVariant[]
+}
+
+interface CheckboxQuestion extends BaseQuestion {
+  type: Extract<QuestionType, 'checkbox'>
+  variants: ICheckVariant[]
+}
+
+interface SliderQuestion extends BaseQuestion {
+  type: Extract<QuestionType, 'slider'>
+  variants: ISliderVariant[]
+}
+
+interface NumberQuestion extends BaseQuestion {
+  type: Extract<QuestionType, 'number'>
+  variants: INumberVariant[]
+  checksum: number
+}
+
+interface TextQuestion extends BaseQuestion {
+  type: Extract<QuestionType, 'text'>
+  variants: ITextVariant[]
+}
+
+type IQuestion =
+  | RadioQuestion
+  | CheckboxQuestion
+  | SliderQuestion
+  | NumberQuestion
+  | TextQuestion
 
 interface ITimer {
   time?: TSeconds
@@ -50,7 +75,7 @@ interface ITimer {
 
 interface ISliderVariant {
   id: VariantID
-  type: Extract<VariantsType, 'slider'>
+  type: Extract<QuestionType, 'slider'>
   from: number
   to: number
   step: number
@@ -60,14 +85,14 @@ interface ISliderVariant {
 
 interface INumberVariant {
   id: VariantID
-  type: Extract<VariantsType, 'number'>
+  type: Extract<QuestionType, 'number'>
   label: string
   value?: number
 }
 
 interface ICheckVariant {
   id: VariantID
-  type: Extract<VariantsType, 'checkbox'>
+  type: Extract<QuestionType, 'checkbox'>
   label: string
   value?: boolean
 
@@ -78,13 +103,13 @@ interface ICheckVariant {
 
 interface IRadioVariant {
   id: VariantID
-  type: Extract<VariantsType, 'radio'>
+  type: Extract<QuestionType, 'radio'>
   label: string
   value?: boolean
 }
 interface ITextVariant {
   id: VariantID
-  type: Extract<VariantsType, 'text'>
+  type: Extract<QuestionType, 'text'>
   text: string
 }
 

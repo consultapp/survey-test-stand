@@ -28,8 +28,7 @@ const CheckboxQuestion = ({ id, setIdleCallback }: Props) => {
     [dispatch, id, setIdleCallback]
   )
 
-  if (!question) return
-  const variants = question.variants as ICheckVariant[]
+  if (!question || question.type !== 'checkbox') return
 
   return (
     <Grid
@@ -40,7 +39,7 @@ const CheckboxQuestion = ({ id, setIdleCallback }: Props) => {
         alignItems: 'stretch',
       }}
     >
-      {variants.map(({ label, value }, index) => (
+      {question.variants.map(({ label, value }, index) => (
         <Grid.Col key={label} span={3}>
           <CheckboxVariant
             label={label}
