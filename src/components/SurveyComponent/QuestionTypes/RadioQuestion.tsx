@@ -2,7 +2,8 @@ import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
 import { useCallback } from 'react'
-import { Grid, Radio, Group, Text } from '@mantine/core'
+import { Grid, Radio } from '@mantine/core'
+import { RadioVariant } from '../VariantComponents/RadioVariant'
 
 type Props = { id: string; setIdleCallback: () => void }
 
@@ -40,25 +41,7 @@ const RadioQuestion = ({ id, setIdleCallback }: Props) => {
       >
         {variants.map(({ label }) => (
           <Grid.Col key={label} span={3}>
-            <Radio.Card
-              radius="md"
-              value={label}
-              p="sm"
-              h="100%"
-              bg={
-                checked === label
-                  ? 'var(--mantine-primary-color-light)'
-                  : 'white'
-              }
-              style={{
-                display: 'flex',
-              }}
-            >
-              <Group wrap="nowrap" align="flex-start">
-                <Radio.Indicator />
-                <Text>{label}</Text>
-              </Group>
-            </Radio.Card>
+            <RadioVariant label={label} checked={checked} />
           </Grid.Col>
         ))}
       </Grid>

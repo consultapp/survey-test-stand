@@ -2,7 +2,8 @@ import { useSurveyContextDispatch } from '@/context/SurveyContext'
 import { useQuestion } from '@/context/SurveyContext/hooks'
 import { VariantsType } from '@/fixtures/variantsType'
 import { useCallback } from 'react'
-import { Checkbox, Grid, Group, Text } from '@mantine/core'
+import { Grid } from '@mantine/core'
+import { CheckboxVariant } from '../VariantComponents/CheckboxVariant'
 
 type Props = { id: string; setIdleCallback: () => void }
 
@@ -41,24 +42,11 @@ const CheckboxQuestion = ({ id, setIdleCallback }: Props) => {
     >
       {variants.map(({ label, value }, index) => (
         <Grid.Col key={label} span={3}>
-          <Checkbox.Card
-            radius="md"
-            value={label}
-            key={label}
-            checked={value}
+          <CheckboxVariant
+            label={label}
+            value={value ?? false}
             onChange={handleChange(index)}
-            p="sm"
-            h="100%"
-            bg={value ? 'var(--mantine-primary-color-light)' : 'white'}
-            style={{
-              display: 'flex',
-            }}
-          >
-            <Group wrap="nowrap" align="flex-start">
-              <Checkbox.Indicator />
-              <Text>{label}</Text>
-            </Group>
-          </Checkbox.Card>
+          />
         </Grid.Col>
       ))}
     </Grid>
