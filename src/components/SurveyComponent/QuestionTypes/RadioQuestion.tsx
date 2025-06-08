@@ -4,6 +4,7 @@ import { VariantsType } from '@/fixtures/variantsType'
 import { useCallback } from 'react'
 import { Grid, Radio } from '@mantine/core'
 import { RadioVariant } from '../VariantComponents/RadioVariant'
+import { RadioVariantWithInput } from '../VariantComponents/RadioVariantWithInput'
 
 type Props = { id: string; setIdleCallback: () => void }
 
@@ -25,6 +26,20 @@ const RadioQuestion = ({ id, setIdleCallback }: Props) => {
     [dispatch, id, setIdleCallback]
   )
 
+  const handleLabelChange = useCallback(
+    (index: number, label: string) => {
+      dispatch({
+        type: VariantsType.radio,
+        payload: {
+          id,
+          index,
+          label,
+        },
+      })
+    },
+    [dispatch, id]
+  )
+
   if (!question || question.type !== 'radio') return
   const variants = question.variants as IRadioVariant[]
   const checked = variants.find((item) => item.value === true)?.label ?? ''
@@ -39,13 +54,22 @@ const RadioQuestion = ({ id, setIdleCallback }: Props) => {
           alignItems: 'stretch',
         }}
       >
-        {variants.map(({ label }) => (
-          <Grid.Col key={label} span={3}>
-            <RadioVariant label={label} checked={checked} />
+        {variants.map((variant, index) => (
+          <Grid.Col key={index} span={3}>
+            {variant.isChangeable ? (
+              <RadioVariantWithInput
+                label={variant.label}
+                checked={checked}
+                onLabelChange={(label) => handleLabelChange(index, label)}
+              />
+            ) : (
+              <RadioVariant label={variant.label} checked={checked} />
+            )}
           </Grid.Col>
         ))}
       </Grid>
     </Radio.Group>
   )
 }
+
 export { RadioQuestion }

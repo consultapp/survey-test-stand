@@ -61,7 +61,15 @@ export function reducer(
       vars.forEach((_, i) => {
         vars[i].value = false
       })
+
+      if (payload.label && payload.index !== undefined) {
+        vars[payload.index].label = payload.label
+        vars[payload.index].value = Boolean(true)
+        break
+      }
+
       vars[vars.findIndex((v) => v.label === payload.value)].value = true
+
       break
     }
 
@@ -87,6 +95,8 @@ export function reducer(
     default:
       console.error('Неопределенное событие')
   }
+
+  console.log('state', state)
 
   return [...state]
 }
