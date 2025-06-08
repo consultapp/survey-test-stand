@@ -26,6 +26,12 @@ const CheckboxVariant = ({
     setLocalLabel(event.currentTarget.value)
   }
 
+  const handleBlur = () => {
+    if (localLabel !== label) {
+      onLabelChange?.(localLabel)
+    }
+  }
+
   return (
     <Checkbox.Card
       radius="md"
@@ -45,6 +51,7 @@ const CheckboxVariant = ({
           <TextInput
             value={localLabel}
             onChange={handleLabelChange}
+            onBlur={handleBlur}
             onClick={(e) => {
               e.stopPropagation()
               onLabelChange?.(localLabel)

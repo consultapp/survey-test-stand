@@ -18,6 +18,14 @@ const RadioVariantWithInput = ({ label, checked, onLabelChange }: Props) => {
     setLocalLabel(event.currentTarget.value)
   }
 
+  const handleBlur = () => toggle()
+
+  const toggle = () => {
+    if (localLabel !== label) {
+      onLabelChange(localLabel)
+    }
+  }
+
   return (
     <Radio.Card
       radius="md"
@@ -35,9 +43,10 @@ const RadioVariantWithInput = ({ label, checked, onLabelChange }: Props) => {
         <TextInput
           value={localLabel}
           onChange={handleLabelChange}
+          onBlur={handleBlur}
           onClick={(e) => {
+            toggle()
             e.stopPropagation()
-            onLabelChange(localLabel)
           }}
           placeholder="Введите значение"
           aria-label={`Изменить значение для ${label}`}

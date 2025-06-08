@@ -46,7 +46,7 @@ export function reducer(
         })
       }
 
-      if (payload.label) {
+      if (payload.label !== undefined) {
         vars[currentIndex].label = payload.label
       }
       vars[currentIndex].value = Boolean(payload.value ?? false)
@@ -62,7 +62,7 @@ export function reducer(
         vars[i].value = false
       })
 
-      if (payload.label && payload.index !== undefined) {
+      if (payload.label !== undefined && payload.index !== undefined) {
         vars[payload.index].label = payload.label
         vars[payload.index].value = Boolean(true)
         break
