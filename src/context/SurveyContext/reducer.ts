@@ -14,20 +14,26 @@ export function reducer(
 
   switch (type) {
     case VariantsType.slider: {
-      const vars = state[position]?.variants as ISliderVariant[]
+      const question = state[position]
+      if (question?.type !== 'slider') break
+      const vars = question.variants
       vars[0].value = Number(payload.value ?? 0)
       break
     }
 
     case VariantsType.number: {
-      const vars = state[position]?.variants as INumberVariant[]
+      const question = state[position]
+      if (question?.type !== 'number') break
+      const vars = question.variants
       const currentIndex = payload.index ?? 0
       vars[currentIndex].value = Number(payload.value ?? 0)
       break
     }
 
     case VariantsType.checkbox: {
-      const vars = state[position]?.variants as ICheckVariant[]
+      const question = state[position]
+      if (question?.type !== 'checkbox') break
+      const vars = question.variants
       const currentIndex = payload.index ?? 0
       const isExclusive = vars[currentIndex].isExclusive ?? false
       if (isExclusive) {
@@ -40,12 +46,17 @@ export function reducer(
         })
       }
 
+      if (payload.label) {
+        vars[currentIndex].label = payload.label
+      }
       vars[currentIndex].value = Boolean(payload.value ?? false)
       break
     }
 
     case VariantsType.radio: {
-      const vars = state[position]?.variants as IRadioVariant[]
+      const question = state[position]
+      if (question?.type !== 'radio') break
+      const vars = question.variants
 
       vars.forEach((_, i) => {
         vars[i].value = false
@@ -55,18 +66,21 @@ export function reducer(
     }
 
     case VariantsType.text: {
-      const vars = state[position]?.variants as ITextVariant[]
+      const question = state[position]
+      if (question?.type !== 'text') break
+      const vars = question.variants
       vars[0].text = payload.value
       break
     }
 
     case 'clear': {
-      const vars = state[position]?.variants as IQuestion['variants']
+      const question = state[position]
+      if (!question) break
+      const vars = question.variants
       vars.forEach((_, i) => {
         if ('value' in vars[i]) vars[i].value = undefined
         if ('text' in vars[i]) vars[i].text = ''
       })
-
       break
     }
 
