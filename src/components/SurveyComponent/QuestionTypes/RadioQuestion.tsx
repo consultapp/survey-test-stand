@@ -41,7 +41,7 @@ const RadioQuestion = ({ id, setIdleCallback }: Props) => {
   )
 
   if (!question || question.type !== 'radio') return
-  const variants = question.variants as IRadioVariant[]
+  const variants = question.variants
   const checked = variants.find((item) => item.value === true)?.label ?? ''
 
   return (

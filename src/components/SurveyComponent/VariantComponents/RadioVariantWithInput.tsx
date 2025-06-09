@@ -1,5 +1,5 @@
 import { Group, Radio, TextInput } from '@mantine/core'
-import { ChangeEventHandler, useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, ChangeEvent } from 'react'
 
 type Props = {
   label: string
@@ -14,17 +14,20 @@ const RadioVariantWithInput = ({ label, checked, onLabelChange }: Props) => {
     setLocalLabel(label)
   }, [label])
 
-  const handleLabelChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setLocalLabel(event.currentTarget.value)
-  }
+  const handleLabelChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setLocalLabel(event.currentTarget.value)
+    },
+    [setLocalLabel]
+  )
 
-  const handleBlur = () => toggle()
-
-  const toggle = () => {
+  const toggle = useCallback(() => {
     if (localLabel !== label) {
       onLabelChange(localLabel)
     }
-  }
+  }, [localLabel, label, onLabelChange])
+
+  const handleBlur = useCallback(() => toggle(), [toggle])
 
   return (
     <Radio.Card

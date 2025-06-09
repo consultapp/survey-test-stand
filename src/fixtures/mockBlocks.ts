@@ -385,11 +385,27 @@ export const mockBlocks: IQuestions = [
     helper_text: '',
     variants: [{ id: '1040', type: 'text', text: '' }],
     blockSequence: 0,
-    sequence: 7,
+    sequence: 3,
     visibilityFilter: {
       parentId: '3',
       type: 'matches',
       matches: ['1003', '1004', '1006'], // OR
+    },
+  },
+  {
+    id: '8',
+    isRequired: true,
+    block: 'block_1',
+    type: 'text',
+    name: 'Какой-то текст (ВИДЕН ЕСЛИ ПЕРВЫЙ РАДИОБАТТОН ВЫБРАН 1022)',
+    helper_text: '',
+    variants: [{ id: '1040', type: 'text', text: '' }],
+    blockSequence: 0,
+    sequence: 8,
+    visibilityFilter: {
+      parentId: '4',
+      type: 'matches',
+      matches: ['1022', '1024', '1006'], // OR
     },
   },
 ]
