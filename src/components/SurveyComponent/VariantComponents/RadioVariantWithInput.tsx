@@ -41,7 +41,7 @@ const RadioVariantWithInput = ({ label, checked, onLabelChange }: Props) => {
         display: 'flex',
       }}
     >
-      <Group wrap="nowrap" align="flex-start">
+      <Group wrap="nowrap" align="flex-start" style={{ width: '100%' }}>
         <Radio.Indicator />
         <TextInput
           value={localLabel}
@@ -53,6 +53,7 @@ const RadioVariantWithInput = ({ label, checked, onLabelChange }: Props) => {
           }}
           placeholder="Введите значение"
           aria-label={`Изменить значение для ${label}`}
+          style={{ flex: 1 }}
         />
       </Group>
     </Radio.Card>

@@ -13,7 +13,7 @@ export const mockBlocks: IQuestions = [
         from: 1,
         to: 15,
         step: 0.5,
-        value: undefined,
+        value: 2,
         labels: [
           {
             value: 0,

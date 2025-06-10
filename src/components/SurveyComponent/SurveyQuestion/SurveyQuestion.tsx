@@ -38,13 +38,15 @@ export const SurveyQuestion = ({ id }: Props) => {
 
   useEffect(() => {
     if (isVisible) {
-      setIdle(true)
-      statusDispatch({ type: Status.idle, payload: id })
+      if (status === Status.hidden) {
+        setIdle(true)
+        statusDispatch({ type: Status.idle, payload: id })
+      }
     } else {
       dispatch({ type: 'clear', payload: { id } })
       statusDispatch({ type: Status.hidden, payload: id })
     }
-  }, [isVisible, id, statusDispatch, dispatch])
+  }, [isVisible, id, statusDispatch, dispatch, status])
 
   if (!question || !isVisible) return null
 
