@@ -74,7 +74,7 @@ export const SurveyQuestion = ({ id }: Props) => {
             {question.isRequired && (
               <span style={{ color: 'red' }}>*&nbsp;</span>
             )}
-            {id} - {name}
+            {name}
           </Text>
         )}
         {helper_text && (
