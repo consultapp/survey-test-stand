@@ -39,13 +39,18 @@ export const SurveyQuestion = ({ id }: Props) => {
   useEffect(() => {
     if (isVisible) {
       if (status === Status.hidden) {
-        setIdle(true)
-        statusDispatch({ type: Status.idle, payload: id })
+        if (testIsApproved(question)) {
+          statusDispatch({ type: Status.approved, payload: id })
+        } else {
+          setIdle(true)
+          statusDispatch({ type: Status.idle, payload: id })
+        }
       }
     } else {
       dispatch({ type: 'clear', payload: { id } })
       statusDispatch({ type: Status.hidden, payload: id })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible, id, statusDispatch, dispatch, status])
 
   if (!question || !isVisible) return null
