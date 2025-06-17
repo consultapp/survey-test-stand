@@ -3,17 +3,16 @@ export const mockBlocks: IQuestions = [
     id: '1',
     block: '0193b214-2c9e-7530-b99a-1e5220268a7e',
     type: 'slider',
-    name: '(ПЕРВЫЙ СЛАЙДЕР) Блеск ',
+    name: 'ПЕРВЫЙ СЛАЙДЕР Блеск ',
     helper_text: 'Оцените блеск продукта',
     sequence: 1,
     variants: [
       {
         id: '1001',
         type: 'slider',
-        from: 1,
+        from: 0,
         to: 15,
         step: 0.5,
-        value: 4,
         labels: [
           {
             value: 0,
@@ -65,7 +64,7 @@ export const mockBlocks: IQuestions = [
 
   {
     id: '2',
-    name: '(ВТОРОЙ СЛАЙДЕР) Экспериментатор произвёл закладку клубней картофеля на зиму. Как изменились масса клубней и количество крахмала? ',
+    name: 'ВТОРОЙ СЛАЙДЕР (виден ЕСЛИ ПЕРВЫЙ СЛАЙДЕР { from: 0, to: 5 }) Экспериментатор произвёл закладку клубней картофеля на зиму. Как изменились масса клубней и количество крахмала? ',
     type: 'slider',
     block: '00000',
     sequence: 2,
@@ -100,7 +99,7 @@ export const mockBlocks: IQuestions = [
     visibilityFilter: {
       parentId: '1',
       type: 'range',
-      range: { from: 4, to: 5 },
+      range: { from: 0, to: 5 },
     },
   },
 
@@ -353,7 +352,7 @@ export const mockBlocks: IQuestions = [
     helper_text: '',
     variants: [{ id: '1038', type: 'text', text: '' }],
     blockSequence: 0,
-    sequence: 5,
+    sequence: 2,
     visibilityFilter: {
       parentId: '1',
       type: 'range',
@@ -365,7 +364,7 @@ export const mockBlocks: IQuestions = [
     isRequired: true,
     block: 'block_1',
     type: 'text',
-    name: 'Какой-то текст (ВИДЕН ЕСЛИ ВТОРОЙ СЛАЙДЕР БОЛЬШЕ 4 И МЕНЬШЕ 5)',
+    name: 'Какой-то текст (ВИДЕН ЕСЛИ ВТОРОЙ СЛАЙДЕР { from: 4, to: 5 })',
     helper_text: '',
     variants: [{ id: '1039', type: 'text', text: '' }],
     blockSequence: 0,

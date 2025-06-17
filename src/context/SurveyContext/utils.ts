@@ -54,12 +54,8 @@ export function getVariantValue(
   // Для range всегда берем только первый вариант
   if (type === 'range') {
     const firstVariant = variants[0]
-    if (
-      'type' in firstVariant &&
-      firstVariant.type === 'slider' &&
-      'value' in firstVariant
-    ) {
-      return firstVariant.value
+    if ('type' in firstVariant && firstVariant.type === 'slider') {
+      return firstVariant?.value
     }
     return null
   }
