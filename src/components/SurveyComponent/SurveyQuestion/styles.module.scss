@@ -20,13 +20,13 @@
 .error {
   border-color: var(--mantine-color-error);
   & > div:first-child {
-    background-color: var(--mantine-color-red-1);
+    background-color: var(--mantine-color-red-3);
   }
 }
 
 .approved {
   border-color: var(--mantine-color-green-9);
   & > div:first-child {
-    background-color: var(--mantine-color-green-light);
+    background-color: var(--mantine-color-green-4);
   }
 }
