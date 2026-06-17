@@ -11,7 +11,7 @@ export const mockBlocks: IQuestions = [
         from: 0,
         to: 10,
         step: 5,
-        value: 0,
+        value: undefined,
         labels: [
           {
             value: 0,
@@ -20,6 +20,58 @@ export const mockBlocks: IQuestions = [
           {
             value: 10,
             label: 'Блестящая',
+          },
+        ],
+      },
+    ],
+    blockSequence: 0,
+  },{
+    id: '0193bcde-c5a9-751a-9058-b4bf907b090e',
+    block: '0193b214-2c9e-7530-b99a-1e5220268a7e',
+    type: 'slider',
+    name: 'Блеск 2',
+    helper_text: 'Оцените блеск продукта 2',
+    sequence: 1,
+    variants: [
+      {
+        from: 0,
+        to: 10,
+        step: 5,
+        value: 0,
+        labels: [
+          {
+            value: 0,
+            label: 'Матовая очень много текста еще зачем-то тут написали 2',
+          },
+          {
+            value: 10,
+            label: 'Блестящая 2',
+          },
+        ],
+      },
+    ],
+    blockSequence: 0,
+  },{
+    id: '0193bcde-c5a9-751a-9058-b4bf907b090f',
+    block: '0193b214-2c9e-7530-b99a-1e5220268a7e',
+    type: 'slider',
+    name: 'Блеск 3',
+    helper_text: 'Оцените блеск продукта 3',
+    sequence: 1,
+    variants: [
+      {
+        from: 0,
+        to: 10,
+        step: 5,
+        value: 0,
+        labels: [
+          {
+            value: 0,
+            label: 'Матовая очень много текста еще зачем-то тут написали 3',
+          },
+          {
+            value: 10,
+            label: 'Блестящая 3',
           },
         ],
       },
