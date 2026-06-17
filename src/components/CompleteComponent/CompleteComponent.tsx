@@ -59,10 +59,10 @@ export const CompleteComponent = ({ root }: Props) => {
     []
   )
 
-  // const fireTryCompleteEventTestBtn = useCallback(() => {
-  //   log('TryCompleteEvent dispatched' + root)
-  //   if (root) root.dispatchEvent(new CustomEvent('TryCompleteEvent'))
-  // }, [root])
+  const fireTryCompleteEventTestBtn = useCallback(() => {
+    log('TryCompleteEvent dispatched' + root)
+    if (root) root.dispatchEvent(new CustomEvent('TryCompleteEvent'))
+  }, [root])
 
   const checkStatuses = useCallback(() => {
     Object.entries(statusRef.current).forEach(([k, v]) => {
@@ -106,25 +106,26 @@ export const CompleteComponent = ({ root }: Props) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Завершить незаконченный тест?"
+        title="Вы не можете завершить тест, так как есть незаполненные вопросы"
         centered
         zIndex={1060}
       >
-        <Flex direction="column" gap="xs">
+        <Flex direction="column" gap="md">
           {errorCount && (
-            <Text>{`Незаполненных вопросов: ${errorCount} шт.`}</Text>
+            <Text color="red">{`Незаполненных вопросов: ${errorCount} шт.`}</Text>
           )}
-          <Flex gap="xs">
-            <Button onClick={submitHandler}>Да</Button>
+          <Flex gap="xs" justify="center">
             <Button onClick={rejectHandler} variant="outline">
-              Нет
+              Назад к тесту
             </Button>
           </Flex>
         </Flex>
       </Modal>
-      {/* <Button variant="default" onClick={fireTryCompleteEventTestBtn}>
-        Dispatch Test Complete Event
-      </Button> */}
+      {import.meta.env.DEV && (
+        <Button variant="default" onClick={fireTryCompleteEventTestBtn}>
+          Dispatch Test Complete Event
+        </Button>
+      )}
     </>
   )
 }
