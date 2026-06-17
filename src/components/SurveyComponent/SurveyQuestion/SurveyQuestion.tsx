@@ -29,11 +29,11 @@ export const SurveyQuestion = ({ id }: Props) => {
       )}
       data-question-id={id}
     >
-      <Stack>
+      <Stack gap="0.1rem">
         {name && <Text fw={700}>{name}</Text>}
         {helper_text && <Text size="sm">{helper_text}</Text>}
       </Stack>
-      <Stack p="1rem">
+      <Stack p="0.3rem">
         {QuestionTypes[type] && <QuestionComponent id={id} />}
       </Stack>
     </section>
