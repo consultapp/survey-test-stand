@@ -33,7 +33,7 @@ export const SurveyQuestion = ({ id }: Props) => {
         {name && <Text fw={700}>{name}</Text>}
         {helper_text && <Text size="sm">{helper_text}</Text>}
       </Stack>
-      <Stack p="0.3rem">
+      <Stack p="0.4rem" >
         {QuestionTypes[type] && <QuestionComponent id={id} />}
       </Stack>
     </section>

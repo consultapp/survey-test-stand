@@ -77,7 +77,7 @@ export const SliderQuestion = ({ id }: Props) => {
   const [value, setValue] = useState(variant.value)
 
   return (
-    <Container m="md" size="70%" pb="lg">
+    <Container m="md" size="70%" mb="2.5rem">
       <Slider
         ml="lg"
         mb="md"
