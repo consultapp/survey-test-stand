@@ -25,7 +25,7 @@ export const SurveyQuestion = ({ id }: Props) => {
         status === Status.idle && styles.idle,
         status === Status.error && styles.error,
         status === Status.empty && styles.error,
-        status === Status.approved && styles.approved
+        status === Status.approved && styles.approved,
       )}
       data-question-id={id}
     >
@@ -33,7 +33,7 @@ export const SurveyQuestion = ({ id }: Props) => {
         {name && <Text fw={700}>{name}</Text>}
         {helper_text && <Text size="sm">{helper_text}</Text>}
       </Stack>
-      <Stack px="0.2rem" pb="0.4rem">
+      <Stack p="0.3rem">
         {QuestionTypes[type] && <QuestionComponent id={id} />}
       </Stack>
     </section>
