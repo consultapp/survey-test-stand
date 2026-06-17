@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const log = (..._: unknown[]) => {
-  // console.log('REACT: ', ..._)
+  if (import.meta.env.DEV) 
+    console.log('REACT: ', ..._)
 }
