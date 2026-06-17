@@ -1,3 +1,22 @@
+import { Status, TStatus } from '@/fixtures/status'
+import { TStatusContext } from '.'
+
+export function isNonApproved(status: TStatus): boolean {
+  return status !== Status.approved
+}
+
+export function countNonApproved(statuses: TStatusContext): number {
+  return Object.values(statuses).filter(isNonApproved).length
+}
+
+export function getNonApprovedIds(statuses: TStatusContext): Set<string> {
+  return new Set(
+    Object.entries(statuses)
+      .filter(([, status]) => isNonApproved(status))
+      .map(([id]) => id)
+  )
+}
+
 export const testCheckBoxIsApproved = (question: IQuestion | undefined) =>
   Boolean(
     question &&

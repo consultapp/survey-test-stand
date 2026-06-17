@@ -1,17 +1,25 @@
-import { Flex, Text } from '@mantine/core'
+import { Button, Flex, Modal, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { Modal, Button } from '@mantine/core'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import {
   useElmaCompleteCallback,
   useElmaDataOrder,
 } from '@/context/ElmaContext/hooks'
+import {
+  countNonApproved,
+  getNonApprovedIds,
+} from '@/context/StatusContext/functions'
 import { log } from '@/utils'
 import {
   useStatusContext,
   useStatusContextDispatch,
 } from '@/context/StatusContext/hooks'
 import { Status } from '@/fixtures/status'
+
+const TRY_COMPLETE_EVENT = 'TryCompleteEvent'
+
+const FOCUSABLE_SELECTOR =
+  'input:not([type="hidden"]), textarea, button, select, [tabindex]:not([tabindex="-1"])'
 
 type Props = { root: HTMLDivElement | null }
 
@@ -25,19 +33,21 @@ export const CompleteComponent = ({ root }: Props) => {
   const statusRef = useRef(statuses)
   statusRef.current = statuses
 
+  const isSubmittingRef = useRef(false)
+
   const scrollToFirstError = useCallback(() => {
-    const errors = Object.entries(statusRef.current)
-      .filter((item) => item[1] !== Status.approved)
-      .map((item) => item[0])
-    for (let i = 0; i < questionOrder.length; i++) {
-      if (errors.includes(questionOrder[i])) {
-        const selector = `[data-question-id="${questionOrder[i]}"]`
-        document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth' })
-        return
-      }
+    const errors = getNonApprovedIds(statusRef.current)
+    for (const id of questionOrder) {
+      if (!errors.has(id)) continue
+
+      const section = root?.querySelector(`[data-question-id="${id}"]`)
+      section?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      section
+        ?.querySelector<HTMLElement>(FOCUSABLE_SELECTOR)
+        ?.focus({ preventScroll: true })
+      return
     }
-    return
-  }, [questionOrder])
+  }, [questionOrder, root])
 
   const submitHandler = useCallback(() => {
     log('Completed')
@@ -45,77 +55,66 @@ export const CompleteComponent = ({ root }: Props) => {
     close()
   }, [close, completeHandler])
 
-  const rejectHandler = useCallback(() => {
+  const dismissModal = useCallback(() => {
     close()
     scrollToFirstError()
   }, [close, scrollToFirstError])
 
-  const calculateErrorsCount = useCallback(
-    (s: ReturnType<typeof useStatusContext>) =>
-      Object.values(s).reduce(
-        (acc, val) => acc + (val !== Status.approved ? 1 : 0),
-        0
-      ),
-    []
-  )
-
   const fireTryCompleteEventTestBtn = useCallback(() => {
-    log('TryCompleteEvent dispatched' + root)
-    if (root) root.dispatchEvent(new CustomEvent('TryCompleteEvent'))
+    log('TryCompleteEvent dispatched', root)
+    if (root) root.dispatchEvent(new CustomEvent(TRY_COMPLETE_EVENT))
   }, [root])
 
   const checkStatuses = useCallback(() => {
-    Object.entries(statusRef.current).forEach(([k, v]) => {
+    for (const [k, v] of Object.entries(statusRef.current)) {
       if (v === Status.idle) dispatch({ type: Status.empty, payload: k })
-    })
+    }
+    return countNonApproved(statusRef.current)
+  }, [dispatch])
 
-    return calculateErrorsCount(statusRef.current)
-  }, [calculateErrorsCount, dispatch])
+  const errorCount = useMemo(() => countNonApproved(statuses), [statuses])
 
-  const errorCount = useMemo(
-    () => calculateErrorsCount(statuses),
-    [calculateErrorsCount, statuses]
-  )
+  const onTryCompleteRef = useRef<() => void>(() => {})
+  onTryCompleteRef.current = () => {
+    if (checkStatuses() > 0) {
+      open()
+    } else if (!isSubmittingRef.current) {
+      isSubmittingRef.current = true
+      submitHandler()
+    }
+  }
 
   useEffect(() => {
-    const currentController = new AbortController()
-    if (root) {
-      log('TryCompleteEvent: event added', currentController)
+    if (!root) return
 
-      root.addEventListener(
-        'TryCompleteEvent',
-        () => {
-          log('TryCompleteEvent caught' + root)
-          if (checkStatuses() > 0) open()
-          else submitHandler()
-        },
-        {
-          signal: currentController.signal,
-        }
-      )
+    const handler = () => {
+      log('TryCompleteEvent caught', root)
+      onTryCompleteRef.current()
     }
+
+    log('TryCompleteEvent: event added')
+    root.addEventListener(TRY_COMPLETE_EVENT, handler)
     return () => {
-      log('TryCompleteEvent: event aborted', currentController)
-      currentController.abort()
+      log('TryCompleteEvent: event aborted')
+      root.removeEventListener(TRY_COMPLETE_EVENT, handler)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [root])
 
   return (
     <>
       <Modal
         opened={opened}
-        onClose={close}
-        title="Вы не можете завершить тест, так как есть незаполненные вопросы"
+        onClose={dismissModal}
+        title="Вы не можете завершить тест, так как есть незаполненные и неверно заполненные вопросы"
         centered
         zIndex={1060}
       >
         <Flex direction="column" gap="md">
-          {errorCount && (
-            <Text color="red">{`Незаполненных вопросов: ${errorCount} шт.`}</Text>
+          {errorCount > 0 && (
+            <Text color="red">{`Осталось заполнить: ${errorCount} шт.`}</Text>
           )}
           <Flex gap="xs" justify="center">
-            <Button onClick={rejectHandler} variant="outline">
+            <Button onClick={dismissModal} variant="outline">
               Назад к тесту
             </Button>
           </Flex>
